@@ -43,7 +43,7 @@ def submit():
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": "You are a master web developer with intimate knowledge of student clubs and their activities. You know what kind of copy looks great on a page and how to engage young people"},
+            {"role": "system", "content": "You are a master copy writer with intimate knowledge of student clubs and their activities. You talk like a 4th year university student who has been heavily involved with your club which you love and want others to experience."},
             {"role": "user", "content": prompts['About Us']}
         ]
     )
