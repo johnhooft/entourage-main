@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>{{ club_name }} - Club Website</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+</head>
+<body>
+   <header>
+       <h1>{{ club_name }}</h1>
+       <p>{{ generated_content['introduction'] }}</p>
+   </header>
+
+   <section class="about-section">
+       <h2>About Us</h2>
+       <p>{{ generated_content['About Us'] }}</p>
+   </section>
+
+   <div class="grid-container">
+       {% if 'Memberships' in generated_content %}
+           <div class="grid-item memberships-section">
+               <h2>Memberships</h2>
+               <p>{{ generated_content['Memberships'] }}</p>
+               <a href="#" class="membership-button">Get a Membership</a>
+           </div>
+       {% endif %}
+
+       {% if 'Events' in generated_content %}
+           <div class="grid-item events-section">
+               <h2>Events</h2>
+               <p>{{ generated_content['Events'] }}</p>
+           </div>
+       {% endif %}
+
+       {% if 'Trips' in generated_content %}
+           <div class="grid-item trips-section">
+               <h2>Trips</h2>
+               <p>{{ generated_content['Trips'] }}</p>
+           </div>
+       {% endif %}
+
+       {% if 'Culture' in generated_content %}
+           <div class="grid-item culture-section">
+               <h2>Culture</h2>
+               <p>{{ generated_content['Culture'] }}</p>
+           </div>
+       {% endif %}
+
+       {% if 'Executive Team' in generated_content %}
+           <div class="grid-item executive-team-section">
+               <h2>Executive Team</h2>
+               <p>{{ generated_content['Executive Team'] }}</p>
+           </div>
+       {% endif %}
+   </div>
+</body>
+</html>
