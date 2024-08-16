@@ -131,7 +131,7 @@
         <input type="text" id="club_name" name="club_name" required>
         
         <section class="question-section">
-            <h2>People should know about your</h2>
+            <h2>You Want People to Know About Your:</h2>
             <div class="selectable-group">
                 <div class="selectable-container" data-value="Memberships">
                     Memberships
@@ -195,9 +195,9 @@
 
                 const parentSectionTitle = this.closest('.question-section').querySelector('h2').textContent;
                 
-                if (parentSectionTitle.includes("People should know about your")) {
+                if (parentSectionTitle.includes("You Want People to Know About Your:")) {
                     document.getElementById('club_purpose').value = selectedValues.join(',');
-                } else if (parentSectionTitle.includes("What's the vibe")) {
+                } else if (parentSectionTitle.includes("What's your vibe?")) {
                     document.getElementById('vibe').value = selectedValues.join(',');
                 }
             });

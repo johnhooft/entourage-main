@@ -1,0 +1,30 @@
+/* retro.css */
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #ffefd5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    color: #8b4513;
+    text-align: center;
+}
+
+section {
+    background-color: #fff8dc;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #8b4513;
+    max-width: 800px;
+}
+
+a {
+    color: #8b0000;
+}
+
+a:hover {
+    color: #b22222;
+    text-decoration: underline;
+}
