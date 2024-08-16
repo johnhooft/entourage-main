@@ -90,3 +90,7 @@ StyleCopReport.xml
 
 # OpenAI Env
 openai-env/
+
+# Other Stuff
+*.pyc
+*.DS_Store
