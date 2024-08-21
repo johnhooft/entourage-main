@@ -1,13 +1,13 @@
 /* General Styles */
-body {
+.siteContainer {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f9; /* Light background */
     color: #333; /* Dark text color */
-}
-
-header {
+  }
+  
+  .header {
     background-color: #090B1A; /* Dark background for header */
     color: #FFD700; /* Gold text color */
     padding: 20px;
@@ -15,16 +15,16 @@ header {
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #FFD700; /* Gold border */
-}
-
-.header-content {
+  }
+  
+  .headerContent {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-}
-
-.logo-placeholder {
+  }
+  
+  .logoPlaceholder {
     background-color: #FFD700; /* Gold background */
     color: #090B1A; /* Dark text color */
     padding: 10px;
@@ -32,56 +32,58 @@ header {
     font-weight: bold;
     margin-right: 20px;
     text-align: center;
-}
-
-h1 {
+  }
+  
+  .clubName {
     margin: 0;
     font-size: 2.5em;
-}
-
-.header-selections {
+  }
+  
+  .headerSelections {
     display: flex;
     gap: 20px;
     font-size: 1.2em;
-}
-
-.header-selections span {
+  }
+  
+  .headerSelections span {
     background-color: #3c3f75; /* Dark blue background */
     padding: 5px 10px;
     border-radius: 5px;
     color: #fff; /* White text */
-}
-
-/* Content Section */
-.about-section, .full-width-section {
+  }
+  
+  /* Content Section */
+  .mainContent {
+    margin: 0 2rem;
+  }
+  
+  .aboutSection, .fullWidthSection {
     padding: 40px;
     background-color: #fff; /* White background */
     color: #333; /* Dark text color */
     border-top: 2px solid #e6e6e6; /* Light gray border */
     margin-bottom: 20px;
-    margin: 2rem;
-}
-
-.about-content, .section-content {
+  }
+  
+  .aboutContent, .sectionContent {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-}
-
-.full-width-section {
+  }
+  
+  .fullWidthSection {
     background-color: #090B1A; /* Dark background */
     color: #FFD700; /* Gold text color */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
-    margin: 2rem; /* Margin for vertical stacking */
     width: 96%; /* Full width of the screen */
     box-sizing: border-box; /* Ensure padding and border are included in the element's total width */
-}
-
-/* Button Styles */
-.button {
+  }
+  
+  /* Button Styles */
+  .button {
     background-color: #FFD700; /* Gold background */
     color: #090B1A; /* Dark text color */
     padding: 10px 20px;
@@ -90,31 +92,32 @@ h1 {
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s;
-}
-
-.button:hover {
+  }
+  
+  .button:hover {
     background-color: #e6c200; /* Slightly darker gold on hover */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      text-align: center;
     }
-
-    .header-content {
-        flex-direction: column;
+  
+    .headerContent {
+      flex-direction: column;
     }
-
-    .header-selections {
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 10px;
+  
+    .headerSelections {
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
     }
-
-    .about-content, .section-content {
-        flex-direction: column;
-        text-align: center;
+  
+    .aboutContent, .sectionContent {
+      flex-direction: column;
+      text-align: center;
     }
-}
+  }
+  

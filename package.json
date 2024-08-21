@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "concurrently \"next dev\" \"npm run dev:api\"",
+    "dev:api": "cd api && python3 index.py",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "latest",
+    "prop-types": "^15.8.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
