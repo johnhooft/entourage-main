@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import PropTypes from 'prop-types';
 
+export const maxDuration = 300
+
 export default function Home({ onSubmit }) { 
   const [clubPurpose, setClubPurpose] = useState('');
   const [vibe, setVibe] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSelect = (e, section) => {
     const value = e.target.getAttribute('data-value');
@@ -21,6 +24,7 @@ export default function Home({ onSubmit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
   
     const formData = new URLSearchParams();
     formData.append('club_name', document.getElementById('club_name').value);
@@ -44,6 +48,8 @@ export default function Home({ onSubmit }) {
 
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -98,6 +104,11 @@ export default function Home({ onSubmit }) {
         <button id="submitButton" type="submit" className={styles.button}>Generate Site</button>
 
       </form>
+      {isLoading && ( // Conditionally render loading screen
+        <div className={styles.loadingOverlay}> 
+          <div className={styles.loadingSpinner}></div>
+        </div>
+      )} 
     </div>
   );
 }

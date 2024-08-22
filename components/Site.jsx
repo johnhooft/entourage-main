@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Site.module.css'; // Import module CSS
-import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 export default function Site({ clubData }) {
-  const router = useRouter();
   const { clubName, generatedContent } = clubData;
 
   if (!clubName || !Object.keys(generatedContent).length) {
