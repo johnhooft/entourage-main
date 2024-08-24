@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Home from '../components/home';
+import Home from '../components/Home';
 import Site from '../components/Site';
 
 export default function Index() {
