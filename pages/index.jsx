@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Home from '../components/Home';
 import Site from '../components/Site';
+import Home from '../components/Home';
 
 export default function Index() {
   const [clubData, setClubData] = useState(null); // Store club name and content

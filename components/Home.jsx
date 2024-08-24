@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
 import PropTypes from 'prop-types';
 
@@ -26,18 +26,17 @@ export default function Home({ onSubmit }) {
     e.preventDefault();
     setIsLoading(true);
   
-    const formData = new URLSearchParams();
-    formData.append('club_name', document.getElementById('club_name').value);
-    formData.append('club_purpose', clubPurpose);
-    formData.append('vibe', vibe);
-  
     try {
-      const response = await fetch('/api/submit', {
+      const response = await fetch('/api/generate', { // Correct API route
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json', // Send as JSON
         },
-        body: formData,
+        body: JSON.stringify({ 
+          club_name: document.getElementById('club_name').value,
+          club_purpose: clubPurpose, 
+          vibe: vibe 
+        }),
       });
   
       const data = await response.json(); // Assuming the response is JSON
