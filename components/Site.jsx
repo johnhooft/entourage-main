@@ -3,6 +3,7 @@ import styles from '../styles/Site.module.css'; // Import module CSS
 import PropTypes from 'prop-types';
 
 export default function Site({ clubData }) {
+  console.log(clubData);
   const { clubName, generatedContent } = clubData;
 
   if (!clubName || !Object.keys(generatedContent).length) {
