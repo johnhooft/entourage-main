@@ -17,6 +17,8 @@ export default function Site({ clubData }) {
     }).isRequired,
   };
 
+  //console.log(generatedContent);
+
   return (
     <div className={styles.siteContainer}>
       <header className={styles.header}>

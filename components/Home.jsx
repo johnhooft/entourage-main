@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import PropTypes from 'prop-types';
 
@@ -7,7 +7,10 @@ export const maxDuration = 300
 export default function Home({ onSubmit }) { 
   const [clubPurpose, setClubPurpose] = useState('');
   const [vibe, setVibe] = useState('');
+  const [generatedContent, setGeneratedContent] = useState({});
+
   const [isLoading, setIsLoading] = useState(false);
+  const [isStreamComplete, setIsStreamComplete] = useState(false);
 
   const handleSelect = (e, section) => {
     const value = e.target.getAttribute('data-value');
@@ -38,23 +41,64 @@ export default function Home({ onSubmit }) {
           vibe: vibe 
         }),
       });
-  
-      const data = await response.json(); // Assuming the response is JSON
-      const { club_name, generated_content } = data;
-  
-      // Pass data to index.jsx
-      onSubmit({ clubName: club_name, generatedContent: generated_content }); 
 
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Handle the Server-Sent Events (SSE) stream
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      const processChunk = (chunk) => {
+        buffer += decoder.decode(chunk, { stream: true });
+        const lines = buffer.split('\n\n');
+        buffer = lines.pop(); // Store incomplete lines for the next chunk
+
+        for (const line of lines) {
+          if (line) {
+            const data = JSON.parse(line.slice(6)); // Remove "data: " prefix
+
+            if (data.type === 'chunk') {
+              setGeneratedContent((prevContent) => {
+                const newContent = { ...prevContent };
+                newContent[data.purpose] = (newContent[data.purpose] || '') + data.content;
+                return newContent; 
+              });
+            }
+          }
+        }
+      };
+
+      const readStream = async () => {
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) {
+              setIsStreamComplete(true);
+              break;
+            }
+            processChunk(value);
+          }
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      readStream();
     } catch (error) {
       console.error('Error fetching data:', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
-  Home.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
+  useEffect(() => {
+    if (isStreamComplete) {
+      console.log('Stream has completed, and all content has been processed.');
+      console.log('Generated Content:', generatedContent);
+      onSubmit({ clubName: document.getElementById('club_name').value, generatedContent: generatedContent }); 
+    }
+  }, [isStreamComplete, generatedContent, onSubmit]);
 
   return (
     <div className={styles.body}>

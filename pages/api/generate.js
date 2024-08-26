@@ -10,18 +10,14 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { club_name, club_purpose } = req.body;
-  const debug = false;
+  // Disable buffering for streaming
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
 
-  let clubName, clubPurposeArray;
-
-  if (debug) {
-    clubName = 'UBC Rippas';
-    clubPurposeArray = ['Memberships', 'Trips', 'Culture'];
-  } else {
-    clubName = club_name;
-    clubPurposeArray = club_purpose.split(',');
-  }
+  const { club_name, club_purpose, vibe } = req.body; 
+  const clubName = club_name;
+  const clubPurposeArray = club_purpose.split(',');
 
   const prompts = {
     Memberships: "Write a short description for the club's memberships section highlighting the benefits of club membership. Clubs usually sell memberships that provide members with partnership deals, access to events and trips, and discounts on party tickets. 100 words maximum",
@@ -33,44 +29,60 @@ export default async function handler(req, res) {
     'About Us': "Write a brief introduction about the club, its purpose, and its vision. Explain what makes the club unique and important to the community. Hype up the club and make it sound like the best student experience ever. 50 words maximum",
   };
 
-  const generatedContent = {};
+  const sendData = (data) => {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
 
-  for (const purpose of clubPurposeArray) {
-    if (prompts[purpose]) {
-      const prompt = prompts[purpose];
-      const completion = await openai.chat.completions.create({
+  try {
+    sendData({ type: 'start', message: 'Generating content...' });
+
+    for (const purpose of clubPurposeArray) {
+      if (prompts[purpose]) {
+        const prompt = prompts[purpose];
+        const response = await openai.chat.completions.create({
+          model: 'gpt-4o-mini',
+          messages: [
+            {
+              role: 'system',
+              content:
+                'You are a master copywriter with intimate knowledge of student clubs and their activities. You talk like a 4th year university student who has been heavily involved with your club which you love and want others to experience.',
+            },
+            { role: 'user', content: prompt },
+          ],
+          stream: true,
+        });
+
+        for await (const chunk of response) {
+          const content = chunk.choices[0].delta?.content || '';
+          sendData({ type: 'chunk', purpose, content });
+        }
+      }
+    }
+
+    // 'About Us' content
+    const aboutUsCompletion = await openai.chat.completions.create({
         model: 'gpt-4o-mini',
         messages: [
-          { role: 'system', content: 'You are a master copywriter with intimate knowledge of student clubs and their activities. You talk like a 4th year university student who has been heavily involved with your club which you love and want others to experience.' },
-          { role: 'user', content: prompt },
+        {
+            role: 'system',
+            content:
+            'You are a master copywriter with intimate knowledge of student clubs and their activities. You talk like a 4th year university student who has been heavily involved with your club which you love and want others to experience.',
+        },
+        { role: 'user', content: prompts['About Us'] },
         ],
-        stream: false,
-      });
-      generatedContent[purpose] = completion.choices[0].message.content;
-    }
-  }
-
-  // Adding 'About Us' content generation
-  const aboutUsCompletion = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
-    messages: [
-      { role: 'system', content: 'You are a master copywriter with intimate knowledge of student clubs and their activities. You talk like a 4th year university student who has been heavily involved with your club which you love and want others to experience.' },
-      { role: 'user', content: prompts['About Us'] },
-    ],
-    stream: false,
-  });
-  generatedContent['About Us'] = aboutUsCompletion.choices[0].message.content;
-
-  if (debug) {
-    let output = `Club Name: ${clubName}\n\n`;
-    for (const section in generatedContent) {
-      output += `${section}:\n${generatedContent[section]}\n\n`;
-    }
-    res.status(200).send(output);
-  } else {
-    res.status(200).json({
-      club_name: clubName,
-      generated_content: generatedContent,
+        stream: true,
     });
-  }
+
+    for await (const chunk of aboutUsCompletion) {
+        const content = chunk.choices[0].delta?.content || '';
+        sendData({ type: 'chunk', purpose: 'About Us', content });
+    }
+
+    sendData({ type: 'end', message: 'Content generation complete!' });
+    } catch (error) {
+        console.error('OpenAI API Error:', error);
+        sendData({ type: 'error', message: 'An error occurred.' });
+    } finally {
+        res.end();
+    }
 }
