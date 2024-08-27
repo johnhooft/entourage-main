@@ -56,7 +56,7 @@ export default function Home({ onSubmit }) {
 
   return (
     <div className="m-0 p-0 font-sans h-screen w-screen flex flex-col justify-center items-center bg-gradient-to-r from-[#090B1A] to-[#4b0082] text-white">
-      <header className="fixed top-0 w-full text-center mb-12 pt-12">
+      <header className="fixed top-0 w-full text-center mb-12 pt-6">
         <h1 className="text-6xl font-sans font-semibold text-yellow-500 m-0">ENTOURAGE</h1>
         <h2 className="text-xl font-mono text-yellow-500 m-0">Club Sites in 60 Seconds</h2>
       </header>
