@@ -61,7 +61,7 @@ export default function Home({ onSubmit }) {
         <h2 className="text-xl font-mono text-yellow-500 m-0">Club Sites in 60 Seconds</h2>
       </header>
 
-      <form onSubmit={handleSubmit} className="font-mono bg-gradient-to-r from-[#13131380] to-[#71717280] p-8 pb-0 mt-8 rounded-lg shadow-lg max-w-2xl w-full text-left">
+      <form onSubmit={handleSubmit} className="font-mono bg-gradient-to-r from-[#13131380] to-[#71717280] p-8 pb-0 mt-14 rounded-lg shadow-lg max-w-2xl w-full text-left">
         {step === 1 && (
           <section className='flex flex-col'>
             <label htmlFor="club_name" className="block mb-4 font-mono text-yellow-500 text-2xl">What is Your Club Called?</label>
