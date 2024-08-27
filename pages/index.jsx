@@ -44,7 +44,7 @@ export default function Index() {
   }, [generatedContent]);
 
   return (
-    <div className="max-w-fit">
+    <div className="max-w-fit max-h-fit">
       {isLoading && (
         <div className="loading-screen">
           <Spinner />
