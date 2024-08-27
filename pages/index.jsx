@@ -48,7 +48,6 @@ export default function Index() {
       {isLoading && (
         <div className="loading-screen">
           <Spinner />
-          <p>Generating content, please wait...</p>
         </div>
       )}
       {error && <div className="error-message">{error}</div>}
@@ -72,7 +71,7 @@ export default function Index() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+          background-color: rgba(52, 50, 50, 0.8);
           z-index: 999; /* Ensure loading screen is on top */
         }
         .error-message {

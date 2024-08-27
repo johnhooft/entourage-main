@@ -31,3 +31,6 @@ yarn-error.log*
 
 # old version (python / flask)
 /old_version
+
+# React Component Preview
+previewConfig.json
