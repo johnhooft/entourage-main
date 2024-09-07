@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { LandingPageCard } from './LandingPageCard';
+import { Logo } from './Logo';
 
 export default function LandingPage() {
     const router = useRouter();
@@ -10,11 +11,9 @@ export default function LandingPage() {
     };
 
     return (
-        <div className='min-h-screen w-full bg-gradient-to-br from-[#77BDD9] to-[#ACD1F2] p-4 md:p-8 lg:p-12 overflow-auto'>
-            <div className='mb-8 md:mb-0'>
-                <div className="pt-8 pr-8 w-20 h-20 rounded-full flex justify-center items-center bg-entourage-orange text-3xl md:text-4xl font-sans font-bold">
-                    <p>e</p>
-                </div>
+        <div className='min-h-screen w-full bg-gradient-to-br from-[#77BDD9] to-[#ACD1F2] p-4 md:p-6 overflow-auto'>
+            <div className='mb-4 lg:mb-0'>
+                <Logo />
             </div>
 
             <div className='container mx-auto'>

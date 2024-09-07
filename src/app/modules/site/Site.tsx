@@ -28,8 +28,8 @@ const Site: React.FC<SiteProps> = ({ siteData }) => {
 
   useEffect(() => {
     console.log('Site component mounted');
-    console.log(clubCopy);
-    console.log(clubImages);
+    //console.log(clubCopy);
+    //console.log(clubImages);
     
     return () => {
       console.log('Site component will unmount');
