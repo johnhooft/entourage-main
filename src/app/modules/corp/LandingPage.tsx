@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { LandingPageCard } from './LandingPageCard';
 import { Logo } from './Logo';
+import { Navbar } from './Navbar';
 
 export default function LandingPage() {
     const router = useRouter();
@@ -12,8 +13,9 @@ export default function LandingPage() {
 
     return (
         <div className='min-h-screen w-full bg-gradient-to-br from-[#77BDD9] to-[#ACD1F2] p-4 md:p-6 overflow-auto'>
-            <div className='mb-4 lg:mb-0'>
+            <div className='mb-4 lg:mb-0 flex flex-row justify-between'>
                 <Logo />
+                <Navbar />
             </div>
 
             <div className='container mx-auto'>
