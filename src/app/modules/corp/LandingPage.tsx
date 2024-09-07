@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { LandingPageCard } from './LandingPageCard';
 import { Logo } from './Logo';
 import { Navbar } from './Navbar';
+import { Footer } from './Footer';
 
 export default function LandingPage() {
     const router = useRouter();
@@ -12,22 +13,22 @@ export default function LandingPage() {
     };
 
     return (
-        <div className='min-h-screen w-full bg-gradient-to-br from-[#77BDD9] to-[#ACD1F2] p-4 md:p-6 overflow-auto'>
-            <div className='mb-4 lg:mb-0 flex flex-row justify-between'>
+        <div className="flex flex-col min-h-screen w-full bg-gradient-to-br from-[#77BDD9] to-[#ACD1F2]">
+            <div className='mb-4 lg:mb-0 flex flex-row justify-between px-4 pt-4 md:px-6 md:pt-6'>
                 <Logo />
                 <Navbar />
             </div>
 
-            <div className='container mx-auto'>
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-20 xl:gap-32">
-                    <div className="flex flex-col space-y-4 gap-5 md:space-y-6 w-full lg:w-1/2 max-w-xl">
+            <main className="flex-grow container mx-auto px-4 py-8">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-8 lg:gap-20 xl:gap-32">
+                    <div className="flex flex-col items-center md:items-start space-y-4 gap-5 md:space-y-6 w-full lg:w-1/2 max-w-xl">
                         <h1 className="text-5xl md:text-5xl lg:text-6xl xl:text-6xl font-bold tracking-tighter">
                             entourage
                         </h1>
-                        <p className="text-5xl md:text-5xl lg:text-6xl font-semibold text-entourage-orange">
+                        <p className="text-5xl md:text-5xl lg:text-6xl font-semibold text-entourage-orange text-center md:text-left">
                             Club sites in seconds
                         </p>
-                        <p className="text-xl md:text-2xl">
+                        <p className="text-xl md:text-2xl text-center md:text-left">
                             Bring your members into the know, get noticed by brands, and unlock time for what matters most. Creating community.
                         </p>
                         <button 
@@ -40,7 +41,8 @@ export default function LandingPage() {
                         <LandingPageCard />
                     </div>
                 </div>
-            </div>
+            </main>
+            <Footer />
         </div>
     );
 }
