@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, MouseEvent, FormEvent } from 'react';
 import classNames from 'classnames';
 
-export default function Home({ onSubmit }) {
-  const [step, setStep] = useState(1);
-  const [clubName, setClubName] = useState('');
-  const [clubPurpose, setClubPurpose] = useState('');
-  const [vibe, setVibe] = useState('');
-  const [flash, setFlash] = useState(false);
+interface QuizProps {
+  onSubmit: (data: { clubName: string; clubPurpose: string; clubVibe: string }) => void;
+}
 
-  const handleSelect = (e, section) => {
-    const value = e.target.getAttribute('data-value');
+const Quiz: React.FC<QuizProps> = ({ onSubmit }) => {
+  const [step, setStep] = useState<number>(1);
+  const [clubName, setClubName] = useState<string>('');
+  const [clubPurpose, setClubPurpose] = useState<string>('');
+  const [vibe, setVibe] = useState<string>('');
+  const [flash, setFlash] = useState<boolean>(false);
+
+  const handleSelect = (e: MouseEvent<HTMLDivElement>, section: 'clubPurpose' | 'vibe') => {
+    const value = (e.target as HTMLElement).getAttribute('data-value') || '';
     setFlash(false); // Reset flash state
 
     if (section === 'clubPurpose') {
@@ -44,7 +48,7 @@ export default function Home({ onSubmit }) {
     setStep(prevStep => prevStep - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!vibe.trim()) {
       setFlash(true); // Trigger flash animation
@@ -70,7 +74,7 @@ export default function Home({ onSubmit }) {
                 id="club_name"
                 name="club_name"
                 value={clubName}
-                onChange={(e) => setClubName(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setClubName(e.target.value)}
                 required
                 className={classNames(
                   'w-full p-4 mb-6 border-2 rounded bg-[#3c3f75] text-white text-2xl transition-all duration-300',
@@ -81,30 +85,30 @@ export default function Home({ onSubmit }) {
                 )}
               />
               <div className='flex'>
-                <button type="button" onClick={handleNext} className=" w-full py-6 mb-6 bg-yellow-500 text-gray-800 font-semibold rounded border-2 border-gray-500 hover:border-black hover:rounded-2xl transition-all text-2xl">
-                Next
-              </button>
+                <button type="button" onClick={handleNext} className="w-full py-6 mb-6 bg-yellow-500 text-gray-800 font-semibold rounded border-2 border-gray-500 hover:border-black hover:rounded-2xl transition-all text-2xl">
+                  Next
+                </button>
               </div>
             </section>
           )}
 
           {step === 2 && (
-            <section className="mb-8">
-              <h2 className="text-2xl text-yellow-500 mb-4">You Want People to Know About Your:</h2>
-              <div className="grid grid-cols-3 gap-4">
+            <section className="mb-2 md:mb-2">
+              <h2 className="md:text-2xl text-xl text-yellow-500 mb-4">You Want People to Know About Your:</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:grid-cols-3">
                 {['Memberships', 'Events', 'Trips', 'Parties', 'Culture', 'Executive Team'].map(option => (
                   <div
                     key={option}
                     data-value={option}
                     className={classNames(
-                      'bg-[#2a2b5b] border-2 rounded-lg text-center cursor-pointer p-6 flex items-center justify-center min-h-[120px] text-2xl hover:scale-105 transition-all',
+                      'bg-[#2a2b5b] border-2 rounded-lg text-center cursor-pointer p-4 md:p-6 flex items-center justify-center min-h-[120px] text-xl md:text-2xl hover:scale-105 transition-all',
                       {
                         'border-gray-300': !flash || clubPurpose.includes(option),
                         'border-red-400 animate-pulse': flash && !clubPurpose.trim(),
                         'border-yellow-500 bg-[#3c3f75]': clubPurpose.includes(option),
                       }
                     )}
-                    onClick={(e) => handleSelect(e, 'clubPurpose')}
+                    onClick={(e: MouseEvent<HTMLDivElement>) => handleSelect(e, 'clubPurpose')}
                   >
                     {option}
                   </div>
@@ -126,7 +130,7 @@ export default function Home({ onSubmit }) {
               <h2 className="text-2xl font-mono text-yellow-500 mb-6">Tell Us About Your Club!</h2>
               <textarea 
                 value={vibe}
-                onChange={(e) => setVibe(e.target.value)}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setVibe(e.target.value)}
                 className={classNames(
                   'w-full p-4 mb-6 border-2 rounded bg-[#3c3f75] text-white text-lg transition-all duration-300',
                   {
@@ -135,7 +139,7 @@ export default function Home({ onSubmit }) {
                   }
                 )}
                 placeholder="Enter information about your club, its location, vibe, etc." 
-                rows="6" // Adjust number of rows as needed
+                rows={6} // Adjust number of rows as needed
               />
               <div className="flex justify-between mt-12">
                 <button type="button" onClick={handleBack} className="w-full py-6 mb-6 bg-yellow-500 text-gray-800 font-semibold rounded border-2 border-gray-500 hover:border-black hover:rounded-2xl transition-all text-2xl mr-4">
@@ -151,6 +155,6 @@ export default function Home({ onSubmit }) {
       </div>
     </div>
   );
-}
+};
 
-
+export default Quiz;

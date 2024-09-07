@@ -27,5 +27,4 @@ export const clubPrompts = {
       userPrompt: "Write a brief introduction about the club, its purpose, and its vision. Explain what makes the club unique and important to the community. Hype up the club and make it sound like the best student experience ever. 50 words maximum.",
       systemContent: "You are a master copywriter with intimate knowledge of student clubs and their activities. You talk like a 4th year university student who has been heavily involved with your club which you love and want others to experience.",
     },
-  };
-  
+};
