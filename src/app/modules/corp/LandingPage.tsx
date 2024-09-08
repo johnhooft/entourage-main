@@ -13,8 +13,8 @@ export default function LandingPage() {
     };
 
     return (
-        <div className="flex flex-col min-h-screen w-full bg-gradient-to-br from-[#77BDD9] to-[#ACD1F2]">
-            <div className='mb-4 lg:mb-0 flex flex-row justify-between px-4 pt-4 md:px-6 md:pt-6'>
+        <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#77BDD9] to-[#ACD1F2]">
+            <div className='mb-4 lg:mb-0 flex flex-row justify-between px-4 pt-4 md:px-6 md:pt-6 overflow-x-clip'>
                 <Logo />
                 <Navbar />
             </div>

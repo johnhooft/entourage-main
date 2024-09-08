@@ -19,7 +19,7 @@ const components: { title: string; href: string; description: string }[] = [
       title: "Sign In",
       href: "/",
       description:
-        "Sign in to view your edit, customize, and deploy your site",
+        "Sign in to access the Dashboard",
     },
     {
       title: "Create New Site",
@@ -34,7 +34,7 @@ export function Navbar() {
         <NavigationMenu>
           <NavigationMenuList className="scale-105 md:scale-125 pr-12 md:pr-32">
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent">For Clubs</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent text-entourage-orange">For Clubs</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="flex flex-col w-[250px] gap-3 p-4">
                   {components.map((component: any) => (
@@ -51,7 +51,7 @@ export function Navbar() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className="bg-transparent hover:bg-transparent focus:bg-transparent">
+                <NavigationMenuLink className="bg-transparent hover:bg-transparent focus:bg-transparent text-entourage-orange">
                   For Brands
                 </NavigationMenuLink>
               </Link>
