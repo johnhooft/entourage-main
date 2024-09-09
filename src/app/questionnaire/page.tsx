@@ -2,14 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import Site from '../modules/site/Site';
-import Quiz from '../modules/Quiz';
+import OldQuiz from '../modules/OldQuiz';
+import Quiz from '../modules/quiz/Quiz'
 import { genClubInfo } from '../utils/generateClubInfo';
-import Spinner from '../modules/Spinner'; // Add a spinner component for better UX
+import Spinner from '../modules/Spinner';
 
 // Define types for the state and props
 interface ClubData {
   clubName: string;
-  clubPurpose: string; // Optional fields
+  clubPurpose: string;
   clubVibe: string;
 }
 
@@ -27,16 +28,17 @@ interface GenerateContent {
   clubImages: any;
 }
 
-// Update Home function component to use TypeScript
 export default function Home() {
+  //Datastructs
   const [clubData, setClubData] = useState<ClubData | null>(null);
   const [generatedContent, setGeneratedContent] = useState<GenerateContent | null>(null);
-  const [doneGen, setDoneGen] = useState<boolean>(false);
   const [siteData, setSiteData] = useState<SiteData | null>(null);
+  //States
+  const [doneGen, setDoneGen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  //Error
   const [error, setError] = useState<ErrorState | null>(null);
 
-  // Update function signature to use TypeScript
   const handleDataSubmission = (data: ClubData) => {
     setClubData(data);
     setIsLoading(true);

@@ -5,7 +5,7 @@ interface QuizProps {
   onSubmit: (data: { clubName: string; clubPurpose: string; clubVibe: string }) => void;
 }
 
-const Quiz: React.FC<QuizProps> = ({ onSubmit }) => {
+const OldQuiz: React.FC<QuizProps> = ({ onSubmit }) => {
   const [step, setStep] = useState<number>(1);
   const [clubName, setClubName] = useState<string>('');
   const [clubPurpose, setClubPurpose] = useState<string>('');
@@ -157,4 +157,4 @@ const Quiz: React.FC<QuizProps> = ({ onSubmit }) => {
   );
 };
 
-export default Quiz;
+export default OldQuiz;
