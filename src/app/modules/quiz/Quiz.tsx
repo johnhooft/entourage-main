@@ -6,6 +6,7 @@ import { Logo } from '../corp/Logo'
 import { Footer } from '../corp/Footer'
 import classNames from 'classnames';
 import Link from 'next/link'
+import { Progress } from "@/components/ui/progress"
 
 interface Props {
     onSubmit: (data: { clubName: string; clubPurpose: string; clubVibe: string }) => void;
@@ -30,7 +31,6 @@ function BackBtn({ onClick }: any) {
 }
 
 const Quiz: FC<Props> = ({ onSubmit }) => {
-
     const [step, setStep] = useState<number>(1);
     const [clubName, setClubName] = useState<string>('');
     const [clubPurpose, setClubPurpose] = useState<string>('');
@@ -86,6 +86,9 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
                 <Link href="/">
                     <Logo />
                 </Link>
+            </div>
+            <div className='flex justify-center'>
+                <Progress value={ ((step / 3) * 100) } className="w-[40%] bg-entourage-black border-[1px] border-entourage-blue [&>div]:bg-entourage-blue" />
             </div>
             <form onSubmit={handleSubmit} className='text-white flex-grow flex mx-6 justify-center my-10'>
                 {step === 1 && (

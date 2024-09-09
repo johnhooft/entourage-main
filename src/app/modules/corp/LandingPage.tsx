@@ -22,7 +22,7 @@ export default function LandingPage() {
             <main className="flex-grow container mx-auto px-4 py-8">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 lg:gap-20 xl:gap-32">
                     <div className="flex flex-col items-center md:items-start space-y-4 gap-5 md:space-y-6 w-full lg:w-1/2 max-w-xl">
-                        <h1 className="text-6xl lg:text-7xl font-bold tracking-tighter">
+                        <h1 className="text-6xl lg:text-7xl font-bold text-entourage-black tracking-tighter">
                             entourage
                         </h1>
                         <p className="text-5xl lg:text-6xl font-semibold text-entourage-orange text-center md:text-left">

@@ -62,7 +62,7 @@ export function UserDocs() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-black">
+    <div className="flex flex-col min-h-screen bg-entourage-black">
         <div className='text-black w-screen pt-5 px-5 md:pt-10 md:px-10 flex justify-end'>
             <Link href="/">
               <Logo />

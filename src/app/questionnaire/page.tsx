@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Site from '../modules/site/Site';
 import OldQuiz from '../modules/OldQuiz';
 import Quiz from '../modules/quiz/Quiz'
-import { genClubInfo } from '../utils/generateClubInfo';
+import { genClubInfo } from '../../../utils/generateClubInfo';
 import Spinner from '../modules/Spinner';
 
 // Define types for the state and props

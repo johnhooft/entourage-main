@@ -31,6 +31,7 @@ const config = {
       colors: {
         'entourage-orange': '#FF5E1C',
         'entourage-blue': '#ACD1F2',
+        'entourage-black': '#212121',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
