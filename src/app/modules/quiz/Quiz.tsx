@@ -73,10 +73,10 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
       const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!clubVibe.trim()) {
-          setFlashError(true); // Trigger flash animation
+          setFlashError(true);
+          setTimeout(() => setFlashError(false), 2000);
           return;
         }
-        setFlashError(false); // Reset flash state
         onSubmit({ clubName, clubPurpose, clubVibe: clubVibe });
       };
 
