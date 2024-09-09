@@ -34,9 +34,9 @@ export function Navbar() {
         <NavigationMenu>
           <NavigationMenuList className="scale-105 md:scale-125 pr-12 md:pr-32">
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent text-entourage-orange">For Clubs</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent hover:text-orange-500 focus:bg-transparent text-entourage-orange mr-3">For Clubs</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="flex flex-col w-[250px] gap-3 p-4">
+                <ul className="flex flex-col w-[250px] gap-3 p-3">
                   {components.map((component: any) => (
                     <ListItem
                       key={component.title}
@@ -51,7 +51,7 @@ export function Navbar() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className="bg-transparent hover:bg-transparent focus:bg-transparent text-entourage-orange">
+                <NavigationMenuLink className="bg-transparent hover:bg-transparent hover:text-orange-500 focus:bg-transparent text-entourage-orange">
                   For Brands
                 </NavigationMenuLink>
               </Link>
