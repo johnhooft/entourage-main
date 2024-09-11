@@ -22,14 +22,12 @@ interface ClubData {
   clubVibe: string;
 }
 
-async function genClubText(clubData: ClubData) {
-  console.log(clubData);
+async function genClubText(clubData: ClubData, onSuccess: () => void) {
   const clubPurposeArray = clubData.clubPurpose.split(',');
   clubPurposeArray.push('About Us'); 
   try {
       const responses: ClubInfoResponses = {};
       for (const purpose of clubPurposeArray) {
-          //console.log(purpose);
           const prompt = promptMapping[purpose];
           if (prompt) {
             // Make API call to /api/generate/[param] 
@@ -45,6 +43,9 @@ async function genClubText(clubData: ClubData) {
                 system_content: prompt.systemContent,
               }),
             });
+            if (response.ok) {
+              onSuccess();
+            }
             if (!response.ok) {
               throw new Error(`API request failed with status ${response.status}`);
             }
@@ -75,8 +76,8 @@ async function genClubImages(clubData: ClubData) {
   return response.json();
 }
 
-export async function genClubInfo(clubData: ClubData) {
-  const clubCopy = await genClubText(clubData);
+export async function genClubInfo(clubData: ClubData, onSuccess: () => void) {
+  const clubCopy = await genClubText(clubData, onSuccess);
   const clubImages = await genClubImages(clubData);
   return { clubCopy, clubImages };
 }

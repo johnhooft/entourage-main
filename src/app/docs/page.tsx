@@ -1,6 +1,6 @@
 'use client'
-
-import { UserDocs } from '@/app/modules/corp/UserDocs';
+//Docs
+import { UserDocs } from '@/modules/corp/UserDocs';
 
 import React from 'react';
 

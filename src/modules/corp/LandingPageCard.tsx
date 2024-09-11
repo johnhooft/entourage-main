@@ -2,23 +2,23 @@
 
 import Image from "next/image";
 import React from "react";
-import { CardBody, CardContainer, CardItem } from "../../../components/ui/3d-card";
+import { CardBody, CardContainer, CardItem } from "../../components/ui/3d-card";
 import Link from "next/link";
 
 export function LandingPageCard() {
   return (
     <CardContainer className="inter-var">
-      <CardBody className="bg-entourage-orange relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-entourage-black dark:border-white/[0.2] border-entourage-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
+      <CardBody className="bg-entourage-orange relative group/card  dark:hover:shadow-2xl dark:hover:shadow-entourage-orange/[0.1] dark:bg-entourage-black dark:border-entourage-orange/[0.2] border-entourage-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
         <CardItem
           translateZ="50"
-          className="text-xl font-bold text-entourage-black dark:text-white"
+          className="text-xl font-bold text-entourage-black dark:text-entourage-blue"
         >
           Create and Deploy Club Sites With Entourage AI
         </CardItem>
         <CardItem
           as="p"
           translateZ="60"
-          className="text-entourage-black text-sm max-w-sm mt-2 dark:text-neutral-300"
+          className="text-entourage-black text-sm max-w-sm mt-2 dark:text-entourage-blue"
         >
           Open Beta Coming Soon
         </CardItem>
@@ -37,14 +37,14 @@ export function LandingPageCard() {
             as={Link}
             href="https://entourage-ai.com"
             target="__blank"
-            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+            className="px-4 py-2 rounded-xl text-xs font-normal dark:text-entourage-orange"
           >
             Try now →
           </CardItem>
           <CardItem
             translateZ={20}
             as="button"
-            className="px-4 py-2 rounded-xl bg-entourage-black dark:bg-white dark:text-entourage-black text-white text-xs font-bold"
+            className="px-4 py-2 rounded-xl bg-entourage-black dark:bg-white/10 dark:text-entourage-orange text-white text-xs font-bold"
           >
             Sign up
           </CardItem>

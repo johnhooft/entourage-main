@@ -1,11 +1,10 @@
 "use client";
-
+//Questionnaire
 import React, { useState, useEffect } from 'react';
-import Site from '../modules/site/Site';
-import OldQuiz from '../modules/OldQuiz';
-import Quiz from '../modules/quiz/Quiz'
+import Site from '../../modules/site/Site';
+import Quiz from '../../modules/quiz/Quiz'
 import { genClubInfo } from '../../../utils/generateClubInfo';
-import Spinner from '../modules/Spinner';
+import StepLoader from '@/modules/quiz/StepLoader';
 
 // Define types for the state and props
 interface ClubData {
@@ -36,6 +35,7 @@ export default function Home() {
   //States
   const [doneGen, setDoneGen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [successCounter, setSuccessCounter] = useState<number>(0);
   //Error
   const [error, setError] = useState<ErrorState | null>(null);
 
@@ -45,11 +45,15 @@ export default function Home() {
     setError(null);
   };
 
+  const incrementCounter = () => {
+    setSuccessCounter((prev) => prev + 1);
+  };
+
   useEffect(() => {
     const generateContent = async () => {
       if (clubData) {
         try {
-          setGeneratedContent( await genClubInfo(clubData) );
+          setGeneratedContent(await genClubInfo(clubData, incrementCounter));
         } catch (error) {
           console.error("Error generating content:", error);
           setError({ message: "Failed to generate content. Please try again." });
@@ -71,43 +75,20 @@ export default function Home() {
   }, [generatedContent, clubData]);
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen min-h-fit">
       {isLoading && (
-        <div className="loading-screen">
-          <Spinner />
+        <div className="absolute inset-0 flex items-center justify-center z-50 text-white bg-black">
+          <StepLoader step={successCounter}/>
         </div>
       )}
       {error && <div className="error-message">{error.message}</div>}
       {siteData ? ( 
         <div className="flex flex-col">
-          <Site siteData={siteData} /> 
+          <Site siteData={siteData}/> 
         </div>
       ) : (
         !doneGen ? <Quiz onSubmit={handleDataSubmission} /> : null 
       )}
-      <style jsx>{`
-        .container {
-          position: relative;
-          min-height: 100vh;
-        }
-        .loading-screen {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          background-color: rgba(52, 50, 50, 0.8);
-          z-index: 999;
-        }
-        .error-message {
-          color: red;
-          text-align: center;
-        }
-      `}</style>
     </div>
   );
 }
