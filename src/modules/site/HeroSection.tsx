@@ -10,15 +10,16 @@ interface HeroProps {
   image: string;
   textColor?: string;
   textOpacity?: string;
+  siteSections: string[];
 }
 
-const HeroSection: React.FC<HeroProps> = ({ text, image, textColor, textOpacity }) => {
+const HeroSection: React.FC<HeroProps> = ({ text, image, textColor, textOpacity, siteSections }) => {
   const images = [image];
   
   return (
     <div className="w-screen">
       <div className="absolute top-4 right-4">
-        <FullscreenExpandableMenu color="entourage-blue"/>
+        <FullscreenExpandableMenu color="entourage-blue" siteSections={siteSections}/>
       </div>
       <ImagesSlider className="h-[22rem]" images={images} autoplay={false}>
         <motion.div

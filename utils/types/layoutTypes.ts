@@ -14,6 +14,7 @@ export interface HeroSectionProps extends ComponentProps {
     image: string;
     textColor: string;
     textOpacity?: string;
+    siteSections: string[];
 }
 
 export interface MovingCardsProps extends ComponentProps {

@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 
 interface FullscreenExpandableMenuProps {
-  color?: string
+  color?: string;
+  siteSections: string[];
 }
 
-export default function FullscreenExpandableMenu({ color = 'primary' }: FullscreenExpandableMenuProps) {
+export default function FullscreenExpandableMenu({ color = 'primary', siteSections }: FullscreenExpandableMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleMenu = () => setIsOpen(!isOpen)
 
-  const menuItems = ['Home', 'About', 'Services', 'Contact']
+  const menuItems = siteSections;
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {

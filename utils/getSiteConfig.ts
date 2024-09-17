@@ -20,7 +20,7 @@ interface GenerateContent {
 }
 
 export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateContent): SiteConfig {
-
+    console.log(genContent)
     const siteConfig: SiteConfig = {
         layout: [
             {
@@ -30,6 +30,7 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                     image: genContent.clubImages.message[0].largeImageURL,
                     textColor: "text-entourage-blue",
                     textOpacity: "text-opacity-40",
+                    siteSections:  Object.keys(genContent.clubCopy),
                 } as HeroSectionProps
             },
             {

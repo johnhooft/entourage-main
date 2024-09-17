@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import HeroSection from './HeroSection';
 import MovingCards from './MovingCards';
 import InfoScroll from './InfoScroll';
+import { SiteFooter } from './SiteFooter';
 import ColorPickerWheel from './ColorWheel';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 
@@ -53,6 +54,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
           </div>
         );
       })}
+      <SiteFooter />
     </div>
   );
 };
