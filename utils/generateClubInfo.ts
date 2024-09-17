@@ -53,7 +53,7 @@ async function genClubText(clubData: ClubData, onSuccess: () => void) {
             responses[purpose] = generatedText['message'];
           }
         }
-      console.log(responses);
+      //console.log(responses);
       return responses;
   } catch (error) {
       console.error("Error generating club info:", error);

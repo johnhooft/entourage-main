@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Site from '../../modules/site/Site';
 import Quiz from '../../modules/quiz/Quiz'
-import { genClubInfo } from '../../../utils/generateClubInfo';
+import { genClubInfo } from '@/../utils/generateClubInfo';
+import { getSiteConfigFromQuiz } from '@/../utils/getSiteConfig'
 import StepLoader from '@/modules/quiz/StepLoader';
 
 // Define types for the state and props
@@ -14,8 +15,7 @@ interface ClubData {
 }
 
 interface SiteData {
-  clubData: ClubData;
-  generatedContent: GenerateContent;
+  layout: any;
 }
 
 interface ErrorState {
@@ -67,7 +67,8 @@ export default function Home() {
 
   useEffect(() => {
     if (generatedContent && clubData) {
-      setSiteData({ clubData: clubData, generatedContent });
+      setSiteData(getSiteConfigFromQuiz(clubData, generatedContent))
+      // setSiteData({ clubData: clubData, generatedContent });
       setDoneGen(true);
       setIsLoading(false);
       console.log("site render")
@@ -84,7 +85,7 @@ export default function Home() {
       {error && <div className="error-message">{error.message}</div>}
       {siteData ? ( 
         <div className="flex flex-col">
-          <Site siteData={siteData}/> 
+          <Site siteConfig={siteData}/> 
         </div>
       ) : (
         !doneGen ? <Quiz onSubmit={handleDataSubmission} /> : null 

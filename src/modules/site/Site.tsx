@@ -1,67 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import HeroSection from './HeroSection';
+import MovingCards from './MovingCards';
 import InfoScroll from './InfoScroll';
-import SiteBigText from './SiteBigText';
-
-interface ClubData {
-  clubName: string;
-  clubPurpose: string;
-  clubVibe: string;
-}
-
-interface SiteData {
-  clubData: ClubData;
-  generatedContent: {
-    clubCopy: any;
-    clubImages: any;
-  };
-}
+import ColorPickerWheel from './ColorWheel';
+import { SiteConfig } from '../../../utils/types/layoutTypes';
 
 interface SiteProps {
-  siteData: SiteData;
+  siteConfig: SiteConfig;
 }
 
-const Site: React.FC<SiteProps> = ({ siteData }) => {
-  const [imageHits, setImageHits] = useState<any>(null);
+const componentMap: { [key: string]: React.ComponentType<any> } = {
+  HeroSection,
+  MovingCards,
+  InfoScroll,
+};
 
-  const { clubData, generatedContent } = siteData;
-  const { clubCopy, clubImages } = generatedContent;
+const Site: React.FC<SiteProps> = ({ siteConfig }) => {
+  const [config, setConfig] = useState<SiteConfig>(siteConfig);
 
-  useEffect(() => {
-    console.log('Site component mounted');
-    //console.log(clubCopy);
-    //console.log(clubImages);
-    
-    return () => {
-      console.log('Site component will unmount');
-    };
-  }, []);
-
-  if (!clubData.clubName || !Object.keys(clubCopy).length) {
+  if (!siteConfig) {
     return <p>Loading...</p>;
   }
-
+ 
+  const updateConfig = (index: number, newProps: any) => {
+    const updatedLayout = [...config.layout];
+    updatedLayout[index].props = { ...updatedLayout[index].props, ...newProps };
+    setConfig({ ...config, layout: updatedLayout });
+  };
+  
+  console.log(siteConfig.layout)
+ 
   return (
-    <div>
-      <header className="bg-[#000000] text-[#ffffff] py-5 px-10 flex items-center justify-between border-b-2 border-[#ffffff]">
-        <div className="flex items-center justify-between w-full">
-          <div className="bg-gray-400 text-[#000000] p-2 rounded-full font-bold mr-5 text-center">Logo Here</div>
-          <div className="flex gap-5 text-xl">
-            {clubCopy.Memberships && <span className="bg-gray-400 text-black px-3 py-1 rounded">Memberships</span>}
-            {clubCopy.Events && <span className="bg-gray-400 text-black px-3 py-1 rounded">Events</span>}
-            {clubCopy.Trips && <span className="bg-gray-400 text-black px-3 py-1 rounded">Trips</span>}
-            {clubCopy.Culture && <span className="bg-gray-400 text-black px-3 py-1 rounded">Culture</span>}
-            {clubCopy['Executive Team'] && <span className="bg-gray-400 text-black px-3 py-1 rounded">Executive Team</span>}
+    <div className="flex flex-col flex-grow items-center">
+      {siteConfig.layout.map((item, index) => {
+        const Component = componentMap[item.component];
+        if (!Component) {
+          console.warn(`Component ${item.component} not found`);
+          return null;
+        }
+        return (
+          <div key={index} className="w-screen">
+            <Component {...item.props} />
+            {/* { index==0 && (
+              <button
+                onClick={() =>
+                  updateConfig(index, { textColor: 'text-red-500' }) // Example to change text color
+                }
+              >
+                Change Text Color
+              </button>
+            ) } */}
           </div>
-        </div>
-      </header>
-      <div className="items-center">
-        <div>
-          <SiteBigText clubName={clubData.clubName} />
-        </div>
-        <div>
-          <InfoScroll generatedContent={clubCopy} imageHits={clubImages} />
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 };

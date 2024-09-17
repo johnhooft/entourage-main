@@ -12,7 +12,7 @@ export default function LandingPage() {
     const { user, loading } = useAuth();
     const router = useRouter();
 
-    const [isDark, setIsDark] = React.useState(false);
+    const [isDark, setIsDark] = React.useState(true);
 
     // Apply the dark mode class to the root <html> element
     useEffect(() => {

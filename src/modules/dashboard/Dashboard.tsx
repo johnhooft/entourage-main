@@ -10,7 +10,7 @@ const Dashboard = () => {
         if (!loading && !user) {
           router.push('/login');
         }
-    }, [user, loading]);
+    }, [user, loading, router]);
 
     const onLogout = async () => {
         logout()
