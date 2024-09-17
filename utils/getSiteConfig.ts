@@ -5,10 +5,18 @@ interface ClubData {
     clubPurpose: string;
     clubVibe: string;
 }
-
+  
+interface ImageData {
+    largeImageURL: string;
+}
+  
 interface GenerateContent {
-    clubCopy: any;
-    clubImages: any;
+    clubCopy: {
+        [key: string]: string;
+    };
+    clubImages: {
+        message: ImageData[];
+    };
 }
 
 export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateContent): SiteConfig {
