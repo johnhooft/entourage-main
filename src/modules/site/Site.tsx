@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import HeroSection from './HeroSection';
 import MovingCards from './MovingCards';
 import InfoScroll from './InfoScroll';
+import Scroll from './Scroll';
 import { SiteFooter } from './SiteFooter';
 import ColorPickerWheel from './ColorWheel';
+import FullscreenExpandableMenu from './NavMenu';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 
 interface SiteProps {
@@ -13,7 +15,8 @@ interface SiteProps {
 const componentMap: { [key: string]: React.ComponentType<any> } = {
   HeroSection,
   MovingCards,
-  InfoScroll,
+  //InfoScroll,
+  Scroll,
 };
 
 const Site: React.FC<SiteProps> = ({ siteConfig }) => {
@@ -22,7 +25,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
   if (!siteConfig) {
     return <p>Loading...</p>;
   }
- 
+
   const updateConfig = (index: number, newProps: any) => {
     const updatedLayout = [...config.layout];
     updatedLayout[index].props = { ...updatedLayout[index].props, ...newProps };
@@ -33,6 +36,9 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
  
   return (
     <div className="flex flex-col flex-grow items-center">
+      <div className="fixed top-4 right-4 z-50">
+        <FullscreenExpandableMenu color="entourage-blue" siteSections={siteConfig.layout[0].props.siteSections}/>
+      </div>
       {siteConfig.layout.map((item, index) => {
         const Component = componentMap[item.component];
         if (!Component) {
@@ -42,15 +48,6 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
         return (
           <div key={index} className="w-screen">
             <Component {...item.props} />
-            {/* { index==0 && (
-              <button
-                onClick={() =>
-                  updateConfig(index, { textColor: 'text-red-500' }) // Example to change text color
-                }
-              >
-                Change Text Color
-              </button>
-            ) } */}
           </div>
         );
       })}

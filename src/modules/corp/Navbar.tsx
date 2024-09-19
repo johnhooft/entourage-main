@@ -57,7 +57,7 @@ export function Navbar() {
             {user && (
               <div>
                 <Link href="/dashboard" legacyBehavior passHref>
-                  <NavigationMenuLink className="bg-transparent hover:bg-transparent hover:text-orange-500 focus:bg-transparent text-entourage-orange mr-2 md:mr-5">
+                  <NavigationMenuLink className="bg-transparent hover:bg-transparent hover:text-orange-500 focus:bg-transparent text-entourage-orange mr-2 sm:mr-8">
                     Dashboard
                   </NavigationMenuLink>
                 </Link>

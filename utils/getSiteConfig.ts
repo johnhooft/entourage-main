@@ -43,7 +43,7 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                 } as MovingCardsProps
             },
             {
-                component: "InfoScroll",
+                component: "Scroll",
                 props: {
                     numblocks: 6,
                     blockArr: [
