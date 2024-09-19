@@ -3,6 +3,7 @@ import { useAuth } from '@/app/authState';
 import { useRouter } from 'next/navigation';
 import { LandingPageCard } from './LandingPageCard';
 import { LandingVisual } from './LandingVisual';
+import { ThreeDLandingVisual } from './3dLandingCard';
 import { Logo } from './Logo';
 import { Navbar } from './Navbar';
 import { NavButtons } from './NavButtons';
@@ -40,9 +41,6 @@ export default function LandingPage() {
     const toggleDarkMode = () => {
         setIsDark(!isDark);
     };
-    const handleGenerateClick = () => {
-        router.push('/questionnaire');
-    };
 
     return (
         <div>
@@ -61,9 +59,9 @@ export default function LandingPage() {
                     </div>
                 </div>
 
-                <main className="flex flex-grow justify-center items-center px-4 sm:px-14 md:px-24 py-8 w-full mb-10">
-                    <div className="flex flex-grow flex-col max-w-[55rem] md:flex-row items-center justify-between gap-2 md:gap-8 lg:gap-12">
-                        <div className="flex flex-col items-center md:items-start space-y-4 gap-5 md:space-y-6">
+                <main className="flex flex-grow justify-center max-h-[35rem] items-center px-4 sm:px-14 md:px-24 py-8 w-full mb-10">
+                    <div className="flex flex-grow flex-col max-w-[70rem] md:flex-row items-center justify-between gap-2 md:gap-8">
+                        <div className="flex flex-col max-w-[30rem] items-center md:items-start space-y-4 gap-5 md:space-y-6">
                             {/* <h1 className="text-6xl lg:text-7xl font-bold text-entourage-black dark:text-entourage-blue tracking-tighter">
                                 entourage
                             </h1> */}
@@ -78,16 +76,18 @@ export default function LandingPage() {
                                 Let our AI put all of your information in one place, get in touch with the right brands, and unlock time for what you’re best at. Running your club.
                             </p>
                             <div>
-                                <Button
-                                    borderRadius="1.5rem"
-                                    className="bg-entourage-orange text-entourage-black font-extrabold"
-                                >
-                                    Launch Your Site
-                                </Button>
+                                <Link href={'/questionnaire'}>
+                                    <Button
+                                        borderRadius="1.5rem"
+                                        className="bg-entourage-orange text-entourage-black font-extrabold"
+                                    >
+                                        Launch Your Site
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
                         <div className='w-full md:w-2/3 lg:w-1/2 flex justify-center'>
-                            <LandingVisual />
+                            <ThreeDLandingVisual />
                         </div>
                     </div>
                 </main>

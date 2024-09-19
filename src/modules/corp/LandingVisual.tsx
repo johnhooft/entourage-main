@@ -35,12 +35,9 @@ export function LandingVisual() {
     ];
 
     return(
-        <div className='w-[350px] h-[525px] bg-entourage-blue rounded-xl rounded-b-2xl'>
+        <div className='w-[350px] h-[525px] bg-entourage-blue border-entourage-blue border-[1px] rounded-[20px] rounded-b-[20px]'>
             <div className='h-1/3 flex flex-col'>
-                <div className='flex justify-end p-2'>
-                    <Image src="/settings.svg" alt='settings' width={33} height={25} />
-                </div>
-                <div className='flex flex-row justify-center scale-75 -mt-4'>
+                <div className='flex flex-row justify-center scale-75 mt-5'>
                     <div className="scale-[80%] pt-8 pr-8 w-20 h-20 min-w-20 min-h-20 rounded-full flex justify-center items-center bg-entourage-black text-3xl text-entourage-blue md:text-4xl font-sans font-bold">
                         <p>e</p>
                     </div>
@@ -55,11 +52,11 @@ export function LandingVisual() {
                     </Link>
                 </div>
             </div>
-            <div className='bg-black w-full h-2/3 rounded-b-xl flex flex-col justify-between'>
-                <div className='flex flex-col gap-4 px-4 pt-8 text-white text-sm'>
+            <div className='bg-entourage-black w-full h-2/3 rounded-b-[20px] flex flex-col justify-between'>
+                <div className='flex flex-col gap-5 px-4 pt-5 text-white text-sm'>
                     <p>Welcome to the entourage! We’re on a mission to make running a club as easy as it used to be. </p>
                     <p>Use our AI to do the work you don’t want to do, and leave your team with all of the fun stuff. </p>
-                    <div className='w-full h-[150px] overflow-hidden'>
+                    <div className='w-full h-[150px] overflow-hidden scale-90'>
                         <InfiniteMovingCards
                             items={items}
                             direction="left"
@@ -69,10 +66,9 @@ export function LandingVisual() {
                         />
                     </div>
                 </div>
-                <div className='flex flex-row justify-between w-full items-center px-5 pb-3'>
-                    <div className='flex flex-row w-full text-white gap-2'>
+                <div className='flex flex-row justify-between w-full items-center px-2 pb-3 scale-[80%]'>
+                    <div className='flex flex-row w-full text-white text-sm gap-2'>
                         <p>Contact</p>
-                        <Image src='/instagram.svg' alt='instagram' width={15} height={15} />
                     </div>
                     <div className='flex flex-row text-sm min-w-fit gap-1'>
                         <p className='text-white'>Made with</p>
