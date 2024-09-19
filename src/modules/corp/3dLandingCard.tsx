@@ -28,15 +28,15 @@ export function ThreeDLandingVisual() {
       >
         <div className="h-1/3 flex flex-col" style={{ transform: "translateZ(50px)" }}>
           <div className='flex flex-row justify-center scale-75 mt-5'>
-            <div className="scale-[80%] pt-8 pr-8 w-20 h-20 min-w-20 min-h-20 rounded-full flex justify-center items-center bg-entourage-black text-3xl text-entourage-blue md:text-4xl font-sans font-bold">
+            <div className="scale-[70%] pt-8 pr-8 w-20 h-20 min-w-20 min-h-20 rounded-full flex justify-center items-center bg-entourage-black text-3xl text-entourage-blue md:text-4xl font-sans font-bold">
               <p>e</p>
             </div>
-            <div className='flex justify-center items-end text-entourage-black text-3xl font-bold pb-2 -ml-2'>
+            <div className='flex justify-center items-end text-entourage-black text-3xl font-bold pb-2 -ml-3'>
               ntourage
             </div>
           </div>
-          <div className='flex justify-center scale-[60%]' style={{ transform: "translateZ(75px)" }}>
-            <Link href={'/'} className="group px-6 py-3 border-2 border-entourage-black rounded-full bg-transparent text-entourage-black hover:scale-105 transition-all duration-200 flex items-center space-x-2">
+          <div className='flex justify-center' style={{ transform: "translateZ(75px)" }}>
+            <Link href={'/'} className="scale-[75%] group px-6 py-3 border-2 border-entourage-black rounded-full bg-transparent text-entourage-black hover:scale-[85%] transition-all duration-200 flex items-center space-x-2">
               <span>Join Now</span>
               <ArrowRight size={16} className='text-entourage-black' />
             </Link>
