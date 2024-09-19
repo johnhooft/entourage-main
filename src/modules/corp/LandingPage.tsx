@@ -59,8 +59,8 @@ export default function LandingPage() {
                     </div>
                 </div>
 
-                <main className="flex flex-grow justify-center max-h-[35rem] items-center px-4 sm:px-14 md:px-24 py-8 w-full mb-10">
-                    <div className="flex flex-grow flex-col max-w-[70rem] md:flex-row items-center justify-between gap-2 md:gap-8">
+                <main className="flex flex-grow justify-center items-center px-4 sm:px-14 md:px-24 py-8 w-full mb-10">
+                    <div className="flex flex-grow flex-col max-w-[70rem] max-h-fit md:flex-row items-center justify-between gap-10 md:gap-8">
                         <div className="flex flex-col max-w-[30rem] items-center md:items-start space-y-4 gap-5 md:space-y-6">
                             {/* <h1 className="text-6xl lg:text-7xl font-bold text-entourage-black dark:text-entourage-blue tracking-tighter">
                                 entourage
@@ -86,7 +86,7 @@ export default function LandingPage() {
                                 </Link>
                             </div>
                         </div>
-                        <div className='w-full md:w-2/3 lg:w-1/2 flex justify-center'>
+                        <div className='w-full md:w-2/3 lg:w-1/2 flex justify-center max-h-fit'>
                             <ThreeDLandingVisual />
                         </div>
                     </div>

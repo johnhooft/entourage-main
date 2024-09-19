@@ -17,7 +17,7 @@ export function ThreeDLandingVisual() {
   const rotateX = 5; // Slight upward tilt
 
   return (
-    <div className="py-20 flex items-center justify-center" style={{ perspective: "1000px" }}>
+    <div className=" flex items-center justify-center" style={{ perspective: "1000px" }}>
       <div
         className="w-[350px] h-[535px] bg-entourage-blue border-entourage-blue border-[1px] rounded-[20px] shadow-xl shadow-entourage-black/50 dark:shadow-entourage-blue/50 relative"
         style={{
