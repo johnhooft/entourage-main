@@ -44,8 +44,8 @@ export function ThreeDLandingVisual() {
         </div>
         <div className='bg-entourage-black w-full h-[350px] rounded-[20px] flex flex-col justify-between relative' style={{ transform: "translateZ(25px)" }}>
           <div className='flex flex-col gap-5 px-4 pt-5 text-white text-sm'>
-            <p style={{ transform: "translateZ(40px)" }}>Welcome to the entourage! We're on a mission to make running a club as easy as it used to be. </p>
-            <p style={{ transform: "translateZ(40px)" }}>Use our AI to do the work you don't want to do, and leave your team with all of the fun stuff. </p>
+          <p style={{ transform: "translateZ(40px)" }}>{`Welcome to the entourage! We're on a mission to make running a club as easy as it used to be.`}</p>
+          <p style={{ transform: "translateZ(40px)" }}>{`Use our AI to do the work you don't want to do, and leave your team with all of the fun stuff.`}</p>
             <div className='w-full h-[150px] overflow-hidden scale-90 relative' style={{ transform: "translateZ(80px)" }}>
               <InfiniteMovingCards
                 items={items}
