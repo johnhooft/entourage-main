@@ -27,7 +27,6 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.30",
-    "lodash": "^4.17.21",
     "lucide-react": "^0.436.0",
     "next": "^14.2.9",
     "openai": "^4.56.1",
@@ -39,7 +38,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

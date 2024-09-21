@@ -19,7 +19,7 @@ export const StickyScroll = ({
   const ref = useRef<any>(null);
   const { scrollYProgress } = useScroll({
     // uncomment line 22 and comment line 23 if you DONT want the overflow container and want to have it change on the entire page scroll
-    // target: ref,
+    // target: ref
     container: ref,
     offset: ["start start", "end start"],
   });
@@ -64,7 +64,7 @@ export const StickyScroll = ({
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length], opacity: 1,
       }}
-      className="h-[30rem] overflow-y-auto flex flex-row justify-center relative space-x-10 p-10"
+      className="h-[30rem] overflow-y-auto flex justify-center relative space-x-10 p-10"
       ref={ref}
     >
       <div className="div relative flex items-start px-4">
@@ -101,7 +101,7 @@ export const StickyScroll = ({
       <div
         style={{ background: backgroundGradient }}
         className={cn(
-          "block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
+          "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
           contentClassName
         )}
       >
