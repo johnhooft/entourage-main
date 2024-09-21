@@ -101,7 +101,7 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
                         {step === 1 && (
                             <div className='flex flex-col justify-between px-4 py-8 md:p-6 lg:p-10 w-11/12 md:w-8/12 lg:w-7/12 h-[300px] md:h-80 lg:h-96 border-4 rounded-xl border-entourage-blue'>
                                 <div className='text-3xl lg:text-4xl font-bold'>
-                                    What is the name of your club?
+                                    What's the name of your club?
                                 </div>
                                 <div className='my-8 flex items-center'>
                                     <textarea
@@ -120,7 +120,7 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
                         {step === 2 && (
                             <div className='flex flex-col justify-between px-4 py-8 md:p-8 lg:p-10 w-full md:w-9/12 lg:w-7/12 border-4 rounded-xl border-entourage-blue'>
                                 <div className='text-3xl lg:text-4xl font-bold'>
-                                    What should your site highlight?
+                                    What should your website highlight?
                                 </div>
                                 <div className='my-8 flex items-center justify-center'>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:grid-cols-3">
