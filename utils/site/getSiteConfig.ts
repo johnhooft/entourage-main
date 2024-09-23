@@ -1,5 +1,5 @@
 import { lightThemes } from './theme-colors';
-import { SiteConfig, HeroSectionProps, MovingCardsProps, InfoScrollProps } from './types/layoutTypes';
+import { SiteConfig, HeroSectionProps, MovingCardsProps, InfoScrollProps } from '../types/layoutTypes';
 
 interface ClubData {
     clubName: string;
@@ -23,6 +23,11 @@ interface GenerateContent {
 export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateContent): SiteConfig {
     console.log(genContent)
     const siteConfig: SiteConfig = {
+        
+        fonts: {
+            title: "inter",
+            text: "merriweather"
+        },
 
         //Global Site Styles
         colors: {

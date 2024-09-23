@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Site from '../../modules/site/Site';
 import Quiz from '../../modules/quiz/Quiz'
-import { genClubInfo } from '@/../utils/generateClubInfo';
-import { getSiteConfigFromQuiz } from '@/../utils/getSiteConfig'
+import { genClubInfo } from '../../../utils/site/generateClubInfo';
+import { getSiteConfigFromQuiz } from '../../../utils/site/getSiteConfig'
 import StepLoader from '@/modules/quiz/StepLoader';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 import { StyleChanger } from '@/modules/site/SiteGenUI';

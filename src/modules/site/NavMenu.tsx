@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { Colors } from '../../../utils/types/layoutTypes';
-import { reduceOpacity } from '../../../utils/reduceOpacity';
+import { reduceOpacity } from '../../../utils/site/reduceOpacity';
 
 interface FullscreenExpandableMenuProps {
   colors: Colors

@@ -1,5 +1,5 @@
 // types/layoutTypes.ts
-
+import { FontName } from "../site/fontMap";
 /*
 SiteConfig
 |   Global Styles
@@ -12,8 +12,14 @@ SiteConfig
 */
 
 export interface SiteConfig {
+    fonts: Fonts;
     colors: Colors;
     layout: LayoutComponent[];
+}
+
+export interface Fonts {
+    title: FontName;
+    text: FontName;
 }
 
 export interface Colors {

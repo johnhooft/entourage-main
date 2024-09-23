@@ -5,7 +5,7 @@ const {
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
 import type { Config } from "tailwindcss"
-import { lightThemes, darkThemes, mediumThemes } from './utils/theme-colors';
+import { lightThemes, darkThemes, mediumThemes } from './utils/site/theme-colors';
 
 const config = {
   darkMode: ["class"],

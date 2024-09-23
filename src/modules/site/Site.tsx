@@ -27,6 +27,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
   }
 
   const colors = siteConfig.colors
+  const fonts = siteConfig.fonts
 
   const updateConfig = (index: number, newProps: any) => {
     const updatedLayout = [...config.layout];
@@ -49,7 +50,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
         }
         return (
           <div key={index} className="w-screen">
-            <Component {...item.props} colors={colors} />
+            <Component {...item.props} colors={colors} fonts={fonts}/>
           </div>
         );
       })}

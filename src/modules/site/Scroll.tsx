@@ -3,8 +3,9 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Colors } from '../../../utils/types/layoutTypes';
-import { reduceOpacity } from '../../../utils/reduceOpacity';
+import { Colors, Fonts } from '../../../utils/types/layoutTypes';
+import { fontMap, FontName } from '../../../utils/site/fontMap';
+import { reduceOpacity } from '../../../utils/site/reduceOpacity';
 
 interface Block {
   title: string;
@@ -14,11 +15,16 @@ interface Block {
 
 interface InfoScrollProps {
   blockArr: Block[];
-  colors: Colors; // Add the colors prop
+  colors: Colors;
+  fonts: Fonts;
 }
 
-export default function Scroll({ blockArr, colors }: InfoScrollProps) {
+export default function Scroll({ blockArr, colors, fonts }: InfoScrollProps) {
   // Dynamic styles based on the colors prop
+
+  const titleFont = fontMap[fonts.title as FontName];
+  const textFont = fontMap[fonts.text as FontName]
+
   const styles = {
     container: {
       backgroundColor: reduceOpacity(colors.background, 1), // Full opacity background color
@@ -31,7 +37,7 @@ export default function Scroll({ blockArr, colors }: InfoScrollProps) {
       color: colors.primary, // Primary color for title
     },
     shadow: {
-      boxShadow: `0 0 20px ${reduceOpacity(colors.accent, 0.3)}`, // Shadow with reduced opacity
+      boxShadow: `0 0 20px ${reduceOpacity(colors.accent, 0.5)}`, // Shadow with reduced opacity
     },
   };
 
@@ -57,12 +63,12 @@ export default function Scroll({ blockArr, colors }: InfoScrollProps) {
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="w-full md:w-1/2">
                   <h2
-                    className="text-2xl font-bold mb-4"
+                    className={`text-2xl font-bold mb-4 ${titleFont.className}`}
                     style={styles.title} // Title color
                   >
                     {block.title}
                   </h2>
-                  <p className="text-sm md:text-base" style={styles.text}> {/* Text color */}
+                  <p className={`text-sm md:text-base ${textFont.className}`} style={styles.text}> {/* Text color */}
                     {block.text}
                   </p>
                 </div>
