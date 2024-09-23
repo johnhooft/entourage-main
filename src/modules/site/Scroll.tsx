@@ -3,37 +3,68 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { Colors } from '../../../utils/types/layoutTypes';
+import { reduceOpacity } from '../../../utils/reduceOpacity';
 
 interface Block {
-  title: string
-  text: string
-  image: string
+  title: string;
+  text: string;
+  image: string;
 }
 
 interface InfoScrollProps {
-  blockArr: Block[]
+  blockArr: Block[];
+  colors: Colors; // Add the colors prop
 }
 
-export default function Scroll({ blockArr }: InfoScrollProps) {
+export default function Scroll({ blockArr, colors }: InfoScrollProps) {
+  // Dynamic styles based on the colors prop
+  const styles = {
+    container: {
+      backgroundColor: reduceOpacity(colors.background, 1), // Full opacity background color
+      borderColor: colors.accent, // Accent color for the border
+    },
+    text: {
+      color: colors.text, // Primary text color
+    },
+    title: {
+      color: colors.primary, // Primary color for title
+    },
+    shadow: {
+      boxShadow: `0 0 20px ${reduceOpacity(colors.accent, 0.3)}`, // Shadow with reduced opacity
+    },
+  };
+
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-black p-8">
-      <div className="w-full max-w-6xl h-[80vh] overflow-y-auto rounded-3xl border-4 border-entourage-blue bg-black shadow-2xl relative p-16">
+    <div className="min-h-screen w-full flex items-center justify-center p-8" style={{ backgroundColor: styles.container.backgroundColor }}>
+      <div
+        className="w-full max-w-6xl h-[80vh] overflow-y-auto rounded-3xl border-4 shadow-2xl relative p-4 md:p-16"
+        style={{
+          borderColor: styles.container.borderColor, // Border color
+          boxShadow: styles.shadow.boxShadow, // Dynamic shadow
+        }}
+      >
         {blockArr.map((block, index) => (
           block.text ? (
-            // Use Framer Motion's `motion.div` for fade-in/out effect
             <motion.div 
               key={index}
-              className="mb-40 lg:first:mt-20 last:mb-0"  // Increased margin-bottom for larger spacing
-              initial={{ opacity: 0, y: 50 }}  // Initial fade and slight slide up
-              whileInView={{ opacity: 1, y: 0 }}  // Fade-in when the block is in view
-              exit={{ opacity: 0 }}  // Fade-out effect
-              transition={{ duration: 0.6 }}  // Control the speed of the animation
-              viewport={{ once: true }}  // Animation happens only once when in view
+              className="mb-40 first:mt-5 md:first:mt-14 last:mb-10 md:last:mb-20"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
             >
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="w-full md:w-1/2">
-                  <h2 className="text-2xl font-bold mb-4 text-white">{block.title}</h2>
-                  <p className="text-white">{block.text}</p>
+                  <h2
+                    className="text-2xl font-bold mb-4"
+                    style={styles.title} // Title color
+                  >
+                    {block.title}
+                  </h2>
+                  <p className="text-sm md:text-base" style={styles.text}> {/* Text color */}
+                    {block.text}
+                  </p>
                 </div>
                 <div className="w-full md:w-1/2 flex justify-center">
                   <Image
@@ -50,5 +81,5 @@ export default function Scroll({ blockArr }: InfoScrollProps) {
         ))}
       </div>
     </div>
-  )
+  );
 }

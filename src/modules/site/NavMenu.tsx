@@ -1,17 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { Colors } from '../../../utils/types/layoutTypes';
+import { reduceOpacity } from '../../../utils/reduceOpacity';
 
 interface FullscreenExpandableMenuProps {
-  color?: string;
+  colors: Colors
   siteSections: string[];
 }
 
-export default function FullscreenExpandableMenu({ color = 'primary', siteSections }: FullscreenExpandableMenuProps) {
+export default function FullscreenExpandableMenu({ colors, siteSections }: FullscreenExpandableMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
 
   const toggleMenu = () => setIsOpen(!isOpen)
 
   const menuItems = siteSections;
+
+  // Create a style object using the color props
+  const styles = {
+    toggleButton: {
+      color: colors.primary,
+      backgroundColor: isHovered ? reduceOpacity(colors.accent, 0.1) : 'transparent',
+      transition: 'all 0.3s ease',
+      border: isFocused ? `2px solid ${reduceOpacity(colors.accent, 0.5)}` : '2px solid transparent',
+      outline: 'none', // Remove default focus outline
+    },
+    menu: {
+      backgroundColor: colors.background,
+    },
+    menuItem: {
+      color: colors.text,
+    },
+    menuItemHover: {
+      color: colors.accent,
+    },
+  };
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -42,18 +66,24 @@ export default function FullscreenExpandableMenu({ color = 'primary', siteSectio
   }, [isOpen])
 
   return (
-    <div className={`text-${color}`}>
+    <div className="">
       <button
         onClick={toggleMenu}
-        className={`p-2 rounded-md hover:bg-${color}/10 focus:outline-none focus:ring-2 focus:ring-${color}/50 z-50 relative`}
+        className="p-2 rounded-md z-50 relative"
         aria-label="Toggle menu"
+        style={styles.toggleButton}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
       <div
-        className={`fixed inset-0 bg-entourage-black z-40 transition-opacity duration-300 ease-in-out ${
+        className={`fixed inset-0 z-40 transition-opacity duration-300 ease-in-out ${
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
+        style={styles.menu}
       >
         <nav className="h-full flex items-center justify-center">
           <ul className="space-y-6 text-center">
@@ -67,8 +97,11 @@ export default function FullscreenExpandableMenu({ color = 'primary', siteSectio
               >
                 <a
                   href="#"
-                  className={`text-3xl font-bold hover:text-${color} focus:outline-none focus:text-${color} transition-colors duration-200`}
+                  className="text-3xl font-bold focus:outline-none transition-colors duration-200"
                   onClick={toggleMenu}
+                  style={styles.menuItem}
+                  onMouseEnter={(e) => {e.currentTarget.style.color = styles.menuItemHover.color;}}
+                  onMouseLeave={(e) => {e.currentTarget.style.color = styles.menuItem.color;}}
                 >
                   {item}
                 </a>

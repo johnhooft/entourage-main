@@ -1,3 +1,4 @@
+import { lightThemes } from './theme-colors';
 import { SiteConfig, HeroSectionProps, MovingCardsProps, InfoScrollProps } from './types/layoutTypes';
 
 interface ClubData {
@@ -22,6 +23,16 @@ interface GenerateContent {
 export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateContent): SiteConfig {
     console.log(genContent)
     const siteConfig: SiteConfig = {
+
+        //Global Site Styles
+        colors: {
+            primary: 'hsla(208, 73%, 81%, 1)',
+            accent: 'hsla(17, 100%, 55%, 1)',
+            background: 'hsla(0, 0%, 13%, 1)',
+            text: 'hsla(0, 11%, 96%, 1)',
+        },
+
+        //Site Layout
         layout: [
             {
                 component: "HeroSection",

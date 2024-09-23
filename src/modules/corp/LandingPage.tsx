@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/app/authState';
 import { useRouter } from 'next/navigation';
-import { LandingPageCard } from './LandingPageCard';
-import { LandingVisual } from './LandingVisual';
 import { ThreeDLandingVisual } from './3dLandingCard';
 import { Logo } from './Logo';
 import { Navbar } from './Navbar';
@@ -73,15 +71,15 @@ export default function LandingPage() {
                                 <span className="text-entourage-black dark:text-entourage-blue"> in seconds</span>
                             </p>
                             <p className="text-md md:text-lg text-center md:text-left dark:text-entourage-orange">
-                                Let our AI put all of your information in one place, get in touch with the right brands, and unlock time for what you’re best at. Running your club.
+                                Let our AI put all of your information in one place, get in touch with the right brands, and unlock time for what you&apos;re best at. Running your club.
                             </p>
                             <div>
-                                <Link href={'/questionnaire'}>
+                                <Link href={'/'}>
                                     <Button
                                         borderRadius="1.5rem"
                                         className="bg-entourage-orange text-entourage-black font-extrabold"
                                     >
-                                        Launch Your Site
+                                        Beta Coming Soon 
                                     </Button>
                                 </Link>
                             </div>

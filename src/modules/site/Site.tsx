@@ -15,9 +15,9 @@ interface SiteProps {
 const componentMap: { [key: string]: React.ComponentType<any> } = {
   HeroSection,
   MovingCards,
-  //InfoScroll,
   Scroll,
 };
+
 
 const Site: React.FC<SiteProps> = ({ siteConfig }) => {
   const [config, setConfig] = useState<SiteConfig>(siteConfig);
@@ -26,18 +26,20 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
     return <p>Loading...</p>;
   }
 
+  const colors = siteConfig.colors
+
   const updateConfig = (index: number, newProps: any) => {
     const updatedLayout = [...config.layout];
     updatedLayout[index].props = { ...updatedLayout[index].props, ...newProps };
     setConfig({ ...config, layout: updatedLayout });
   };
   
-  console.log(siteConfig.layout)
+  console.log(siteConfig)
  
   return (
     <div className="flex flex-col flex-grow items-center">
-      <div className="fixed top-4 right-4 z-50">
-        <FullscreenExpandableMenu color="entourage-blue" siteSections={siteConfig.layout[0].props.siteSections}/>
+      <div className="fixed top-16 md:top-20 right-1 md:right-4 z-50">
+        <FullscreenExpandableMenu colors={colors} siteSections={siteConfig.layout[0].props.siteSections}/>
       </div>
       {siteConfig.layout.map((item, index) => {
         const Component = componentMap[item.component];
@@ -47,7 +49,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
         }
         return (
           <div key={index} className="w-screen">
-            <Component {...item.props} />
+            <Component {...item.props} colors={colors} />
           </div>
         );
       })}

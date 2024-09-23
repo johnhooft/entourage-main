@@ -3,7 +3,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import { ArrowRight, ArrowLeft } from 'lucide-react'
 import { Logo } from '../corp/Logo'
-import { Footer } from '../corp/Footer'
 import classNames from 'classnames';
 import Link from 'next/link'
 import { Progress } from "@/components/ui/progress"

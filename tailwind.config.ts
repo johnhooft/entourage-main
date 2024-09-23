@@ -5,6 +5,7 @@ const {
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
 import type { Config } from "tailwindcss"
+import { lightThemes, darkThemes, mediumThemes } from './utils/theme-colors';
 
 const config = {
   darkMode: ["class"],
@@ -29,9 +30,13 @@ const config = {
     },
     extend: {
       colors: {
+        lightColors: lightThemes,
+        darkColors: darkThemes,
+        mediumColors: mediumThemes,
         'entourage-orange': '#FF5E1C',
         'entourage-blue': '#ACD1F2',
         'entourage-black': '#212121',
+        'entourage-white': '#D9D9D9',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

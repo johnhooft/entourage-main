@@ -1,12 +1,35 @@
 // types/layoutTypes.ts
 
-export interface ComponentProps {
-    [key: string]: any;
+/*
+SiteConfig
+|   Global Styles
+|   |   theme
+|   Layout
+|   |   Component
+|   |   |   name
+|   |   |   props
+|   |   |   |   { props for components }
+*/
+
+export interface SiteConfig {
+    colors: Colors;
+    layout: LayoutComponent[];
+}
+
+export interface Colors {
+    primary: string;
+    accent:string;
+    background: string;
+    text: string;
 }
 
 export interface LayoutComponent {
     component: string;
     props: ComponentProps;
+}
+
+export interface ComponentProps {
+    [key: string]: any;
 }
 
 export interface HeroSectionProps extends ComponentProps {
@@ -24,17 +47,13 @@ export interface MovingCardsProps extends ComponentProps {
     textOpacity?: string;
 }
 
-export interface InfoBlock {
-    title: string;
-    text: string;
-    image: string;
-}
-
 export interface InfoScrollProps extends ComponentProps {
     numblocks: number;
     blockArr: InfoBlock[];
 }
 
-export interface SiteConfig {
-    layout: LayoutComponent[];
+export interface InfoBlock {
+    title: string;
+    text: string;
+    image: string;
 }
