@@ -44,8 +44,6 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                 props: {
                     text: clubData.clubName,
                     image: genContent.clubImages.message[0].largeImageURL,
-                    textColor: "text-entourage-blue",
-                    textOpacity: "text-opacity-40",
                     siteSections:  Object.keys(genContent.clubCopy),
                 } as HeroSectionProps
             },
@@ -54,8 +52,6 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                 props: {
                     imageArr: genContent.clubImages.message.slice(1, 7).map(img => img.largeImageURL),
                     aboutText: genContent.clubCopy['About Us'],
-                    textColor: "text-entourage-blue",
-                    textOpacity: "text-opacity-40",
                 } as MovingCardsProps
             },
             {

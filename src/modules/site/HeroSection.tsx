@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import React from "react";
+import EditableText from './editable-text';
 import { ImagesSlider } from "@/components/ui/images-slider";
 import { Colors, Fonts } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
@@ -11,13 +12,16 @@ interface HeroProps {
   image: string;
   fonts: Fonts;
   colors: Colors;
+  updateConfig: (newProps: any) => void;
 }
 
-const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors }) => {
+const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, updateConfig }) => {
+
   const images = [image];
   const titleFont = fontMap[fonts.title as FontName];
   const textFont = fontMap[fonts.text as FontName]
 
+  // In line CSS for Dynamic Styles
   const styles = {
     text: {
       color: colors.primary,
@@ -32,8 +36,6 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors }) => {
       borderColor: reduceOpacity(colors.accent, 0.4),     // 40% opacity on hover
     },
   };
-
-  console.log(titleFont, textFont)
 
   return (
     <div className="w-screen">
@@ -56,7 +58,9 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors }) => {
             className={`font-bold text-5xl md:text-6xl text-center ${titleFont.className} bg-clip-text bg-gradient-to-b py-4`} 
             style={styles.text} // Apply primary color to text
           >
-            {text}
+            <div className="-mb-2">
+              <EditableText text={text} onTextChange={(newText) => updateConfig({ text: newText })} />
+            </div>
           </motion.p>
 
           <button

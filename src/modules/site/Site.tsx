@@ -50,7 +50,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
         }
         return (
           <div key={index} className="w-screen">
-            <Component {...item.props} colors={colors} fonts={fonts}/>
+            <Component {...item.props} colors={colors} fonts={fonts} updateConfig={(newProps: any) => updateConfig(index, newProps)} />
           </div>
         );
       })}

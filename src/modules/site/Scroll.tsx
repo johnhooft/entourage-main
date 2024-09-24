@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
+import EditableText from './editable-text';
 import { motion } from 'framer-motion'
 import { Colors, Fonts } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
@@ -17,14 +18,16 @@ interface InfoScrollProps {
   blockArr: Block[];
   colors: Colors;
   fonts: Fonts;
+  updateConfig: (newProps: any) => void;
 }
 
-export default function Scroll({ blockArr, colors, fonts }: InfoScrollProps) {
+export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoScrollProps) {
   // Dynamic styles based on the colors prop
 
   const titleFont = fontMap[fonts.title as FontName];
   const textFont = fontMap[fonts.text as FontName]
 
+  // In line CSS for Dynamic Styles
   const styles = {
     container: {
       backgroundColor: reduceOpacity(colors.background, 1), // Full opacity background color
@@ -41,6 +44,24 @@ export default function Scroll({ blockArr, colors, fonts }: InfoScrollProps) {
     },
   };
 
+  const updateBlockTitle = (blockIndex: number, newTitle: string) => {
+    // Get the current blockArr from the Scroll component's props
+    const updatedBlocks = [...blockArr];  // Create a shallow copy of blockArr
+    updatedBlocks[blockIndex] = { ...updatedBlocks[blockIndex], title: newTitle };  // Update the title of the specific block
+    
+    // Call updateConfig to update the entire blockArr in Scroll's props
+    updateConfig({ blockArr: updatedBlocks });
+  };
+
+  const updateBlockText = (blockIndex: number, newText: string) => {
+    // Get the current blockArr from the Scroll component's props
+    const updatedBlocks = [...blockArr];  // Create a shallow copy of blockArr
+    updatedBlocks[blockIndex] = { ...updatedBlocks[blockIndex], text: newText };  // Update the title of the specific block
+    
+    // Call updateConfig to update the entire blockArr in Scroll's props
+    updateConfig({ blockArr: updatedBlocks });
+  };
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-8" style={{ backgroundColor: styles.container.backgroundColor }}>
       <div
@@ -54,7 +75,7 @@ export default function Scroll({ blockArr, colors, fonts }: InfoScrollProps) {
           block.text ? (
             <motion.div 
               key={index}
-              className="mb-40 first:mt-5 md:first:mt-14 last:mb-10 md:last:mb-20"
+              className="mb-20 md:mb-40 first:mt-0 md:first:mt-0 last:mb-0 md:last:mb-10"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
@@ -66,10 +87,10 @@ export default function Scroll({ blockArr, colors, fonts }: InfoScrollProps) {
                     className={`text-2xl font-bold mb-4 ${titleFont.className}`}
                     style={styles.title} // Title color
                   >
-                    {block.title}
+                    <EditableText text={block.title} onTextChange={(newText) => updateBlockTitle(index, newText)} />
                   </h2>
                   <p className={`text-sm md:text-base ${textFont.className}`} style={styles.text}> {/* Text color */}
-                    {block.text}
+                    <EditableText text={block.text} onTextChange={(newText) => updateBlockText(index, newText)} />
                   </p>
                 </div>
                 <div className="w-full md:w-1/2 flex justify-center">

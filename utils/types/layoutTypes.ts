@@ -2,8 +2,8 @@
 import { FontName } from "../site/fontMap";
 /*
 SiteConfig
-|   Global Styles
-|   |   theme
+|   Fonts
+|   Colors
 |   Layout
 |   |   Component
 |   |   |   name
@@ -41,16 +41,12 @@ export interface ComponentProps {
 export interface HeroSectionProps extends ComponentProps {
     text: string;
     image: string;
-    textColor: string;
-    textOpacity?: string;
     siteSections: string[];
 }
 
 export interface MovingCardsProps extends ComponentProps {
     aboutText: string;
     imageArr: string[];
-    textColor?: string;
-    textOpacity?: string;
 }
 
 export interface InfoScrollProps extends ComponentProps {
