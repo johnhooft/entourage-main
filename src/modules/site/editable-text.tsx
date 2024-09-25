@@ -39,21 +39,21 @@ export default function EditableText({ text, onTextChange }: EditableTextProps) 
         <Button
           variant="secondary"
           size="icon"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-black"
           onClick={handleEditClick}
         >
           <Edit className="h-4 w-4" />
         </Button>
       )}
       <Dialog open={isEditing} onOpenChange={setIsEditing}>
-        <DialogContent className="sm:max-w-[725px]">
+        <DialogContent className="sm:max-w-[725px] bg-white text-black">
           <DialogHeader>
             <DialogTitle>Edit Text</DialogTitle>
           </DialogHeader>
           <Textarea
             value={editedText}
             onChange={(e) => setEditedText(e.target.value)}
-            className="mt-2 min-h-[200px]"
+            className="mt-2 min-h-[200px] bg-white"
             placeholder="Enter your text here..."
           />
           <DialogFooter>

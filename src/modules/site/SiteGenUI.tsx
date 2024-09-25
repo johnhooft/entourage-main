@@ -19,7 +19,7 @@ const FontPreview: React.FC<{ fontName: FontName; onClick: () => void }> = ({ fo
       className={`${font.className} cursor-pointer p-2 hover:bg-gray-100 rounded`}
       onClick={onClick}
     >
-      <h3 className="text-lg font-2xl">Aa</h3>
+      <h3 className="text-lg font-2xl text-black">Aa</h3>
     </div>
   )
 }
@@ -115,7 +115,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
           <DropdownMenuTrigger asChild>
             <Button className='bg-entourage-blue border-none rounded-[15px] text-black hover:scale-105 hover:bg-entourage-blue transition-all'>Customize</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent className='bg-white'>
             <DropdownMenuItem onClick={openColorPopup}>Color</DropdownMenuItem>
             <DropdownMenuItem onClick={openFontPopup}>Font</DropdownMenuItem>
           </DropdownMenuContent>
@@ -129,7 +129,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
       {isColorPopupOpen && (
         <div className="fixed bottom-0 left-0 right-0 bg-entourage-white py-4 px-1 z-50 text-foreground">
           <div className="flex flex-row w-full px-5 items-center">
-            <Button className='mr-4' onClick={() => setIsColorPopupOpen(false)}>Close</Button>
+            <Button className='mr-4 bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={() => setIsColorPopupOpen(false)}>Close</Button>
             <div
               className="flex flex-row pr-4 cursor-pointer"
               onClick={() => handleColorSetClick(lightBlueWhiteColors)}
@@ -171,13 +171,13 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
           <div className="flex space-x-4 mb-4">
             <Button
               onClick={() => setActiveFontTab('title')}
-              className={`${activeFontTab === 'title' ? 'bg-entourage-blue text-black hover:bg-entourage-blue' : 'bg-secondary text-secondary-foreground hover:bg-entourage-blue/45'}`}
+              className={`${activeFontTab === 'title' ? 'bg-entourage-blue text-black hover:bg-entourage-blue' : 'bg-white text-black hover:bg-entourage-blue/45'}`}
             >
               Title Font
             </Button>
             <Button
               onClick={() => setActiveFontTab('text')}
-              className={`${activeFontTab === 'text' ? 'bg-entourage-blue text-black hover:bg-entourage-blue' : 'bg-secondary text-secondary-foreground hover:bg-entourage-blue/45'}`}
+              className={`${activeFontTab === 'text' ? 'bg-entourage-blue text-black hover:bg-entourage-blue' : 'bg-white text-black hover:bg-entourage-blue/45'}`}
             >
               Text Font
             </Button>
