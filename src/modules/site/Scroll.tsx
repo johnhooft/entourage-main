@@ -89,9 +89,9 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoSc
                   >
                     <EditableText text={block.title} onTextChange={(newText) => updateBlockTitle(index, newText)} />
                   </h2>
-                  <p className={`text-sm md:text-base ${textFont.className}`} style={styles.text}> {/* Text color */}
+                  <div className={`text-sm md:text-base ${textFont.className}`} style={styles.text}> {/* Text color */}
                     <EditableText text={block.text} onTextChange={(newText) => updateBlockText(index, newText)} />
-                  </p>
+                  </div>
                 </div>
                 <div className="w-full md:w-1/2 flex justify-center">
                   <Image

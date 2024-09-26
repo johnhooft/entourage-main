@@ -39,7 +39,7 @@ export default function EditableText({ text, onTextChange }: EditableTextProps) 
         <Button
           variant="secondary"
           size="icon"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-black"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-black hover:bg-white/80"
           onClick={handleEditClick}
         >
           <Edit className="h-4 w-4" />
@@ -57,8 +57,8 @@ export default function EditableText({ text, onTextChange }: EditableTextProps) 
             placeholder="Enter your text here..."
           />
           <DialogFooter>
-            <Button variant="outline" onClick={() => {setIsEditing(false); setIsHovered(false);}}>Cancel</Button>
-            <Button onClick={() => { handleSave(); setIsHovered(false); }}>Save</Button>
+            <Button className='bg-white text-black border-none hover:bg-gray-200 hover:text-black' variant="outline" onClick={() => {setIsEditing(false); setIsHovered(false);}}>Cancel</Button>
+            <Button className='bg-white text-black hover:bg-gray-200' onClick={() => { handleSave(); setIsHovered(false); }}>Save</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

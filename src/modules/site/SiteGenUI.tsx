@@ -115,9 +115,9 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
           <DropdownMenuTrigger asChild>
             <Button className='bg-entourage-blue border-none rounded-[15px] text-black hover:scale-105 hover:bg-entourage-blue transition-all'>Customize</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className='bg-white'>
-            <DropdownMenuItem onClick={openColorPopup}>Color</DropdownMenuItem>
-            <DropdownMenuItem onClick={openFontPopup}>Font</DropdownMenuItem>
+          <DropdownMenuContent className='bg-white text-black'>
+            <DropdownMenuItem className='hover:bg-entourage-blue' onClick={openColorPopup}>Color</DropdownMenuItem>
+            <DropdownMenuItem className='hover:bg-entourage-blue' onClick={openFontPopup}>Font</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
