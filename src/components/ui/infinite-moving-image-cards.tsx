@@ -46,37 +46,29 @@ export const InfiniteMovingCards: React.FC<InfiniteMovingCardsProps> = ({
       // Create and append new list items based on the updated `items` array
       items.forEach((item, idx) => {
         const listItem = document.createElement("li")
-        listItem.className = "w-[350px] h-[200px] max-w-full relative rounded-2xl flex-shrink-0 overflow-hidden"
-        //listItem.key = `${item.name}-${idx}`
+        listItem.className = "w-[350px] h-[200px] relative rounded-2xl flex-shrink-0 overflow-hidden"
 
-        // Create an Image component wrapper and set its properties
         const imgWrapper = document.createElement("div")
-        imgWrapper.style.position = "relative"
-        imgWrapper.style.width = "auto"
-        imgWrapper.style.height = "auto"
-        imgWrapper.style.overflow = "hidden"
-        imgWrapper.style.borderRadius = "16px"
+        imgWrapper.className = "relative w-[350px] h-[200px] overflow-hidden rounded-2xl"
 
+        // Create an Image component equivalent using a regular img
         const img = document.createElement("img")
         img.src = item.image
         img.alt = item.name
-        //img.style.objectFit = "cover"
+        img.style.objectFit = "cover"
         img.style.width = "100%"
         img.style.height = "100%"
-        imgWrapper.appendChild(img)
 
+        imgWrapper.appendChild(img)
         listItem.appendChild(imgWrapper)
-        if (scrollerRef.current) {scrollerRef.current.appendChild(listItem)}
-        else {console.log("Error loading image scroller")}
+        scrollerRef.current.appendChild(listItem)
       })
 
       // Duplicate items for the animation effect
       const scrollerContent = Array.from(scrollerRef.current.children)
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true)
-        if (scrollerRef.current) {
-          scrollerRef.current.appendChild(duplicatedItem)
-        }
+        scrollerRef.current.appendChild(duplicatedItem)
       })
 
       getDirection()
@@ -123,7 +115,7 @@ export const InfiniteMovingCards: React.FC<InfiniteMovingCardsProps> = ({
       >
         {items.map((item, idx) => (
           <li
-            className="w-[350px] h-[200px] max-w-full relative rounded-2xl flex-shrink-0 overflow-hidden"
+            className="w-[350px] h-[200px] min-h-[200px] min-w-[350px] relative rounded-2xl flex-shrink-0 overflow-hidden"
             key={`${item.name}-${idx}`}
           >
             <Image
@@ -131,7 +123,9 @@ export const InfiniteMovingCards: React.FC<InfiniteMovingCardsProps> = ({
               alt={item.name}
               width={350}
               height={200}
-              className="rounded-2xl"
+              className="object-cover w-full h-full"
+              // Set objectFit to cover for optimal scaling
+              style={{ objectFit: "cover" }}
             />
           </li>
         ))}
