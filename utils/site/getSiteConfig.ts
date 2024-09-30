@@ -44,7 +44,7 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                 props: {
                     text: clubData.clubName,
                     image: genContent.clubImages.message[0].largeImageURL,
-                    buttonText: "Join Now",
+                    buttonText: "Join the Club",
                     buttonLink: "#",
                     siteSections:  Object.keys(genContent.clubCopy),
                 } as HeroSectionProps

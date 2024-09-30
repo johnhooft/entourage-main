@@ -1,13 +1,12 @@
 "use client";
 //Questionnaire
 import React, { useState, useEffect } from 'react';
-import Site from '../../modules/site/Site';
+import { useRouter } from 'next/navigation';
 import Quiz from '../../modules/quiz/Quiz'
 import { genClubInfo } from '../../../utils/site/generateClubInfo';
 import { getSiteConfigFromQuiz } from '../../../utils/site/getSiteConfig'
 import StepLoader from '@/modules/quiz/StepLoader';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
-import { StyleChanger } from '@/modules/site/SiteGenUI';
 
 // Define types for the state and props
 interface ClubData {
@@ -26,10 +25,11 @@ interface GenerateContent {
 }
 
 export default function Home() {
+  // Define router
+  const router = useRouter();
   //Datastructs
   const [clubData, setClubData] = useState<ClubData | null>(null);
   const [generatedContent, setGeneratedContent] = useState<GenerateContent | null>(null);
-  const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
   //States
   const [doneGen, setDoneGen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -65,11 +65,17 @@ export default function Home() {
 
   useEffect(() => {
     if (generatedContent && clubData) {
-      setSiteConfig(getSiteConfigFromQuiz(clubData, generatedContent))
+      const config = getSiteConfigFromQuiz(clubData, generatedContent);
       setDoneGen(true);
       setIsLoading(false);
+      
+      // Store the config in sessionStorage
+      sessionStorage.setItem('siteConfig', JSON.stringify(config));
+      
+      // Redirect to /buildsite without passing config in the URL
+      router.push('/buildsite');
     }
-  }, [generatedContent, clubData]);
+  }, [generatedContent, clubData, router]);
 
   return (
     <div className="h-screen w-screen min-h-fit">
@@ -79,15 +85,7 @@ export default function Home() {
         </div>
       )}
       {error && <div className="error-message">{error.message}</div>}
-      {siteConfig ? ( 
-        <div className="flex flex-col">
-          <StyleChanger initialConfig={siteConfig} onConfigChange={setSiteConfig}>
-            <Site siteConfig={siteConfig} />
-          </StyleChanger>
-        </div>
-      ) : (
-        !doneGen ? <Quiz onSubmit={handleDataSubmission} /> : null 
-      )}
+      {!doneGen && <Quiz onSubmit={handleDataSubmission} />}
     </div>
   );
 }

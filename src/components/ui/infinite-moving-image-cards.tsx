@@ -61,14 +61,14 @@ export const InfiniteMovingCards: React.FC<InfiniteMovingCardsProps> = ({
 
         imgWrapper.appendChild(img)
         listItem.appendChild(imgWrapper)
-        scrollerRef.current.appendChild(listItem)
+        if (scrollerRef.current) {scrollerRef.current.appendChild(listItem)}
       })
 
       // Duplicate items for the animation effect
       const scrollerContent = Array.from(scrollerRef.current.children)
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true)
-        scrollerRef.current.appendChild(duplicatedItem)
+        if (scrollerRef.current) {scrollerRef.current.appendChild(duplicatedItem)}
       })
 
       getDirection()

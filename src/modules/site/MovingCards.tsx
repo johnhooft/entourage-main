@@ -6,6 +6,7 @@ import { Colors, Fonts } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 interface MovingCardsProps {
   aboutText: string;
@@ -79,7 +80,7 @@ const MovingCards: React.FC<MovingCardsProps> = ({ aboutText, imageArr, colors, 
             </div>
             
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="w-11/12 max-w-[70vw] h-[80vh] max-h-[80vh] overflow-y-auto">
+                <DialogContent className="w-11/12 max-w-[70vw] h-[85vh] max-h-[85vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-2xl mb-2">Edit Images</DialogTitle>
                     </DialogHeader>
@@ -96,6 +97,9 @@ const MovingCards: React.FC<MovingCardsProps> = ({ aboutText, imageArr, colors, 
                                 onImageUpdate={(newImageUrl) => handleImageUpdate(index, newImageUrl)}
                             />
                         ))}
+                    </div>
+                    <div className="w-full flex justify-center">
+                        <Button onClick={() => setIsDialogOpen(false)} className="bg-entourage-blue text-black hover:scale-105 hover:bg-entourage-blue transition-all">Save Changes</Button>
                     </div>
                 </DialogContent>
             </Dialog>

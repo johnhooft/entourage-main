@@ -150,7 +150,9 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
                 onImageUpdate={(newImageUrl) => handleImageUpdate(newImageUrl)}
               />
             </div>
-            <Button onClick={handleSave} className="w-full">Save Changes</Button>
+            <div className="w-full flex justify-center">
+              <Button onClick={handleSave} className="bg-entourage-blue text-black hover:scale-105 hover:bg-entourage-blue transition-all">Save Changes</Button>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
