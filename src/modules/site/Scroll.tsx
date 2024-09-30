@@ -3,12 +3,15 @@
 import React from 'react'
 import Image from 'next/image'
 import EditableText from './editable-text';
+import EditableImage from './editable-image';
 import { motion } from 'framer-motion'
 import { Colors, Fonts } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from '../../../utils/site/reduceOpacity';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Block {
+  id: string;
   title: string;
   text: string;
   image: string;
@@ -22,8 +25,7 @@ interface InfoScrollProps {
 }
 
 export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoScrollProps) {
-  // Dynamic styles based on the colors prop
-
+  // Get custom fonts
   const titleFont = fontMap[fonts.title as FontName];
   const textFont = fontMap[fonts.text as FontName]
 
@@ -48,17 +50,20 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoSc
     // Get the current blockArr from the Scroll component's props
     const updatedBlocks = [...blockArr];  // Create a shallow copy of blockArr
     updatedBlocks[blockIndex] = { ...updatedBlocks[blockIndex], title: newTitle };  // Update the title of the specific block
-    
     // Call updateConfig to update the entire blockArr in Scroll's props
     updateConfig({ blockArr: updatedBlocks });
   };
 
   const updateBlockText = (blockIndex: number, newText: string) => {
-    // Get the current blockArr from the Scroll component's props
-    const updatedBlocks = [...blockArr];  // Create a shallow copy of blockArr
-    updatedBlocks[blockIndex] = { ...updatedBlocks[blockIndex], text: newText };  // Update the title of the specific block
-    
-    // Call updateConfig to update the entire blockArr in Scroll's props
+    const updatedBlocks = [...blockArr];
+    updatedBlocks[blockIndex] = { ...updatedBlocks[blockIndex], text: newText };
+    updateConfig({ blockArr: updatedBlocks });
+  };
+
+  const updateBlockImage = (blockId: string, newImageUrl: string) => {
+    const updatedBlocks = blockArr.map((block) => 
+      block.id === blockId ? { ...block, image: newImageUrl } : block
+    );
     updateConfig({ blockArr: updatedBlocks });
   };
 
@@ -74,7 +79,7 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoSc
         {blockArr.map((block, index) => (
           block.text ? (
             <motion.div 
-              key={index}
+              key={block.id}
               className="mb-20 md:mb-40 first:mt-0 md:first:mt-0 last:mb-0 md:last:mb-10"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -94,12 +99,14 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoSc
                   </div>
                 </div>
                 <div className="w-full md:w-1/2 flex justify-center">
-                  <Image
+                  <EditableImage
                     src={block.image}
+                    alt={`Image for ${block.title}`}
                     width={400}
                     height={400}
-                    alt={`Image for ${block.title}`}
                     className="rounded-lg shadow-md max-h-[400px] object-cover"
+                    id={block.id}
+                    onImageUpdate={(newImageUrl) => updateBlockImage(block.id, newImageUrl)}
                   />
                 </div>
               </div>

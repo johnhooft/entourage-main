@@ -44,6 +44,8 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                 props: {
                     text: clubData.clubName,
                     image: genContent.clubImages.message[0].largeImageURL,
+                    buttonText: "Join Now",
+                    buttonLink: "#",
                     siteSections:  Object.keys(genContent.clubCopy),
                 } as HeroSectionProps
             },
@@ -59,12 +61,12 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                 props: {
                     numblocks: 6,
                     blockArr: [
-                        { title: "Memberships", text: genContent.clubCopy.Memberships, image: genContent.clubImages.message[1].largeImageURL },
-                        { title: "Events", text: genContent.clubCopy.Events, image: genContent.clubImages.message[2].largeImageURL },
-                        { title: "Trips", text: genContent.clubCopy.Trips, image: genContent.clubImages.message[3].largeImageURL },
-                        { title: "Parties", text: genContent.clubCopy.Parties, image: genContent.clubImages.message[4].largeImageURL },
-                        { title: "Culture", text: genContent.clubCopy.Culture, image: genContent.clubImages.message[5].largeImageURL },
-                        { title: "Executive Team", text: genContent.clubCopy['Executive Team'], image: genContent.clubImages.message[6].largeImageURL },
+                        { id: "block-0", title: "Memberships", text: genContent.clubCopy.Memberships, image: genContent.clubImages.message[1].largeImageURL },
+                        { id: "block-1", title: "Events", text: genContent.clubCopy.Events, image: genContent.clubImages.message[2].largeImageURL },
+                        { id: "block-2", title: "Trips", text: genContent.clubCopy.Trips, image: genContent.clubImages.message[3].largeImageURL },
+                        { id: "block-3", title: "Parties", text: genContent.clubCopy.Parties, image: genContent.clubImages.message[4].largeImageURL },
+                        { id: "block-4", title: "Culture", text: genContent.clubCopy.Culture, image: genContent.clubImages.message[5].largeImageURL },
+                        { id: "block-5", title: "Executive Team", text: genContent.clubCopy['Executive Team'], image: genContent.clubImages.message[6].largeImageURL },
                     ],
                 } as InfoScrollProps
             }

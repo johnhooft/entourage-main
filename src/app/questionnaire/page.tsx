@@ -68,7 +68,6 @@ export default function Home() {
       setSiteConfig(getSiteConfigFromQuiz(clubData, generatedContent))
       setDoneGen(true);
       setIsLoading(false);
-      console.log("site render")
     }
   }, [generatedContent, clubData]);
 

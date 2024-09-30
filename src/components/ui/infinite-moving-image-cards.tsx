@@ -4,25 +4,74 @@ import { cn } from "@/lib/utils"
 import React, { useEffect, useState } from "react"
 import Image from 'next/image'
 
-export const InfiniteMovingCards = ({
+interface Item {
+  name: string;
+  image: string;
+}
+
+interface InfiniteMovingCardsProps {
+  items: Item[];
+  direction?: "left" | "right";
+  speed?: "slow" | "normal" | "fast";
+  pauseOnHover?: boolean;
+  className?: string;
+}
+
+export const InfiniteMovingCards: React.FC<InfiniteMovingCardsProps> = ({
   items,
   direction = "left",
   speed = "slow",
   pauseOnHover = true,
   className,
-}: any) => {
+}) => {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const scrollerRef = React.useRef<HTMLUListElement>(null)
+
+  const [start, setStart] = useState(false)
 
   useEffect(() => {
     addAnimation()
   }, [])
 
-  const [start, setStart] = useState(false)
+  useEffect(() => {
+    setStart(false)  // Reset start to stop the animation
+    addAnimation()
+  }, [items])
+
   function addAnimation() {
     if (containerRef.current && scrollerRef.current) {
-      const scrollerContent = Array.from(scrollerRef.current.children)
+      // Clear the current list of images
+      scrollerRef.current.innerHTML = ""
 
+      // Create and append new list items based on the updated `items` array
+      items.forEach((item, idx) => {
+        const listItem = document.createElement("li")
+        listItem.className = "w-[350px] h-[200px] max-w-full relative rounded-2xl flex-shrink-0 overflow-hidden"
+        //listItem.key = `${item.name}-${idx}`
+
+        // Create an Image component wrapper and set its properties
+        const imgWrapper = document.createElement("div")
+        imgWrapper.style.position = "relative"
+        imgWrapper.style.width = "auto"
+        imgWrapper.style.height = "auto"
+        imgWrapper.style.overflow = "hidden"
+        imgWrapper.style.borderRadius = "16px"
+
+        const img = document.createElement("img")
+        img.src = item.image
+        img.alt = item.name
+        //img.style.objectFit = "cover"
+        img.style.width = "100%"
+        img.style.height = "100%"
+        imgWrapper.appendChild(img)
+
+        listItem.appendChild(imgWrapper)
+        if (scrollerRef.current) {scrollerRef.current.appendChild(listItem)}
+        else {console.log("Error loading image scroller")}
+      })
+
+      // Duplicate items for the animation effect
+      const scrollerContent = Array.from(scrollerRef.current.children)
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true)
         if (scrollerRef.current) {
@@ -38,29 +87,21 @@ export const InfiniteMovingCards = ({
 
   const getDirection = () => {
     if (containerRef.current) {
-      if (direction === "left") {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "forwards"
-        )
-      } else {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "reverse"
-        )
-      }
+      containerRef.current.style.setProperty(
+        "--animation-direction",
+        direction === "left" ? "forwards" : "reverse"
+      )
     }
   }
 
   const getSpeed = () => {
     if (containerRef.current) {
-      if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "20s")
-      } else if (speed === "normal") {
-        containerRef.current.style.setProperty("--animation-duration", "40s")
-      } else {
-        containerRef.current.style.setProperty("--animation-duration", "80s")
+      const speedOptions = {
+        fast: "20s",
+        normal: "40s",
+        slow: "80s"
       }
+      containerRef.current.style.setProperty("--animation-duration", speedOptions[speed])
     }
   }
 
@@ -75,26 +116,23 @@ export const InfiniteMovingCards = ({
       <ul
         ref={scrollerRef}
         className={cn(
-          "flex min-w-full shrink-0 gap-3 py-0 w-max flex-nowrap",
+          "flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
           start && "animate-scroll",
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
-        {items.map((item: any, idx: any) => (
+        {items.map((item, idx) => (
           <li
             className="w-[350px] h-[200px] max-w-full relative rounded-2xl flex-shrink-0 overflow-hidden"
-            key={item.name}
+            key={`${item.name}-${idx}`}
           >
-            <div className="absolute inset-0">
-              <Image
-                src={item.image}
-                alt={item.name}
-                width={350}
-                height={500}
-                className="rounded-2xl"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            </div>
+            <Image
+              src={item.image}
+              alt={item.name}
+              width={350}
+              height={200}
+              className="rounded-2xl"
+            />
           </li>
         ))}
       </ul>

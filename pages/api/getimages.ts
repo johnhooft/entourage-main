@@ -60,6 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const clubinfo = req.body; 
     const keywords = await get_key_words(clubinfo);
+    console.log(keywords)
 
     if (keywords){ 
       const hits = await get_images(keywords);

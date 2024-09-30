@@ -41,6 +41,8 @@ export interface ComponentProps {
 export interface HeroSectionProps extends ComponentProps {
     text: string;
     image: string;
+    buttonText: string;
+    buttonLink: string;
     siteSections: string[];
 }
 
@@ -55,6 +57,7 @@ export interface InfoScrollProps extends ComponentProps {
 }
 
 export interface InfoBlock {
+    id: string;
     title: string;
     text: string;
     image: string;
