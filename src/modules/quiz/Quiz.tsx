@@ -83,7 +83,9 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
 
       return (
         <div className='min-h-screen flex flex-col'>
-            <div className='flex flex-grow flex-col relative'>
+            <div className='flex flex-grow flex-col relative bg-grid-small-white/[0.2] bg-entourage-black'>
+                {/* Radial gradient overlay */}
+                <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-entourage-black [mask-image:radial-gradient(ellipse_at_center,transparent_40%,rgba(33,33,33,1))]"></div>
                 <div className='absolute top-0 left-0 p-4 md:p-6'>
                     <Link href="/">
                         <Logo />
@@ -98,7 +100,7 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
                 <div className='flex flex-col flex-grow md:flex-grow-0 mt-44 md:mt-32'>
                     <form onSubmit={handleSubmit} className='text-white flex-grow flex mx-6 justify-center my-10'>
                         {step === 1 && (
-                            <div className='flex flex-col justify-between px-4 py-8 md:p-6 lg:p-10 w-11/12 md:w-8/12 lg:w-7/12 h-[300px] md:h-80 lg:h-96 border-4 rounded-xl border-entourage-blue'>
+                            <div className='flex flex-col justify-between px-4 py-8 md:p-6 lg:p-10 w-11/12 md:w-8/12 lg:w-7/12 h-[300px] md:h-80 lg:h-96 border-4 rounded-xl border-entourage-blue bg-entourage-black'>
                                 <div className='text-3xl lg:text-4xl font-bold'>
                                     What&apos;s the name of your club?
                                 </div>
@@ -117,7 +119,7 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
                         )}
 
                         {step === 2 && (
-                            <div className='flex flex-col justify-between px-4 py-8 md:p-8 lg:p-10 w-full md:w-9/12 lg:w-7/12 border-4 rounded-xl border-entourage-blue'>
+                            <div className='flex flex-col justify-between px-4 py-8 md:p-8 lg:p-10 w-full md:w-9/12 lg:w-7/12 border-4 rounded-xl border-entourage-blue bg-entourage-black'>
                                 <div className='text-3xl lg:text-4xl font-bold'>
                                     What should your website highlight?
                                 </div>
@@ -150,7 +152,7 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
                         )}
 
                         {step === 3 && (
-                            <div className='flex flex-col justify-between px-4 py-8 md:p-6 lg:p-10 w-11/12 md:w-8/12 lg:w-7/12 h-[400px] md:h-[450px] border-4 rounded-xl border-entourage-blue'>
+                            <div className='flex flex-col justify-between px-4 py-8 md:p-6 lg:p-10 w-11/12 md:w-8/12 lg:w-7/12 h-[400px] md:h-[450px] border-4 rounded-xl border-entourage-blue bg-entourage-black'>
                                 <div className='text-3xl lg:text-4xl font-bold'>
                                     Tell us about the Club!
                                 </div>
@@ -169,12 +171,6 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
                                         <ArrowRight size={16} className='text-entourage-orange group-hover:text-entourage-blue' />
                                     </button>
                                 </div>
-                            </div>
-                        )}
-
-                        {step === 4 && (
-                            <div className='flex flex-col justify-between px-4 py-8 md:p-6 lg:p-10 w-11/12 md:w-8/12 lg:w-7/12 h-[400px] md:h-[450px] border-4 rounded-xl border-entourage-blue'>
-                                
                             </div>
                         )}
                     </form>

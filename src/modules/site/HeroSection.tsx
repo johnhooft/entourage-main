@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import EditableText from './editable-text';
 import EditableImage from "./editable-image";
 import { ImagesSlider } from "@/components/ui/images-slider";
 import { Colors, Fonts } from '../../../utils/types/layoutTypes';

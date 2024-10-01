@@ -1,4 +1,3 @@
-import { lightThemes } from './theme-colors';
 import { SiteConfig, HeroSectionProps, MovingCardsProps, InfoScrollProps } from '../types/layoutTypes';
 
 interface ClubData {

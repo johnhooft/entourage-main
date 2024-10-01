@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import HeroSection from './HeroSection';
 import MovingCards from './MovingCards';
-import InfoScroll from './InfoScroll';
 import Scroll from './Scroll';
 import { SiteFooter } from './SiteFooter';
-import ColorPickerWheel from './ColorWheel';
 import FullscreenExpandableMenu from './NavMenu';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 

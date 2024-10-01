@@ -6,7 +6,6 @@ import Quiz from '../../modules/quiz/Quiz'
 import { genClubInfo } from '../../../utils/site/generateClubInfo';
 import { getSiteConfigFromQuiz } from '../../../utils/site/getSiteConfig'
 import StepLoader from '@/modules/quiz/StepLoader';
-import { SiteConfig } from '../../../utils/types/layoutTypes';
 
 // Define types for the state and props
 interface ClubData {
