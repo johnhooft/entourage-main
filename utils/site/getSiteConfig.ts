@@ -41,6 +41,7 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
             {
                 component: "HeroSection",
                 props: {
+                    logo: "https://qrengcbkopwqcuirwapp.supabase.co/storage/v1/object/public/images/images/placeholder-logo.png",
                     text: clubData.clubName,
                     image: genContent.clubImages.message[0].largeImageURL,
                     buttonText: "Join the Club",

@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EditableImage from "./editable-image";
+import ClubLogo from "./ClubLogo";
 import { ImagesSlider } from "@/components/ui/images-slider";
 import { Colors, Fonts } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
@@ -11,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Club } from "lucide-react";
 
 interface HeroProps {
   text: string;
@@ -19,10 +21,11 @@ interface HeroProps {
   colors: Colors;
   buttonText: string;
   buttonLink: string;
+  logo: string;
   updateConfig: (newProps: any) => void;
 }
 
-const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, updateConfig }) => {
+const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, logo, updateConfig }) => {
   const titleFont = fontMap[fonts.title as FontName];
   const textFont = fontMap[fonts.text as FontName]
   const [isHovered, setIsHovered] = useState(false);
@@ -30,6 +33,14 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
   const [localText, setLocalText] = useState(text);
   const [localButtonText, setLocalButtonText] = useState(buttonText);
   const [localButtonLink, setLocalButtonLink] = useState(buttonLink);
+  const [ifLogo, setIfLogo] = useState(true);
+
+  useEffect(() => {
+    if (logo == "") {setIfLogo(false)} 
+    else {setIfLogo(true)}
+  }, [logo]);
+  
+  console.log(logo);
 
   // In line CSS for Dynamic Styles
   const styles = {
@@ -60,8 +71,17 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
     setIsMenuOpen(false);
   };
 
+  const handleLogoChange = (newImageUrl: string) => {
+    updateConfig({ logo:  newImageUrl})
+  }
+
   return (
     <div className="w-screen">
+      {ifLogo && (
+        <div className="absolute top-24 left-8 text-white z-10 p-4">
+          <ClubLogo src={logo} alt="club logo" width={60} height={60} className="logo" id="logoimage" onImageUpdate={handleLogoChange} />
+        </div>
+      )}
       <ImagesSlider key={image} className="h-[22rem]" images={[image]} autoplay={false}>
         <motion.div
           initial={{ opacity: 0, y: -80 }}

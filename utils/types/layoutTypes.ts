@@ -39,6 +39,7 @@ export interface ComponentProps {
 }
 
 export interface HeroSectionProps extends ComponentProps {
+    logo: string;
     text: string;
     image: string;
     buttonText: string;

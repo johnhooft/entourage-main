@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState } from 'react'
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { SiteConfig, Colors } from '../../../utils/types/layoutTypes'
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -25,18 +27,13 @@ const FontPreview: React.FC<{ fontName: FontName; onClick: () => void }> = ({ fo
 }
 
 export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialConfig, onConfigChange }) => {
+  const router = useRouter();
   const [isColorPopupOpen, setIsColorPopupOpen] = useState(false)
   const [isFontPopupOpen, setIsFontPopupOpen] = useState(false)
   const [selectedTheme, setSelectedTheme] = useState(initialConfig.colors)
   const [selectedTitleFont, setSelectedTitleFont] = useState<FontName>(initialConfig.fonts.title)
   const [selectedTextFont, setSelectedTextFont] = useState<FontName>(initialConfig.fonts.text)
   const [activeFontTab, setActiveFontTab] = useState<'title' | 'text'>('title')
-
-  const handleComponentStyleChange = (componentIndex: number, propName: string, value: any) => {
-    const newConfig = { ...initialConfig }
-    newConfig.layout[componentIndex].props[propName] = value
-    onConfigChange(newConfig)
-  }
 
   const openColorPopup = () => {
     setIsColorPopupOpen(true)
@@ -107,19 +104,39 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     ))
   }
 
+  const onPreview = () => {
+    sessionStorage.clear();
+    sessionStorage.setItem('siteConfig', JSON.stringify(initialConfig));
+    router.push('/preview');
+  }
+
   return (
     <div className="relative min-h-screen">
       {/* Top bar for selecting menu */}
       <div className="fixed top-0 left-0 right-0 bg-entourage-white p-5 z-50 text-foreground">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className='bg-entourage-blue border-none rounded-[15px] text-black hover:scale-105 hover:bg-entourage-blue transition-all'>Customize</Button>
+            <Button className='bg-entourage-blue border-none rounded-[15px] text-black hover:scale-105 hover:bg-entourage-blue transition-all'>
+              Customize
+              <Image src="./paintbrush.svg" alt="preview" width={20} height={20} className='ml-2'/>
+            </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className='bg-white text-black'>
-            <DropdownMenuItem className='hover:bg-entourage-blue' onClick={openColorPopup}>Color</DropdownMenuItem>
-            <DropdownMenuItem className='hover:bg-entourage-blue' onClick={openFontPopup}>Font</DropdownMenuItem>
+          <DropdownMenuContent className='bg-entourage-white text-black'>
+            <DropdownMenuItem className='hover:bg-entourage-blue' onClick={openColorPopup}>
+              <Image src="./droplets.svg" alt="preview" width={14} height={14} className='mr-6 ml-2'/>
+              Color
+            </DropdownMenuItem>
+            <DropdownMenuItem className='hover:bg-entourage-blue' onClick={openFontPopup}>
+              <Image src="./type.svg" alt="preview" width={14} height={14} className='mr-6 ml-2'/>
+              Font
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        {/* button to preview site: clears siteconfig from sessiongStorage and loads current on in, then redirect to /preview */}
+        <Button className='ml-8 rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onPreview}>
+          Preview
+          <Image src="./screen-share.svg" alt="preview" width={20} height={20} className='ml-2'/>
+        </Button>
       </div>
 
       {/* Main content */}
