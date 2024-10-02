@@ -110,10 +110,14 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     router.push('/preview');
   }
 
+  const onLaunch = () => {
+    console.log("Launch")
+  }
+
   return (
     <div className="relative min-h-screen">
       {/* Top bar for selecting menu */}
-      <div className="fixed top-0 left-0 right-0 bg-entourage-white p-5 z-50 text-foreground">
+      <div className="fixed top-0 left-0 right-0 bg-entourage-white p-5 z-50 text-foreground flex flex-row">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className='bg-entourage-blue border-none rounded-[15px] text-black hover:scale-105 hover:bg-entourage-blue transition-all'>
@@ -133,10 +137,16 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
           </DropdownMenuContent>
         </DropdownMenu>
         {/* button to preview site: clears siteconfig from sessiongStorage and loads current on in, then redirect to /preview */}
-        <Button className='ml-8 rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onPreview}>
-          Preview
-          <Image src="./screen-share.svg" alt="preview" width={20} height={20} className='ml-2'/>
-        </Button>
+        <div className='flex w-full justify-between'>
+          <Button className='ml-8 rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onPreview}>
+            Preview
+            <Image src="./screen-share.svg" alt="preview" width={20} height={20} className='ml-2'/>
+          </Button>
+          <Button className='rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onLaunch}>
+            Launch
+            <Image src="./rocket.svg" alt="preview" width={20} height={20} className='ml-2'/>
+          </Button>
+        </div>
       </div>
 
       {/* Main content */}
