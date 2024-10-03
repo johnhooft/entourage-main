@@ -1,6 +1,6 @@
 
 export default function Error() {
   return (
-    <p>An Error has occured</p>
+    <p className="text-white">An Error has occured</p>
   )
 }

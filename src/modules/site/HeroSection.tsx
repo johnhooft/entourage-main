@@ -40,7 +40,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
     else {setIfLogo(true)}
   }, [logo]);
   
-  console.log(logo);
+  //console.log(logo);
 
   // In line CSS for Dynamic Styles
   const styles = {
@@ -125,7 +125,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
         </motion.div>
       </ImagesSlider>
       <Dialog open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-        <DialogContent className="flex flex-grow flex-col">
+        <DialogContent className="flex flex-grow flex-col bg-white text-black">
           <DialogHeader>
             <DialogTitle className="text-2xl mb-2">Customize Hero Section</DialogTitle>
           </DialogHeader>
@@ -136,7 +136,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
                 id="hero-text"
                 value={localText}
                 onChange={(e) => setLocalText(e.target.value)}
-                className="mt-1"
+                className="mt-1 bg-white text-black"
               />
             </div>
             <div>
@@ -145,7 +145,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
                 id="button-text"
                 value={localButtonText}
                 onChange={(e) => setLocalButtonText(e.target.value)}
-                className="mt-1"
+                className="mt-1 bg-white text-black"
               />
             </div>
             <div>
@@ -154,7 +154,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
                 id="button-link"
                 value={localButtonLink}
                 onChange={(e) => setLocalButtonLink(e.target.value)}
-                className="mt-1"
+                className="mt-1 bg-white text-black"
               />
             </div>
             <div className="border-[1px] border-black rounded-[20px] flex flex-col p-4">

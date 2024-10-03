@@ -6,12 +6,14 @@ import Quiz from '../../modules/quiz/Quiz'
 import { genClubInfo } from '../../../utils/site/generateClubInfo';
 import { getSiteConfigFromQuiz } from '../../../utils/site/getSiteConfig'
 import StepLoader from '@/modules/quiz/StepLoader';
+import { AuthProvider } from '@/app/authState';
 
 // Define types for the state and props
 interface ClubData {
   clubName: string;
   clubPurpose: string;
   clubVibe: string;
+  userID: string;
 }
 
 interface ErrorState {
@@ -35,7 +37,7 @@ export default function Home() {
   const [successCounter, setSuccessCounter] = useState<number>(0);
   //Error
   const [error, setError] = useState<ErrorState | null>(null);
-
+  
   const handleDataSubmission = (data: ClubData) => {
     setClubData(data);
     setIsLoading(true);
@@ -77,14 +79,16 @@ export default function Home() {
   }, [generatedContent, clubData, router]);
 
   return (
-    <div className="h-screen w-screen min-h-fit">
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center z-50 text-white bg-black">
-          <StepLoader step={successCounter}/>
-        </div>
-      )}
-      {error && <div className="error-message">{error.message}</div>}
-      {!doneGen && <Quiz onSubmit={handleDataSubmission} />}
-    </div>
+    <AuthProvider>
+      <div className="h-screen w-screen min-h-fit">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center z-50 text-white bg-black">
+            <StepLoader step={successCounter}/>
+          </div>
+        )}
+        {error && <div className="error-message">{error.message}</div>}
+        {!doneGen && <Quiz onSubmit={handleDataSubmission} />}
+      </div>
+    </AuthProvider>
   );
 }

@@ -20,6 +20,7 @@ interface ClubData {
   clubName: string;
   clubPurpose: string; 
   clubVibe: string;
+  userID: string;
 }
 
 async function genClubText(clubData: ClubData, onSuccess: () => void) {

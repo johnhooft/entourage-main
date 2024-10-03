@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { SiteConfig, Colors } from '../../../utils/types/layoutTypes'
@@ -28,12 +28,37 @@ const FontPreview: React.FC<{ fontName: FontName; onClick: () => void }> = ({ fo
 
 export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialConfig, onConfigChange }) => {
   const router = useRouter();
+  
   const [isColorPopupOpen, setIsColorPopupOpen] = useState(false)
   const [isFontPopupOpen, setIsFontPopupOpen] = useState(false)
+  const [isLaunchPopupOpen, setIsLaunchPopupOpen] = useState(false)
+  const [isLaunched, setIsLaunched] = useState(false)
+  const [launchError, setLaunchError] = useState("")
+  const popupRef = useRef(null);
+
+  const [subDomain, setSubDomain] = useState<string>(initialConfig.layout[0].props.text);
   const [selectedTheme, setSelectedTheme] = useState(initialConfig.colors)
   const [selectedTitleFont, setSelectedTitleFont] = useState<FontName>(initialConfig.fonts.title)
   const [selectedTextFont, setSelectedTextFont] = useState<FontName>(initialConfig.fonts.text)
   const [activeFontTab, setActiveFontTab] = useState<'title' | 'text'>('title')
+
+  useEffect(() => {
+    setSubDomain((subDomain) => subDomain.replace(/\s+/g, ''));
+  }, [subDomain]);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (isLaunchPopupOpen && popupRef.current && !(popupRef.current as Node).contains(event.target as Node)) {
+        setIsLaunchPopupOpen(false);
+        setLaunchError("");
+      }
+    }
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isLaunchPopupOpen]);
 
   const openColorPopup = () => {
     setIsColorPopupOpen(true)
@@ -104,20 +129,103 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     ))
   }
 
+  const saveConfig = async (clubName: string, config: SiteConfig) => {
+    const response = await fetch('/api/siteConfig/save', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ clubName, siteConfig: config }),
+    });
+  
+    const data = await response.json();
+    console.log(data.message);
+
+    if (data.message != "Site config saved successfully!") {
+      setLaunchError(data.message)
+    }
+    else {
+      setLaunchError("")
+      setIsLaunched(true)
+      setIsLaunchPopupOpen(false)
+    }
+  };
+
   const onPreview = () => {
     sessionStorage.clear();
     sessionStorage.setItem('siteConfig', JSON.stringify(initialConfig));
     router.push('/preview');
   }
 
-  const onLaunch = () => {
-    console.log("Launch")
+  const onLaunch = async() => {
+    //sessionStorage.clear();
+    //sessionStorage.setItem('siteConfig', JSON.stringify(initialConfig));
+    console.log(initialConfig.userID, subDomain, initialConfig)
+    await saveConfig(subDomain, initialConfig)
+  }
+
+  const onLaunchPopup = () => {
+    setIsLaunchPopupOpen(true)
+  }
+
+  const onDashboard = () => {
+    router.push('./dashboard')
+  }
+
+  const onViewSite = () => {
+    router.push(`./${subDomain}`)
   }
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen min-w-screen">
+      {isLaunched && (
+        <div className='absolute w-full h-full flex justify-center items-top z-50 bg-black/40'>
+          <div className='w-fit h-fit mt-40 flex flex-col bg-entourage-black rounded-[15px] shadow-xl shadow-entourage-blue/50'>
+            <p className='flex justify-center text-white text-2xl font-bold p-8'>Congrats! Your Site is Live.</p>
+            <div className='w-full flex flex-row justify-between p-8'>
+              <Button className='ml-4 rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onViewSite}>
+                View Site
+                {/* <Image src="./rocket.svg" alt="preview" width={20} height={20} className='ml-2'/> */}
+              </Button>
+              <Button className='mr-4 rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onDashboard}>
+                Dashboard
+                {/* <Image src="./rocket.svg" alt="preview" width={20} height={20} className='ml-2'/> */}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isLaunchPopupOpen && (
+        <div className='absolute w-full h-full flex justify-center items-top z-50 bg-black/40'>
+          <div ref={popupRef} className='w-fit h-fit mt-40 bg-entourage-black rounded-[15px] shadow-xl shadow-entourage-blue/50'>
+            <div className='w-full flex flex-col p-6'>
+              <p className='text-white font-bold text-2xl'>Edit your Sub-Domain:</p>
+              <div className='flex flex-grow mt-4 border-[1px] rounded-[15px] border-entourage-orange p-2'>
+                {/* URL section */}
+                <span className='text-entourage-blue text-xl'>entourage-ai.com/</span>
+                <input 
+                  type='text' 
+                  value={subDomain} 
+                  onChange={(e) => setSubDomain(e.target.value)} 
+                  className='text-white text-xl bg-transparent border-none focus:outline-none focus:border-b focus:border-entourage-blue'
+                  placeholder='your-subdomain'
+                />
+              </div>
+              <div className='flex w-full justify-center text-sm text-red-500 font-bold'>
+                <p>{launchError}</p>
+              </div>
+              <div className='flex justify-center mt-6'>
+                <Button className='rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onLaunch}>
+                  Launch
+                  <Image src="./rocket.svg" alt="preview" width={20} height={20} className='ml-2'/>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Top bar for selecting menu */}
-      <div className="fixed top-0 left-0 right-0 bg-entourage-white p-5 z-50 text-foreground flex flex-row">
+      <div className="fixed top-0 left-0 right-0 bg-entourage-white p-5 z-40 text-foreground flex flex-row">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className='bg-entourage-blue border-none rounded-[15px] text-black hover:scale-105 hover:bg-entourage-blue transition-all'>
@@ -126,11 +234,11 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className='bg-entourage-white text-black'>
-            <DropdownMenuItem className='hover:bg-entourage-blue' onClick={openColorPopup}>
+            <DropdownMenuItem className='focus:bg-entourage-blue focus:text-black' onClick={openColorPopup}>
               <Image src="./droplets.svg" alt="preview" width={14} height={14} className='mr-6 ml-2'/>
               Color
             </DropdownMenuItem>
-            <DropdownMenuItem className='hover:bg-entourage-blue' onClick={openFontPopup}>
+            <DropdownMenuItem className='focus:bg-entourage-blue focus:text-black' onClick={openFontPopup}>
               <Image src="./type.svg" alt="preview" width={14} height={14} className='mr-6 ml-2'/>
               Font
             </DropdownMenuItem>
@@ -142,7 +250,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
             Preview
             <Image src="./screen-share.svg" alt="preview" width={20} height={20} className='ml-2'/>
           </Button>
-          <Button className='rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onLaunch}>
+          <Button className='rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onLaunchPopup}>
             Launch
             <Image src="./rocket.svg" alt="preview" width={20} height={20} className='ml-2'/>
           </Button>

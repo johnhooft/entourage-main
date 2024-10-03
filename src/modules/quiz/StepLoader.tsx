@@ -4,13 +4,13 @@ import { MultiStepLoader } from "@/components/ui/multi-step-loader";
 
 const loadingStates = [
   {
-    text: "Noting your inputs",
+    text: "Loading your prompts",
   },
   {
-    text: "Ascertaining your vibe",
+    text: "Sorting your inputs",
   },
   {
-    text: "Generating components ",
+    text: "Generating components",
   },
   {
     text: "Adding text",
@@ -19,7 +19,10 @@ const loadingStates = [
     text: "Adding images",
   },
   {
-    text: "Adding sauce",
+    text: "Adding buttons",
+  },
+  {
+    text: "Finishing build",
   }
 ];
 

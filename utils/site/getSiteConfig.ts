@@ -4,6 +4,7 @@ interface ClubData {
     clubName: string;
     clubPurpose: string;
     clubVibe: string;
+    userID: string
 }
   
 interface ImageData {
@@ -23,6 +24,8 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
     console.log(genContent)
     const siteConfig: SiteConfig = {
         
+        userID: clubData.userID,
+
         fonts: {
             title: "inter",
             text: "merriweather"

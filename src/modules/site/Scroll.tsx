@@ -70,10 +70,10 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoSc
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-8" style={{ backgroundColor: styles.container.backgroundColor }}>
       <div
-        className="w-full max-w-6xl h-[80vh] overflow-y-auto rounded-3xl border-4 shadow-2xl relative p-4 md:p-16"
+        className="w-full max-w-6xl h-[80vh] overflow-y-auto rounded-3xl border-4 relative p-4 md:p-16"
         style={{
           borderColor: styles.container.borderColor, // Border color
-          boxShadow: styles.shadow.boxShadow, // Dynamic shadow
+          //boxShadow: styles.shadow.boxShadow, // Dynamic shadow
         }}
       >
         {blockArr.map((block, index) => (

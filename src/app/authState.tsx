@@ -1,44 +1,51 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { createClient } from '@/../utils/supabase/client';
+import { Session, User } from '@supabase/supabase-js';
 
-type User = {
+type AuthUser = {
   id: string;
-  email: string | null;
+  email: string | any;
   // Add other user properties as needed
 };
 
 type AuthContextType = {
-  user: User | null;
+  user: AuthUser | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
+  refreshUser: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
 
+  const setUserFromSession = (session: Session | null) => {
+    if (session?.user) {
+      setUser({
+        id: session.user.id,
+        email: session.user.email,
+        // Add other user properties here if needed
+      });
+    } else {
+      setUser(null);
+    }
+  };
+
   useEffect(() => {
-    const checkSession = async () => {
-      setLoading(true);
-      const { data: { session }, error } = await supabase.auth.getSession();
-      if (error) {
-        console.error(error);
-        setLoading(false);
-        return;
-      }
-      setUser(session ? { id: session.user.id, email: session.user.email ?? null } : null);
+    const fetchInitialSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUserFromSession(session);
       setLoading(false);
     };
 
-    checkSession();
+    fetchInitialSession();
 
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session ? { id: session.user.id, email: session.user.email ?? null } : null);
-      setLoading(false);
+      setUserFromSession(session);
     });
 
     return () => {
@@ -46,15 +53,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, [supabase]);
 
-  // client side login function, not used.
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      setUser(data.user ? { id: data.user.id, email: data.user.email ?? null } : null);
+      setUserFromSession(data.session);
     } catch (error) {
       console.error('Login failed', error);
+      setUser(null);
     } finally {
       setLoading(false);
     }
@@ -72,8 +79,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const refreshUser = async () => {
+    setLoading(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUserFromSession(session);
+    } catch (error) {
+      console.error('User refresh failed', error);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, loading, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

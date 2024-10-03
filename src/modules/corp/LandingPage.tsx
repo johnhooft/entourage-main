@@ -16,18 +16,7 @@ export default function LandingPage() {
     const { user, loading } = useAuth();
     const router = useRouter();
 
-    const [isMd, setIsMd] = useState(false);
     const [isDark, setIsDark] = useState(true);
-
-    useEffect(() => {
-        const handleResize = () => {
-          setIsMd(window.innerWidth < 768); // 768px is the Tailwind `md` breakpoint
-        };
-    
-        handleResize(); // Set initial value
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     // Apply the dark mode class to the root <html> element
     useEffect(() => {
@@ -63,9 +52,6 @@ export default function LandingPage() {
                 <main className="flex flex-grow justify-center items-center px-4 sm:px-14 md:px-24 py-2 w-full">
                     <div className="scale-95 flex flex-grow flex-col max-w-[70rem] max-h-fit md:flex-row items-center justify-between gap-10 md:gap-8">
                         <div className="flex flex-col max-w-[30rem] items-center md:items-start space-y-4 gap-5 md:space-y-6">
-                            {/* <h1 className="text-6xl lg:text-7xl font-bold text-entourage-black dark:text-entourage-blue tracking-tighter">
-                                entourage
-                            </h1> */}
                             <p className="text-4xl md:text-5xl font-semibold text-center md:text-left">
                                 <span className="text-entourage-black dark:text-entourage-blue">Build a </span>
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-entourage-black to-entourage-orange dark:bg-gradient-to-r dark:from-entourage-blue dark:to-entourage-orange">
@@ -77,12 +63,12 @@ export default function LandingPage() {
                                 Let our AI put all of your information in one place, get in touch with the right brands, and unlock time for what you&apos;re best at. Running your club.
                             </p>
                             <div>
-                                <Link href={'/'}>
+                                <Link href={'/questionnaire'}>
                                     <Button
                                         borderRadius="1.5rem"
                                         className="bg-entourage-orange text-entourage-black font-extrabold"
                                     >
-                                        Beta Coming Soon 
+                                        Lets Launch
                                     </Button>
                                 </Link>
                             </div>

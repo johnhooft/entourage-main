@@ -12,6 +12,7 @@ SiteConfig
 */
 
 export interface SiteConfig {
+    userID: string;
     fonts: Fonts;
     colors: Colors;
     layout: LayoutComponent[];
