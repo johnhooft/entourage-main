@@ -155,7 +155,7 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
                                     </div>
                                     <div className='my-8 flex items-center justify-center'>
                                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:grid-cols-3">
-                                            {['Memberships', 'Events', 'Trips', 'Parties', 'Culture', 'Executive Team'].map(option => (
+                                            {['Memberships', 'Events', 'Trips', 'History', 'Executive Team', 'Something Else'].map(option => (
                                                 <div
                                                     key={option}
                                                     data-value={option}

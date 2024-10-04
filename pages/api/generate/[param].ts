@@ -19,13 +19,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { club_name, club_vibe, user_prompt, system_content } = req.body; 
   //console.log(club_name, club_vibe, user_prompt, system_content);
 
-  const modifiedUserPrompt = `Club Name: ${club_name}\nClub Vibe: ${club_vibe}\n\n${user_prompt}`;
+  const modifiedSystemContent = `${system_content}
+
+  In this case, the club is called ${club_name} and they are described as: ${club_vibe}`;
+  
+  //console.log(modifiedSystemContent);
+  //console.log(user_prompt);
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [
-      { role: 'system', content: system_content },
-      { role: 'user', content: modifiedUserPrompt },
+      { role: 'system', content: modifiedSystemContent },
+      { role: 'user', content: user_prompt },
     ],
     stream: false,
   })

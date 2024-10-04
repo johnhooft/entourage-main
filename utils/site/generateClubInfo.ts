@@ -6,10 +6,10 @@ export const promptMapping: { [key: string]: { userPrompt: string, systemContent
     'Memberships': clubPrompts.membership,
     'Events': clubPrompts.event,
     'Trips': clubPrompts.trip,
+    'History': clubPrompts.history,
     'Executive Team': clubPrompts.executiveTeam,
-    'Culture': clubPrompts.culture,
-    'Parties': clubPrompts.party,
     'About Us': clubPrompts.about,
+    'Something Else': clubPrompts.somethingElse,
 };
 
 interface ClubInfoResponses {

@@ -67,9 +67,9 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                         { id: "block-0", title: "Memberships", text: genContent.clubCopy.Memberships, image: genContent.clubImages.message[1].largeImageURL },
                         { id: "block-1", title: "Events", text: genContent.clubCopy.Events, image: genContent.clubImages.message[2].largeImageURL },
                         { id: "block-2", title: "Trips", text: genContent.clubCopy.Trips, image: genContent.clubImages.message[3].largeImageURL },
-                        { id: "block-3", title: "Parties", text: genContent.clubCopy.Parties, image: genContent.clubImages.message[4].largeImageURL },
-                        { id: "block-4", title: "Culture", text: genContent.clubCopy.Culture, image: genContent.clubImages.message[5].largeImageURL },
-                        { id: "block-5", title: "Executive Team", text: genContent.clubCopy['Executive Team'], image: genContent.clubImages.message[6].largeImageURL },
+                        { id: "block-3", title: "History", text: genContent.clubCopy.History, image: genContent.clubImages.message[4].largeImageURL },
+                        { id: "block-4", title: "Executive Team", text: genContent.clubCopy['Executive Team'], image: genContent.clubImages.message[5].largeImageURL },
+                        { id: "block-5", title: "Something Else", text: genContent.clubCopy['Something Else'], image: genContent.clubImages.message[6].largeImageURL },
                     ],
                 } as InfoScrollProps
             }
