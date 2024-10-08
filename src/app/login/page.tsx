@@ -24,7 +24,10 @@ export default function Home() {
                 </div>
                 <div className='w-full flex justify-center items-center'>
                     <div className='pt-5 md:pt-0'>
-                        <SignIn onSuccessfulSignIn={() => {router.push('./dashboard')}} />
+                        <SignIn 
+                            onSuccessfulSignIn={() => {router.push('./dashboard')}}
+                            redirect='dashboard'
+                        />
                     </div>
                 </div>
                 <div className='mb-4'>

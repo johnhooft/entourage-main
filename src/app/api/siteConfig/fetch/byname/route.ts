@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { SiteConfig } from "../../../../../utils/types/layoutTypes";
+import { SiteConfig } from "../../../../../../utils/types/layoutTypes";
 import { createClient } from '@/../utils/supabase/server'
 
 export async function POST(request: NextRequest) {

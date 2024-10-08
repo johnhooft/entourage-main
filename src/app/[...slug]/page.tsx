@@ -12,7 +12,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     const [siteConfigFound, setSiteConfigFound] = useState(false);
 
     const fetchSiteConfig = async (clubName: string) => {
-        const response = await fetch('/api/siteConfig/fetch', {
+        const response = await fetch('/api/siteConfig/fetch/byname', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',

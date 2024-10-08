@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import Link from 'next/link'
 import { Progress } from "@/components/ui/progress"
 import { useAuth } from '@/app/authState';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import SignIn from '../SignIn';
 
 interface Props {
@@ -47,7 +47,7 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
     useEffect(() => {
         if (user) {
             setSigninPopup(false)
-            console.log(user.id)
+            //console.log(user.id)
         } 
         else {setSigninPopup(true)}
     }, [user]);
@@ -101,10 +101,13 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
         <div className='w-screen h-screen flex flex-col'>
             {(signinPopup && !loading) && (
                 <div className='absolute w-full h-full flex justify-center items-center z-50 bg-black/40'>
-                    <SignIn onSuccessfulSignIn={() => {
-                        setSigninPopup(false)
-                        refreshUser()
-                    }} />
+                    <SignIn 
+                        redirect='questionnaire' 
+                        onSuccessfulSignIn = {() => {
+                            setSigninPopup(false)
+                            refreshUser()
+                        }} 
+                    />
                 </div>
             )}
             <div className='flex flex-grow flex-col relative'>

@@ -1,16 +1,17 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { createClient } from '@/../utils/supabase/client';
-import { Session, User } from '@supabase/supabase-js';
+import { Session, User, AuthChangeEvent } from '@supabase/supabase-js';
 
 type AuthUser = {
   id: string;
-  email: string | any;
+  email: string | undefined;
   // Add other user properties as needed
 };
 
 type AuthContextType = {
   user: AuthUser | null;
   login: (email: string, password: string) => Promise<void>;
+  loginWithGoogle: (redirect: string) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
   refreshUser: () => Promise<void>;
@@ -44,23 +45,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     fetchInitialSession();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event: AuthChangeEvent, session) => {
+      console.log("Auth state changed:", event);
       setUserFromSession(session);
+      setLoading(false);
     });
 
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, [supabase]);
+  }, []);
 
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      setUserFromSession(data.session);
+      // The session will be updated by the onAuthStateChange listener
     } catch (error) {
       console.error('Login failed', error);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loginWithGoogle = async (redirect: string) => {
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/${redirect}`
+        }
+      });
+      if (error) throw error;
+      // The session will be updated by the onAuthStateChange listener after redirect
+    } catch (error) {
+      console.error('Google login failed', error);
       setUser(null);
     } finally {
       setLoading(false);
@@ -71,7 +93,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(true);
     try {
       await supabase.auth.signOut();
-      setUser(null);
+      // The session will be updated by the onAuthStateChange listener
     } catch (error) {
       console.error('Logout failed', error);
     } finally {
@@ -93,7 +115,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading, refreshUser }}>
+    <AuthContext.Provider value={{ user, login, loginWithGoogle, logout, loading, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

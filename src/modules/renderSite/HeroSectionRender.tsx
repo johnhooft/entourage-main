@@ -6,6 +6,7 @@ import { ImagesSlider } from "@/components/ui/images-slider";
 import { Colors, Fonts } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
+import FullscreenExpandableMenu from '../site/NavMenu';
 import Image from "next/image";
 
 interface HeroProps {
@@ -16,9 +17,10 @@ interface HeroProps {
   buttonText: string;
   buttonLink: string;
   logo: string;
+  siteSections: string[];
 }
 
-const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, logo }) => {
+const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, logo, siteSections }) => {
   const titleFont = fontMap[fonts.title as FontName];
   const textFont = fontMap[fonts.text as FontName];
   const [ifLogo, setIfLogo] = useState(true);
@@ -47,7 +49,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
   return (
     <div className="w-full">
       {ifLogo && (
-        <div className="absolute top-4 left-4 md:top-8 md:left-8 text-white z-50 p-4">
+        <div className="flex flex-row justify-between relative w-[95%] top-28 left-8 md:top-28 md:left-10 text-white z-50">
           <Image
             priority
             src={logo}
@@ -55,6 +57,9 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
             width={60}
             height={60}
           />
+          <div className="w-fit z-50">
+            <FullscreenExpandableMenu colors={colors} siteSections={siteSections}/>
+          </div>
         </div>
       )}
       <ImagesSlider key={image} className="h-[22rem]" images={[image]} autoplay={false}>

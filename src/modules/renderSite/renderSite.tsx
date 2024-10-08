@@ -3,7 +3,6 @@ import { default as HeroSection } from './HeroSectionRender';
 import { default as MovingCards } from './MovingCardsRender';
 import { default as Scroll } from './ScrollRender';
 import { SiteFooter } from '../site/SiteFooter';
-import FullscreenExpandableMenu from '../site/NavMenu';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 
 interface SiteProps {
@@ -26,9 +25,6 @@ const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
   
   return (
     <div className="flex flex-col flex-grow items-center">
-      <div className="fixed top-2 right-2 z-50">
-        <FullscreenExpandableMenu colors={colors} siteSections={siteConfig.layout[0].props.siteSections}/>
-      </div>
       {siteConfig.layout.map((item, index) => {
         const Component = componentMap[item.component];
         if (!Component) {
