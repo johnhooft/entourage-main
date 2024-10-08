@@ -40,6 +40,7 @@ async function get_images(keywords: string): Promise<string | null> {
     const data = await response.json();
     
     if (data.hits && data.hits.length > 0) {
+      console.log(data.hits)
       return data.hits; // Return the pageURL of the first hit
     } else {
       console.log('No images found');

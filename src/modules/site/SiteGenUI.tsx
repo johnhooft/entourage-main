@@ -7,6 +7,7 @@ import { SiteConfig, Colors } from '../../../utils/types/layoutTypes'
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { fontMap, FontName } from '@/../utils/site/fontMap'
+import { HexColorPicker } from "react-colorful";
 
 interface StyleChangerProps {
   children: React.ReactNode
@@ -28,6 +29,15 @@ const FontPreview: React.FC<{ fontName: FontName; onClick: () => void }> = ({ fo
 
 export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialConfig, onConfigChange }) => {
   const router = useRouter();
+
+  const [userColors, setUserColors] = useState<Colors>({
+    primary: '#000000',
+    accent: '#000000',
+    background: '#FFFFFF',
+    text: '#000000',
+  });
+  const [activeColorPicker, setActiveColorPicker] = useState<keyof Colors | null>(null);
+  const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   
   const [isColorPopupOpen, setIsColorPopupOpen] = useState(false)
   const [isFontPopupOpen, setIsFontPopupOpen] = useState(false)
@@ -35,6 +45,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   const [isLaunched, setIsLaunched] = useState(false)
   const [launchError, setLaunchError] = useState("")
   const popupRef = useRef(null);
+  const colorRef = useRef(null);
 
   const [subDomain, setSubDomain] = useState<string>(initialConfig.layout[0].props.text);
   const [selectedTheme, setSelectedTheme] = useState(initialConfig.colors)
@@ -47,18 +58,27 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   }, [subDomain]);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    function handleClickOutsideLaunch(event: MouseEvent) {
       if (isLaunchPopupOpen && popupRef.current && !(popupRef.current as Node).contains(event.target as Node)) {
         setIsLaunchPopupOpen(false);
         setLaunchError("");
       }
     }
+
+    function handleClickOutsideColor(event: MouseEvent) {
+      if (isColorPopupOpen && colorRef.current && !(colorRef.current as Node).contains(event.target as Node)) {
+        setActiveColorPicker(null); // Close the active color picker
+        setIsColorPickerOpen(false);
+      }
+    }
     
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutsideLaunch);
+    document.addEventListener('mousedown', handleClickOutsideColor);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutsideLaunch);
+      document.removeEventListener('mousedown', handleClickOutsideColor);
     };
-  }, [isLaunchPopupOpen]);
+  }, [isLaunchPopupOpen, isColorPopupOpen]);
 
   const openColorPopup = () => {
     setIsColorPopupOpen(true)
@@ -176,6 +196,82 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     router.push(`./${subDomain}`)
   }
 
+  const handleColorChange = (color: string) => {
+    if (activeColorPicker) {
+      const newUserColors = {
+        ...userColors,
+        [activeColorPicker]: color
+      };
+      setUserColors(newUserColors);
+      
+      // Update the selected theme and config with HSLA values
+      const newConfig = { ...initialConfig, colors: convertColorsToHSLA(newUserColors) };
+      setSelectedTheme(newConfig.colors);
+      onConfigChange(newConfig);
+    }
+  };
+
+  const handleCustomColorSetClick = (colorSet: Colors) => {
+    const newConfig = { ...initialConfig, colors: convertColorsToHSLA(colorSet) };
+      setSelectedTheme(newConfig.colors);
+      onConfigChange(newConfig);
+  }
+
+  const convertColorsToHSLA = (colors: Colors): Colors => {
+    const convertedColors: Colors = {} as Colors;
+    for (const [key, value] of Object.entries(colors)) {
+      convertedColors[key as keyof Colors] = hexToHSLA(value);
+    }
+    return convertedColors;
+  };
+
+  const hexToHSLA = (hex: string): string => {
+    let r = parseInt(hex.slice(1, 3), 16) / 255;
+    let g = parseInt(hex.slice(3, 5), 16) / 255;
+    let b = parseInt(hex.slice(5, 7), 16) / 255;
+
+    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+
+    if (max === min) {
+      h = s = 0;
+    } else {
+      let d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h! /= 6;
+    }
+
+    return `hsla(${Math.round(h! * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%, 1)`;
+  };
+
+  const handleColorButtonClick = (key: keyof Colors) => {
+    setActiveColorPicker(key);
+    setIsColorPickerOpen(true);
+  };
+
+  const renderColorPickers = () => {
+    return Object.entries(userColors).map(([key, value]) => (
+      <div key={key} className="flex flex-col items-center">
+        <button
+          className="w-14 h-6 mb-2 border border-gray-300"
+          style={{ backgroundColor: value }}
+          onClick={() => handleColorButtonClick(key as keyof Colors)}
+        ></button>
+        <span className="text-sm">{key}</span>
+        {activeColorPicker === key && isColorPickerOpen && (
+          <div ref={colorRef} className="absolute bottom-20 z-10">
+            <HexColorPicker color={value} onChange={handleColorChange} />
+          </div>
+        )}
+      </div>
+    ));
+  };
+
   return (
     <div className="relative min-h-screen min-w-screen">
       {isLaunched && (
@@ -265,6 +361,20 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
         <div className="fixed bottom-0 left-0 right-0 bg-entourage-white py-4 px-1 z-50 text-foreground">
           <div className="flex flex-row w-full px-5 items-center">
             <Button className='mr-4 bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={() => setIsColorPopupOpen(false)}>Close</Button>
+            {/* <div
+              className="flex flex-row pr-4 cursor-pointer"
+              onClick={() => handleColorSetClick(userColors)}
+            >
+              {renderColorBlocks(userColors)}
+            </div> */}
+            <div
+              className="flex flex-row pr-4 cursor-pointer"
+              onClick={() => handleCustomColorSetClick(userColors)}
+            >
+              <div className="flex flex-row gap-2 items-center pr-4">
+                {renderColorPickers()}
+              </div>
+            </div>
             <div
               className="flex flex-row pr-4 cursor-pointer"
               onClick={() => handleColorSetClick(lightBlueWhiteColors)}
@@ -289,12 +399,12 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
             >
               {renderColorBlocks(slateBlueLilac)}
             </div>
-            <div
+            {/* <div
               className="flex flex-row pr-4 cursor-pointer"
               onClick={() => handleColorSetClick(blackGreen)}
             >
               {renderColorBlocks(blackGreen)}
-            </div>
+            </div> */}
           </div>
         </div>
       )}
