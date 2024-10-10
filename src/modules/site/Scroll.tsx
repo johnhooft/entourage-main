@@ -1,14 +1,15 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import EditableText from './editable-text';
 import EditableImage from './editable-image';
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
 import { Colors, Fonts } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from '../../../utils/site/reduceOpacity';
 import { v4 as uuidv4 } from 'uuid';
+import { useInView } from 'react-intersection-observer';
 
 interface Block {
   id: string;
@@ -25,6 +26,22 @@ interface InfoScrollProps {
 }
 
 export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoScrollProps) {
+  const controls = useAnimation()
+  const [scrollRef, inView] = useInView({
+    threshold: 0.90, // Trigger when 70% of the component is visible
+  });
+  const [isScrollable, setIsScrollable] = useState(false);
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({ scale: 1.02, transition: { duration: 0.5 } });
+      setIsScrollable(true);
+    } else {
+      controls.start({ scale: 1, transition: { duration: 0.5 } });
+      setIsScrollable(false);
+    }
+  }, [inView, controls]);
+
   // Get custom fonts
   const titleFont = fontMap[fonts.title as FontName];
   const textFont = fontMap[fonts.text as FontName]
@@ -69,8 +86,10 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoSc
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-8" style={{ backgroundColor: styles.container.backgroundColor }}>
-      <div
-        className="w-full max-w-6xl h-[80vh] overflow-y-auto rounded-3xl border-4 relative p-4 md:p-16"
+      <motion.div
+        ref={scrollRef}
+        animate={controls}
+        className={`w-full max-w-6xl h-[80vh] rounded-3xl border-4 relative p-4 md:p-16 ${isScrollable ? 'overflow-y-auto' : 'overflow-y-hidden'}`}
         style={{
           borderColor: styles.container.borderColor, // Border color
           //boxShadow: styles.shadow.boxShadow, // Dynamic shadow
@@ -113,7 +132,7 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoSc
             </motion.div>
           ) : null
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
