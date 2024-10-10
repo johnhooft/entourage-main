@@ -28,7 +28,7 @@ interface InfoScrollProps {
 export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoScrollProps) {
   const controls = useAnimation()
   const [scrollRef, inView] = useInView({
-    threshold: 0.90, // Trigger when 70% of the component is visible
+    threshold: 0.95, // Trigger when 70% of the component is visible
   });
   const [isScrollable, setIsScrollable] = useState(false);
 

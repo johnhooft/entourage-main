@@ -32,7 +32,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const deleteOldImage = useCallback(async (oldImageUrl: string) => {
-    if (oldImageUrl.includes('supabase.co')) {
+    if (oldImageUrl.includes('supabase.co') && !oldImageUrl.includes('placeholder-logo.png')) {
       // Extract the file path from the Supabase URL
       const urlParts = oldImageUrl.split('/');
       const bucketName = urlParts[urlParts.indexOf('public') + 1];
