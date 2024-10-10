@@ -321,7 +321,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
         </div>
       )}
       {/* Top bar for selecting menu */}
-      <div className="fixed top-0 left-0 right-0 bg-entourage-white p-5 z-40 text-foreground flex flex-row">
+      <div className="fixed top-0 left-0 right-0 bg-entourage-white p-5 z-50 text-foreground flex flex-row">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className='bg-entourage-blue border-none rounded-[15px] text-black hover:scale-105 hover:bg-entourage-blue transition-all'>

@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Club } from "lucide-react";
+import FullscreenExpandableMenu from "./NavMenu";
 
 interface HeroProps {
   text: string;
@@ -22,10 +23,11 @@ interface HeroProps {
   buttonText: string;
   buttonLink: string;
   logo: string;
+  siteSections: string[];
   updateConfig: (newProps: any) => void;
 }
 
-const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, logo, updateConfig }) => {
+const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, logo, siteSections, updateConfig }) => {
   const titleFont = fontMap[fonts.title as FontName];
   const textFont = fontMap[fonts.text as FontName]
   const [isHovered, setIsHovered] = useState(false);
@@ -76,10 +78,13 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
   }
 
   return (
-    <div className="w-screen">
+    <div className="w-full -mt-11">
       {ifLogo && (
-        <div className="absolute top-24 left-8 text-white z-10 p-4">
+        <div className="flex flex-row justify-between relative w-[95%] top-20 left-8 md:left-10 text-white z-40">
           <ClubLogo src={logo} alt="club logo" width={60} height={60} className="logo" id="logoimage" onImageUpdate={handleLogoChange} />
+          <div className="w-fit z-50">
+            <FullscreenExpandableMenu colors={colors} siteSections={siteSections}/>
+          </div>
         </div>
       )}
       <ImagesSlider key={image} className="h-[22rem]" images={[image]} autoplay={false}>

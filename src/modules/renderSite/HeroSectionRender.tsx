@@ -47,7 +47,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full -mt-16">
       {ifLogo && (
         <div className="flex flex-row justify-between relative w-[95%] top-28 left-8 md:top-28 md:left-10 text-white z-50">
           <Image
