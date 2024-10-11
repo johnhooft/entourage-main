@@ -25,7 +25,7 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
 
 const Site: React.FC<SiteProps> = ({ siteConfig }) => {
   const [config, setConfig] = useState<SiteConfig>(siteConfig);
-  const [showExpandedPage, setShowExpandedPage] = useState(""); // ExpandedTrips ExpandedEvents
+  const [showExpandedPage, setShowExpandedPage] = useState("ExpandedTrips"); // ExpandedTrips ExpandedEvents
 
   if (!siteConfig) {
     return <p>Loading...</p>;
@@ -64,7 +64,8 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
               siteConfig.expandedPages.findIndex(page => page.component === showExpandedPage),
               newProps,
               true
-            )
+            ),
+            setShowExpandedPage: setShowExpandedPage
           })}
         </div>
       ) : (

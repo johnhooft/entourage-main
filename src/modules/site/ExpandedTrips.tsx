@@ -4,6 +4,7 @@ import EditableText from './editable-text'
 import EditableImage from './editable-image'
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
+import { Button } from '@/components/ui/button';
 
 interface TripBlock {
   tripTitle: string;
@@ -26,9 +27,10 @@ interface ExpandedTripProps {
     title: string;
     text: string;
   };
+  setShowExpandedPage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function ExpandedTrips({ title, description, tripBlock, updateConfig, colors, fonts }: ExpandedTripProps) {
+export default function ExpandedTrips({ title, description, tripBlock, updateConfig, colors, fonts, setShowExpandedPage }: ExpandedTripProps) {
 
   const updateTripBlock = (index: number, newProps: Partial<TripBlock>) => {
     const updatedTripBlock = [...tripBlock]
@@ -66,6 +68,9 @@ export default function ExpandedTrips({ title, description, tripBlock, updateCon
     tripLocation: {
       color: colors.text,
     },
+    button: {
+      backgroundColor: colors.accent
+    }
   };
 
   const addTrip = () => {
@@ -83,8 +88,13 @@ export default function ExpandedTrips({ title, description, tripBlock, updateCon
     updateConfig({ tripBlock: updatedTripBlock });
   };
 
+  const onReturn = () => {
+    setShowExpandedPage("");
+  }
+
   return (
     <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
+      <Button className='rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
       <div className={`text-4xl font-bold text-center mb-6 ${titleFont.className}`} style={styles.title}>
         <EditableText
           text={title}

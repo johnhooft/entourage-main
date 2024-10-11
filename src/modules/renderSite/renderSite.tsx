@@ -1,16 +1,17 @@
-import React from 'react';
-import { default as HeroSection } from './HeroSectionRender';
-import { default as MovingCards } from './MovingCardsRender';
-import { default as Scroll } from './ScrollRender';
+import React, {useState} from 'react';
+import { default as HeroSection } from './renderHeroSection';
+import { default as MovingCards } from './renderMovingCards';
+import { default as Scroll } from './renderScroll';
 import { SiteFooter } from '../site/SiteFooter';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
+import ExpandedTrips from './renderExpandedTrips';
 
 interface SiteProps {
   siteConfig: SiteConfig;
 }
 
-const expandingPageMap: { [key: string]: React.ComponentType<any> } = {
-  
+const expandedPageMap: { [key: string]: React.ComponentType<any> } = {
+  ExpandedTrips
 };
 
 const componentMap: { [key: string]: React.ComponentType<any> } = {
@@ -20,6 +21,8 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
 };
 
 const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
+  const [showExpandedPage, setShowExpandedPage] = useState("ExpandedTrips"); // ExpandedTrips ExpandedEvents
+
   if (!siteConfig) {
     return <p>Loading...</p>;
   }
@@ -29,18 +32,28 @@ const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
   
   return (
     <div className="flex flex-col flex-grow items-center">
-      {siteConfig.layout.map((item, index) => {
-        const Component = componentMap[item.component];
-        if (!Component) {
-          console.warn(`Component ${item.component} not found`);
-          return null;
-        }
-        return (
-          <div key={index} className="w-full">
-            <Component {...item.props} colors={colors} fonts={fonts}/>
-          </div>
-        );
-      })}
+      {showExpandedPage && expandedPageMap[showExpandedPage] ? (
+        <div className="mt-5 w-screen h-screen z-40">
+          {React.createElement(expandedPageMap[showExpandedPage], {
+            ...siteConfig.expandedPages.find(page => page.component === showExpandedPage)?.props,
+            colors,
+            fonts,
+          })}
+        </div>
+      ) : (
+        siteConfig.layout.map((item, index) => {
+          const Component = componentMap[item.component];
+          if (!Component) {
+            console.warn(`Component ${item.component} not found`);
+            return null;
+          }
+          return (
+            <div key={index} className="w-full">
+              <Component {...item.props} colors={colors} fonts={fonts} />
+            </div>
+          );
+        })
+      )}
       <SiteFooter />
     </div>
   );
