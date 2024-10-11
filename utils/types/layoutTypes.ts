@@ -4,6 +4,10 @@ import { FontName } from "../site/fontMap";
 SiteConfig
 |   Fonts
 |   Colors
+|   Expanded
+|   |   name
+|   |   props
+|   |   |   { props for components }
 |   Layout
 |   |   Component
 |   |   |   name
@@ -11,12 +15,21 @@ SiteConfig
 |   |   |   |   { props for components }
 */
 
+
+// ----- High Level Struct ----- //
+
 export interface SiteConfig {
     userID: string;
     fonts: Fonts;
     colors: Colors;
     layout: LayoutComponent[];
+    expandedPages: ExpandedPageComponent[];
 }
+// ----- ----- ----- //
+
+
+
+// ----- Site Styles ----- //
 
 export interface Fonts {
     title: FontName;
@@ -29,6 +42,11 @@ export interface Colors {
     background: string;
     text: string;
 }
+// ----- ----- ----- //
+
+
+
+// ----- Site Components ----- //
 
 export interface LayoutComponent {
     component: string;
@@ -63,4 +81,52 @@ export interface InfoBlock {
     title: string;
     text: string;
     image: string;
+}
+// ----- ----- ----- //
+
+
+
+// ----- Expanded Pages Components ----- //
+
+export interface ExpandedPageComponent {
+    component: string;
+    props: ExpandedPagesProps
+}
+
+export interface ExpandedPagesProps {
+    [key: string]: any;
+}
+
+export interface ExpandedEventProps extends ExpandedPagesProps {
+    title: string;
+    eventBlock: EventBlock[];
+}
+
+export interface EventBlock {
+    eventTitle: string;
+    eventDate: Date;
+    eventTime: {
+        start: string;
+        end?: string;
+    };
+    eventCost: string;
+    eventDescription: string;
+    eventLocation: string;
+}
+
+export interface ExpandedMembershipProps extends ExpandedPagesProps {
+    descrition: string
+    link: string
+}
+
+export interface ExpandedTripProps extends ExpandedPagesProps {
+    title: string;
+    description: string;
+    tripBlock: TripBlock[];
+}
+
+export interface TripBlock {
+    tripTitle: string;
+    tripDescription: string;
+    tripLocation: string;
 }

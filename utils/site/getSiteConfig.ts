@@ -1,4 +1,5 @@
 import { SiteConfig, HeroSectionProps, MovingCardsProps, InfoScrollProps } from '../types/layoutTypes';
+import { ExpandedEventProps, ExpandedMembershipProps, ExpandedTripProps, ExpandedPagesProps } from '../types/layoutTypes';
 
 interface ClubData {
     clubName: string;
@@ -38,6 +39,32 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
             background: 'hsla(0, 0%, 13%, 1)',
             text: 'hsla(0, 11%, 96%, 1)',
         },
+
+        expandedPages: [
+            {
+                component: "ExpandedEvents",
+                props: {
+                    title: "Your Events Here",
+                    eventBlock: [
+                        { eventTitle: "Event Title", eventDate: new Date("2024-01-01"), eventTime: { start: "10:00pm", end: "" }, eventCost: "10$ for members, 25$ for non members", eventDescription: "Event Description", eventLocation: "Event Location" },
+                        { eventTitle: "Event Title", eventDate: new Date("2024-02-15"), eventTime: { start: "9:00am", end: "2:00pm" }, eventCost: "10$", eventDescription: "Event Description", eventLocation: "Event Location" },
+                    ],
+                } as ExpandedEventProps
+            },
+            {
+                component: "ExpandedTrips",
+                props: {
+                    title: "Your Trips Here",
+                    description: genContent.clubCopy.Trips,
+                    tripBlock: [
+                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location" },
+                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location" },
+                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location" },
+                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location" },
+                    ],
+                } as ExpandedTripProps
+            }
+        ],
 
         //Site Layout
         layout: [

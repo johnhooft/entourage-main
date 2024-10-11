@@ -9,6 +9,10 @@ interface SiteProps {
   siteConfig: SiteConfig;
 }
 
+const expandingPageMap: { [key: string]: React.ComponentType<any> } = {
+  
+};
+
 const componentMap: { [key: string]: React.ComponentType<any> } = {
   HeroSection,
   MovingCards,
