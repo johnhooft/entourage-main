@@ -45,25 +45,46 @@ const Dashboard = () => {
     const onLogout = async () => {
         logout()
     }
+
+    const onEditSite = () => {
+        if (siteConfig) {
+        // Store the siteConfig in sessionStorage
+        sessionStorage.setItem('siteConfig', JSON.stringify(siteConfig));
+        
+        // Redirect to the buildsite page
+        router.push('/buildsite');
+        } else {
+        console.error('No site configuration available to edit');
+        // Optionally, you can show an error message to the user here
+        }
+    }
     
     if (loading) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div className='w-full h-full flex flex-row'>
-            <div className='w-fit h-full flex flex-col text-white'>
-                <p>Dashboard</p>
-                <button onClick={onLogout} className='mt-10'>
+        <div className='w-full h-full flex flex-row justify-evenly'>
+            <div className='w-[10%] h-full flex flex-col text-white gap-10 p-5'>
+                <button onClick={onLogout} className='bg-white text-black rounded-md'>
                     Signout
                 </button>
+                <button 
+                    onClick={onEditSite}
+                    className="bg-blue-500 text-white px-2 py-1 rounded-md hover:bg-blue-600 transition-colors duration-300"
+                >
+                    Edit Site
+                </button>
+                <button className="bg-red-500 text-black px-2 py-1 rounded-md hover:bg-red-600 transition-colors duration-300">
+                    Delete Site
+                </button>
             </div>
-            <div className="flex flex-col w-full h-full justify-center items-center rounded-[15px]">
+            <div className="w-[90%] h-full">
                     {(!siteConfig) && (
                         <div className='text-white'>Site Config Missing!</div>
                     )}
                     {(siteConfig) && (
-                        <div className='overflow-y-scroll overflow-x-hidden max-w-screen-xl'>
+                        <div className='overflow-y-scroll overflow-x-hidden border-2 border-black rounded-[15px]'>
                             <RenderSite siteConfig={siteConfig} />
                         </div>
                     )}
