@@ -94,8 +94,8 @@ export default function ExpandedTrips({ title, description, tripBlock, updateCon
 
   return (
     <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
-      <Button className='rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
-      <div className={`text-4xl font-bold text-center mb-6 ${titleFont.className}`} style={styles.title}>
+      <Button className='absolute top-10 left-4 rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
+      <div className={`text-4xl font-bold text-center mb-8 ${titleFont.className}`} style={styles.title}>
         <EditableText
           text={title}
           onTextChange={(newText) => updateConfig({ title: newText })}

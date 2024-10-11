@@ -72,8 +72,8 @@ export default function ExpandedTrips({ title, description, tripBlock, colors, f
 
     return (
         <div className={`w-screen h-fit mx-auto px-6 py-8 ${textFont.className}`} style={styles.container}>
-            <Button className='rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
-            <div className={`text-4xl font-bold text-center mb-8 ${titleFont.className}`} style={styles.title}>
+            <Button className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
+            <div className={`text-4xl font-bold text-center mb-8 mt-4 md:mt-0 ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
             <div className='flex w-full justify-center px-10 md:px-40'>

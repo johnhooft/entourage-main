@@ -5,6 +5,7 @@ import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import Image from 'next/image';
 import ExpandableButton from './ExpandableButton';
+import { Button } from '@/components/ui/button';
 
 interface EventTime {
     start: string;
@@ -34,9 +35,10 @@ interface ExpandedEventProps {
         title: string;
         text: string;
     };
+    setShowExpandedPage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function ExpandedEvents({ title, eventBlock, updateConfig, colors, fonts }: ExpandedEventProps) {
+export default function ExpandedEvents({ title, eventBlock, updateConfig, colors, fonts, setShowExpandedPage }: ExpandedEventProps) {
     const [selectedEvent, setSelectedEvent] = useState<EventBlockItem | null>(null);
     const [selectedEventIndex, setSelectedEventIndex] = useState<number | null>(null);
 
@@ -62,6 +64,9 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
         eventDetails: {
             color: colors.text,
         },
+        button: {
+            backgroundColor: colors.accent
+        }
     };
 
     const updateEventBlock = (index: number, newProps: Partial<EventBlockItem>) => {
@@ -104,9 +109,26 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
         }
     };
 
+    const onReturn = () => {
+        setShowExpandedPage("")
+    }
+
+    const formatDate = (date: Date | string): string => {
+        const dateObject = date instanceof Date ? date : new Date(date);
+        if (isNaN(dateObject.getTime())) {
+            return 'Invalid Date';
+        }
+        return dateObject.toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+        });
+    };
+
     return (
         <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
-            <div className={`text-4xl font-bold text-center mb-6 ${titleFont.className}`} style={styles.title}>
+            <Button className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
+            <div className={`text-4xl font-bold text-center mb-6 mt-4 md:mt-2 ${titleFont.className}`} style={styles.title}>
                 <EditableText
                     text={title}
                     onTextChange={(newText) => updateConfig({ title: newText })}
@@ -201,9 +223,15 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
     function renderSelectedEventDetails(event: EventBlockItem, index: number, updateEventBlock: (index: number, updatedFields: Partial<EventBlockItem>) => void) {
         return (
             <>
-                <h2 className={`text-2xl font-semibold mb-4 ${titleFont.className}`} style={styles.eventTitle}>
+                <h2 className={`px-2 text-2xl font-semibold mb-4 ${titleFont.className}`} style={styles.eventTitle}>
                     {event.eventTitle}
                 </h2>
+                <div
+                    className="flex flex-row p-2"
+                >
+                    <Image src="./calendar.svg" alt="preview" width={20} height={20} className='mr-2'/>
+                    <span className="editable-date__display">{formatDate(event.eventDate)}</span>
+                </div>
                 <div className='flex flex-row'>
                     <Image src="./clock.svg" alt="preview" width={20} height={20} className='ml-2'/>
                     <EditableText

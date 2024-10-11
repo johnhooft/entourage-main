@@ -342,7 +342,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
         </DropdownMenu>
         {/* button to preview site: clears siteconfig from sessiongStorage and loads current on in, then redirect to /preview */}
         <div className='flex w-full justify-between'>
-          <Button className='ml-8 rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onPreview}>
+          <Button className='ml-2 md:ml-8 rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onPreview}>
             Preview
             <Image src="./screen-share.svg" alt="preview" width={20} height={20} className='ml-2'/>
           </Button>

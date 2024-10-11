@@ -25,7 +25,7 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
 
 const Site: React.FC<SiteProps> = ({ siteConfig }) => {
   const [config, setConfig] = useState<SiteConfig>(siteConfig);
-  const [showExpandedPage, setShowExpandedPage] = useState("ExpandedTrips"); // ExpandedTrips ExpandedEvents
+  const [showExpandedPage, setShowExpandedPage] = useState("ExpandedEvents"); // ExpandedTrips ExpandedEvents
 
   if (!siteConfig) {
     return <p>Loading...</p>;

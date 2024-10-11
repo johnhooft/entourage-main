@@ -5,13 +5,16 @@ import { default as Scroll } from './renderScroll';
 import { SiteFooter } from '../site/SiteFooter';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 import ExpandedTrips from './renderExpandedTrips';
+import ExpandedEvents from './renderExpandedEvents';
 
 interface SiteProps {
   siteConfig: SiteConfig;
 }
 
 const expandedPageMap: { [key: string]: React.ComponentType<any> } = {
-  ExpandedTrips
+  ExpandedTrips,
+  ExpandedEvents,
+
 };
 
 const componentMap: { [key: string]: React.ComponentType<any> } = {
@@ -21,7 +24,7 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
 };
 
 const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
-  const [showExpandedPage, setShowExpandedPage] = useState("ExpandedTrips"); // ExpandedTrips ExpandedEvents
+  const [showExpandedPage, setShowExpandedPage] = useState("ExpandedEvents"); // ExpandedTrips ExpandedEvents
 
   if (!siteConfig) {
     return <p>Loading...</p>;
