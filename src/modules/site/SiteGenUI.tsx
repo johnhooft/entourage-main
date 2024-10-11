@@ -262,7 +262,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
           style={{ backgroundColor: value }}
           onClick={() => handleColorButtonClick(key as keyof Colors)}
         ></button>
-        <span className="text-sm">{key}</span>
+        <span className="text-sm text-black">{key}</span>
         {activeColorPicker === key && isColorPickerOpen && (
           <div ref={colorRef} className="absolute bottom-20 z-10">
             <HexColorPicker color={value} onChange={handleColorChange} />
@@ -361,12 +361,6 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
         <div className="fixed bottom-0 left-0 right-0 bg-entourage-white py-4 px-1 z-50 text-foreground">
           <div className="flex flex-row w-full px-5 items-center">
             <Button className='mr-4 bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={() => setIsColorPopupOpen(false)}>Close</Button>
-            {/* <div
-              className="flex flex-row pr-4 cursor-pointer"
-              onClick={() => handleColorSetClick(userColors)}
-            >
-              {renderColorBlocks(userColors)}
-            </div> */}
             <div
               className="flex flex-row pr-4 cursor-pointer"
               onClick={() => handleCustomColorSetClick(userColors)}

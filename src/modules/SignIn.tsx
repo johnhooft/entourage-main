@@ -25,7 +25,7 @@ const SignIn: React.FC<{ onSuccessfulSignIn: () => void; redirect: string }> = (
 
     const onGoogleSignIn = async () => {
         try {
-            //console.log(redirect)
+            console.log(redirect)
             await loginWithGoogle(redirect);
 
         } catch (error: any) {
