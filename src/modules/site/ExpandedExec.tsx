@@ -99,16 +99,16 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
                 {execBlock.map((exec, index) => (
                     <div key={index} className="relative">
                         <div 
-                            className="rounded-[15px] p-4 flex flex-col items-center cursor-pointer"
-                            style={styles.execBlock}
-                            // onClick={() => handleExecClick(exec, index)}
+                            className="rounded-[15px] p-4 flex flex-col items-center cursor-pointer bg-transparent"
+                            //style={styles.execBlock}
+                            onClick={() => handleExecClick(exec, index)}
                         >
-                            <div className="w-40 h-40 rounded-[15px] overflow-hidden mb-2">
+                            <div className="w-60 h-48 rounded-[15px] overflow-hidden mb-2">
                                 <EditableImage 
                                     src={exec.image} 
                                     alt={"Executive image"}
-                                    width={160} 
-                                    height={160} 
+                                    width={240} 
+                                    height={192} 
                                     className="object-cover"
                                     id={`exec-image-${index}`}
                                     onImageUpdate={(newImageUrl) => {
@@ -118,13 +118,13 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
                                     }}
                                 />
                             </div>
-                            <div className={`text-xl font-semibold mb-2 ${titleFont.className}`}>
+                            <div className={`text-l font-semibold ${titleFont.className}`}>
                                 <EditableText
                                     text={exec.name}
                                     onTextChange={(newText) => updateExecBlock(index, { name: newText })}
                                 />
                             </div>
-                            <div>
+                            <div className='text-sm'>
                                 <EditableText
                                     text={exec.role}
                                     onTextChange={(newText) => updateExecBlock(index, { role: newText })}
@@ -133,6 +133,7 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
                             {selectedExec === exec && (
                                 <Button 
                                     className="mt-4 bg-red-500 hover:bg-red-600 text-white"
+                                    
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         removeExec(index);
