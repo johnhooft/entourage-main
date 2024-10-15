@@ -24,7 +24,7 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
 };
 
 const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
-  const [showExpandedPage, setShowExpandedPage] = useState("ExpandedEvents"); // ExpandedTrips ExpandedEvents
+  const [showExpandedPage, setShowExpandedPage] = useState(""); // ExpandedTrips ExpandedEvents
 
   if (!siteConfig) {
     return <p>Loading...</p>;
@@ -36,11 +36,12 @@ const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
   return (
     <div className="flex flex-col flex-grow items-center">
       {showExpandedPage && expandedPageMap[showExpandedPage] ? (
-        <div className="mt-5 w-screen h-screen z-40">
+        <div className="mt-5 w-screen h-screen">
           {React.createElement(expandedPageMap[showExpandedPage], {
             ...siteConfig.expandedPages.find(page => page.component === showExpandedPage)?.props,
             colors,
             fonts,
+            setShowExpandedPage,
           })}
         </div>
       ) : (

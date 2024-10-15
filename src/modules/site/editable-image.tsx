@@ -30,6 +30,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [noSrc, setNoSrc] = useState(src == "none");
 
   const deleteOldImage = useCallback(async (oldImageUrl: string) => {
     if (oldImageUrl.includes('supabase.co') && !oldImageUrl.includes('placeholder-logo.png')) {
@@ -93,13 +94,25 @@ const EditableImage: React.FC<EditableImageProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className={`${className} transition-opacity duration-300 ${isHovered ? 'opacity-50' : 'opacity-100'}`}
-      />
+      {!noSrc ? (
+        <Image
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className={`${className} transition-opacity duration-300 ${isHovered ? 'opacity-50' : 'opacity-100'}`}
+        />
+      ) : (
+        <div className={`bg-gray-200 flex items-center justify-center ${className}`} style={{ width, height }}>
+          <Image
+            src="./image-plus.svg"
+            alt="Add image"
+            width={width / 2}
+            height={height / 2}
+            className="opacity-50"
+          />
+        </div>
+      )}
 
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50">

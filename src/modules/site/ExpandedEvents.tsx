@@ -65,7 +65,8 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
             color: colors.text,
         },
         button: {
-            backgroundColor: colors.accent
+            borderColor: colors.accent,
+            color: colors.text,
         }
     };
 
@@ -127,7 +128,10 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
 
     return (
         <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
-            <Button className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
+            <Button className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
+                style={styles.button} onClick={onReturn}>
+                    ← Back
+            </Button>
             <div className={`text-4xl font-bold text-center mb-6 mt-4 md:mt-2 ${titleFont.className}`} style={styles.title}>
                 <EditableText
                     text={title}

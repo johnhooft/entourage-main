@@ -3,24 +3,21 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { motion, useAnimation } from 'framer-motion'
-import { Colors, Fonts } from '../../../utils/types/layoutTypes';
+import { Colors, Fonts, InfoBlock } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from '../../../utils/site/reduceOpacity';
 import { useInView } from 'react-intersection-observer';
-
-interface Block {
-  title: string;
-  text: string;
-  image: string;
-}
+import { ScrollButtonExpanded } from './render-button-expanded';
+import { ScrollButtonLink } from './render-button-link';
 
 interface InfoScrollProps {
-  blockArr: Block[];
+  blockArr: InfoBlock[];
   colors: Colors;
   fonts: Fonts;
+  setExpandedPage: (page: string) => void;
 }
 
-export default function ScrollRender({ blockArr, colors, fonts }: InfoScrollProps) {
+export default function ScrollRender({ blockArr, colors, fonts, setExpandedPage }: InfoScrollProps) {
   const controls = useAnimation()
   const [scrollRef, inView] = useInView({
     threshold: .99, // Trigger when 90% of the component is visible
@@ -54,6 +51,10 @@ export default function ScrollRender({ blockArr, colors, fonts }: InfoScrollProp
     shadow: {
       boxShadow: `0 0 20px ${reduceOpacity(colors.accent, 0.5)}`, // Shadow with reduced opacity
     },
+    button: {
+      color: colors.text,
+      borderColor: colors.accent,
+    }
   };
 
   return (
@@ -64,7 +65,7 @@ export default function ScrollRender({ blockArr, colors, fonts }: InfoScrollProp
         className={`w-full max-w-6xl h-[80vh] rounded-3xl border-4 relative p-4 md:p-16 ${isScrollable ? 'overflow-y-auto' : 'overflow-y-hidden'}`}
         style={{
           borderColor: styles.container.borderColor, // Border color
-          boxShadow: styles.shadow.boxShadow, // Dynamic shadow
+          // boxShadow: styles.shadow.boxShadow, // Dynamic shadow
         }}
       >
         {blockArr.map((block, index) => (
@@ -98,6 +99,27 @@ export default function ScrollRender({ blockArr, colors, fonts }: InfoScrollProp
                     className="rounded-lg shadow-md max-h-[400px] object-cover"
                   />
                 </div>
+              </div>
+              <div className='flex gap-2'>
+                {block.buttonlinkText && block.buttonLinkURL ? (
+                  <div className='mt-4 px-2'>
+                    <ScrollButtonLink 
+                      text={block.buttonlinkText}
+                      url={block.buttonLinkURL}
+                      style={styles.button}
+                    />
+                  </div>
+                ) : null}
+                {(block.buttonExpandedPage) && (
+                  <div className='mt-4 px-2'>
+                    <ScrollButtonExpanded
+                      text={'Learn More ->'}
+                      page={block.buttonExpandedPage}
+                      style={styles.button}
+                      onExpand={setExpandedPage}
+                    />
+                  </div>
+                )}
               </div>
             </motion.div>
           ) : null

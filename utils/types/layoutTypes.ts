@@ -81,6 +81,9 @@ export interface InfoBlock {
     title: string;
     text: string;
     image: string;
+    buttonlinkText?: string;
+    buttonLinkURL?: string;
+    buttonExpandedPage?: string;
 }
 // ----- ----- ----- //
 
@@ -117,6 +120,8 @@ export interface EventBlock {
 export interface ExpandedMembershipProps extends ExpandedPagesProps {
     descrition: string
     link: string
+    buttonText: string
+    buttonLink: string
 }
 
 export interface ExpandedTripProps extends ExpandedPagesProps {
@@ -129,4 +134,15 @@ export interface TripBlock {
     tripTitle: string;
     tripDescription: string;
     tripLocation: string;
+}
+
+export interface ExpandedExecProps extends ExpandedPagesProps {
+    title: string;
+    execBlock: ExecBlock[];
+}
+
+export interface ExecBlock {
+    image: string;
+    name: string;
+    role: string;
 }

@@ -7,6 +7,8 @@ import FullscreenExpandableMenu from './NavMenu';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 import ExpandedTrips from './ExpandedTrips';
 import ExpandedEvents from './ExpandedEvents';
+import ExpandedExec from './ExpandedExec';
+import ExpandedMemberships from './ExpandedMemberships'
 
 interface SiteProps {
   siteConfig: SiteConfig;
@@ -15,6 +17,8 @@ interface SiteProps {
 const expandedPageMap: { [key: string]: React.ComponentType<any> } = {
   ExpandedTrips,
   ExpandedEvents,
+  ExpandedExec,
+  ExpandedMemberships,
 };
 
 const componentMap: { [key: string]: React.ComponentType<any> } = {
@@ -25,7 +29,7 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
 
 const Site: React.FC<SiteProps> = ({ siteConfig }) => {
   const [config, setConfig] = useState<SiteConfig>(siteConfig);
-  const [showExpandedPage, setShowExpandedPage] = useState("ExpandedEvents"); // ExpandedTrips ExpandedEvents
+  const [showExpandedPage, setShowExpandedPage] = useState<keyof typeof expandedPageMap | "">("");
 
   if (!siteConfig) {
     return <p>Loading...</p>;
@@ -53,9 +57,9 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
   console.log(siteConfig)
  
   return (
-    <div className="flex flex-col flex-grow items-center">
+    <div className={`flex flex-col flex-grow items-center ${showExpandedPage ? 'overflow-hidden' : ''}`}>
       {showExpandedPage && expandedPageMap[showExpandedPage] ? (
-        <div className="absolute top-20 left-0 w-screen h-screen z-40">
+        <div key={showExpandedPage} className="fixed inset-0 top-20 z-40 overflow-y-auto">
           {React.createElement(expandedPageMap[showExpandedPage], {
             ...siteConfig.expandedPages.find(page => page.component === showExpandedPage)?.props,
             colors,
@@ -65,7 +69,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
               newProps,
               true
             ),
-            setShowExpandedPage: setShowExpandedPage
+            setShowExpandedPage,
           })}
         </div>
       ) : (
@@ -82,6 +86,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
                 colors={colors}
                 fonts={fonts}
                 updateConfig={(newProps: any) => updateConfig(index, newProps, false)}
+                setExpandedPage={setShowExpandedPage}
               />
             </div>
           );

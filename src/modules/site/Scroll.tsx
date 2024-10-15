@@ -4,31 +4,27 @@ import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import EditableText from './editable-text';
 import EditableImage from './editable-image';
-import { motion, useAnimation } from 'framer-motion'
-import { Colors, Fonts } from '../../../utils/types/layoutTypes';
+import { color, motion, useAnimation } from 'framer-motion'
+import { Colors, Fonts, InfoBlock } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from '../../../utils/site/reduceOpacity';
 import { v4 as uuidv4 } from 'uuid';
 import { useInView } from 'react-intersection-observer';
-
-interface Block {
-  id: string;
-  title: string;
-  text: string;
-  image: string;
-}
+import { ScrollButtonExpanded } from './editable-button-expanded';
+import { ScrollButtonLink } from './editable-button-link';
 
 interface InfoScrollProps {
-  blockArr: Block[];
+  blockArr: InfoBlock[];
   colors: Colors;
   fonts: Fonts;
   updateConfig: (newProps: any) => void;
+  setExpandedPage: (page: string) => void;
 }
 
-export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoScrollProps) {
+export default function Scroll({ blockArr, colors, fonts, updateConfig, setExpandedPage }: InfoScrollProps) {
   const controls = useAnimation()
   const [scrollRef, inView] = useInView({
-    threshold: 0.95, // Trigger when 70% of the component is visible
+    threshold: 0.95, // Trigger when % of the component is visible
   });
   const [isScrollable, setIsScrollable] = useState(false);
 
@@ -61,6 +57,10 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoSc
     shadow: {
       boxShadow: `0 0 20px ${reduceOpacity(colors.accent, 0.5)}`, // Shadow with reduced opacity
     },
+    button: {
+      color: colors.text,
+      borderColor: colors.accent,
+    }
   };
 
   const updateBlockTitle = (blockIndex: number, newTitle: string) => {
@@ -128,6 +128,29 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig }: InfoSc
                     onImageUpdate={(newImageUrl) => updateBlockImage(block.id, newImageUrl)}
                   />
                 </div>
+              </div>
+              <div className='flex gap-2'>
+                {block.buttonlinkText && block.buttonLinkURL ? (
+                  <div className='mt-4 px-2'>
+                    <ScrollButtonLink 
+                      initialText={block.buttonlinkText}
+                      initialUrl={block.buttonLinkURL}
+                      style={styles.button}
+                      onUpdate={updateConfig}
+                    />
+                  </div>
+                ) : null}
+                {(block.buttonExpandedPage) && (
+                  <div className='mt-4 px-2'>
+                    <ScrollButtonExpanded
+                      initialText={'Learn More ->'}
+                      page={block.buttonExpandedPage}
+                      style={styles.button}
+                      onUpdate={updateConfig}
+                      onExpand={setExpandedPage}
+                    />
+                  </div>
+                )}
               </div>
             </motion.div>
           ) : null

@@ -32,10 +32,10 @@ interface RenderExpandedEventsProps {
         title: string;
         text: string;
     };
-    onReturn: () => void;
+    setShowExpandedPage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function RenderExpandedEvents({ title, eventBlock, colors, fonts, onReturn }: RenderExpandedEventsProps) {
+export default function RenderExpandedEvents({ title, eventBlock, colors, fonts, setShowExpandedPage }: RenderExpandedEventsProps) {
     const [selectedEvent, setSelectedEvent] = useState<EventBlockItem | null>(null);
     const [selectedEventIndex, setSelectedEventIndex] = useState<number | null>(null);
 
@@ -119,9 +119,13 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
         });
     };
 
+    const onReturn = () => {
+        setShowExpandedPage("");
+    };
+
     return (
         <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
-            <Button className='absolute top-2 left:0 md:top-8 md:left-4 rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
+            <Button className='absolute z-10 top-2 left:0 md:top-8 md:left-4 rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
             <div className={`text-4xl font-bold text-center mb-14 mt-4 md:mt-0 ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
