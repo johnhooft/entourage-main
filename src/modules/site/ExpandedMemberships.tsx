@@ -61,18 +61,20 @@ export default function ExpandedMemberships({ title, image, text, buttonLink, bu
     }
 
     return (
-        <div className="min-h-screen flex flex-col items-center p-8 relative" style={styles.container}>
+        <div className={`min-h-screen flex flex-col items-center p-8 relative ${textFont.className}`} style={styles.container}>
             <Button 
+                className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
+                style={styles.button} 
                 onClick={onBack}
-                className="absolute top-4 left-4 flex items-center rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px]"
-                style={styles.button}
             >
-                ← Back
+                    ← Back
             </Button>
-
-            <h1 className={`text-4xl font-bold mb-12 ${titleFont.className}`} style={styles.title}>
-                <EditableText text={title} onTextChange={(newTitle) => updateConfig({ title: newTitle })} />
-            </h1>
+            <div className={`text-4xl font-bold text-center mb-6 mt-4 md:mt-2 ${titleFont.className}`} style={styles.title}>
+                <EditableText
+                    text={title}
+                    onTextChange={(newText) => updateConfig({ title: newText })}
+                />
+            </div>
             
             <div className="flex flex-col md:flex-row w-full max-w-6xl mb-12">
                 <div className="w-full md:w-1/2 mb-8 md:mb-0 md:mr-8">

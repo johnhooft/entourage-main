@@ -69,7 +69,8 @@ export default function ExpandedTrips({ title, description, tripBlock, updateCon
       color: colors.text,
     },
     button: {
-      backgroundColor: colors.accent
+      borderColor: colors.accent,
+      color: colors.text,
     }
   };
 
@@ -94,7 +95,13 @@ export default function ExpandedTrips({ title, description, tripBlock, updateCon
 
   return (
     <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
-      <Button className='absolute top-10 left-4 rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
+      <Button 
+        className='absolute top-10 left-4 mx-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px]' 
+        style={styles.button} 
+        onClick={onReturn}
+      >
+          ← Back
+      </Button>
       <div className={`text-4xl font-bold text-center mb-8 ${titleFont.className}`} style={styles.title}>
         <EditableText
           text={title}

@@ -35,8 +35,9 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
             color: colors.background,
         },
         button: {
-            backgroundColor: colors.accent,
-        },
+            borderColor: colors.accent,
+            color: colors.text,
+        }
     };
 
     const handleExecClick = (exec: ExecBlock, index: number) => {
@@ -81,7 +82,13 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
 
     return (
         <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
-            <Button className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
+            <Button 
+                className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
+                style={styles.button} 
+                onClick={onReturn}
+            >
+                ← Back
+            </Button>
             <div className={`text-4xl font-bold text-center mb-6 mt-4 md:mt-0 ${titleFont.className}`} style={styles.title}>
                 <EditableText
                     text={title}
@@ -139,7 +146,7 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
                 ))}
                 <div className="flex items-center justify-center">
                     <Button 
-                        className="p-4 rounded-full"
+                        className="p-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4"
                         style={styles.button}
                         onClick={addNewExec}
                     >
