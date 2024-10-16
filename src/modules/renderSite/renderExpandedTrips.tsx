@@ -1,5 +1,5 @@
 'use client'
-
+import React, { useEffect } from 'react';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import { Button } from '@/components/ui/button';
@@ -62,17 +62,29 @@ export default function ExpandedTrips({ title, description, tripBlock, colors, f
             color: colors.text,
         },
         button: {
-            backgroundColor: colors.accent
-        }
+            borderColor: colors.accent,
+            color: colors.text,
+        },
     };
 
-    const onReturn = () => {
+    const onBack = () => {
         setShowExpandedPage("");
     }
 
+    useEffect(() => {
+        // Reset scroll position to top when component mounts
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
-        <div className={`w-screen h-fit mx-auto px-6 py-8 ${textFont.className}`} style={styles.container}>
-            <Button className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
+        <div className={`w-screen h-fit mx-auto p-8 ${textFont.className}`} style={styles.container}>
+            <Button 
+                className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
+                style={styles.button} 
+                onClick={onBack}
+            >
+                ← Back
+            </Button>
             <div className={`text-4xl font-bold text-center mb-8 mt-4 md:mt-0 ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>

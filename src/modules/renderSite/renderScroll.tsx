@@ -14,10 +14,10 @@ interface InfoScrollProps {
   blockArr: InfoBlock[];
   colors: Colors;
   fonts: Fonts;
-  setExpandedPage: (page: string) => void;
+  setShowExpandedPage: (page: string) => void;
 }
 
-export default function ScrollRender({ blockArr, colors, fonts, setExpandedPage }: InfoScrollProps) {
+export default function ScrollRender({ blockArr, colors, fonts, setShowExpandedPage }: InfoScrollProps) {
   const controls = useAnimation()
   const [scrollRef, inView] = useInView({
     threshold: .99, // Trigger when 90% of the component is visible
@@ -119,7 +119,7 @@ export default function ScrollRender({ blockArr, colors, fonts, setExpandedPage 
                       text={'Learn More ->'}
                       page={block.buttonExpandedPage}
                       style={styles.button}
-                      onExpand={setExpandedPage}
+                      onExpand={setShowExpandedPage}
                     />
                   </div>
                 )}

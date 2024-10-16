@@ -145,4 +145,6 @@ export interface ExecBlock {
     image: string;
     name: string;
     role: string;
+    bio: string;
+    instaURL: string;
 }

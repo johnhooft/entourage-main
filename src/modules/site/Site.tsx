@@ -3,7 +3,6 @@ import HeroSection from './HeroSection';
 import MovingCards from './MovingCards';
 import Scroll from './Scroll';
 import { SiteFooter } from './SiteFooter';
-import FullscreenExpandableMenu from './NavMenu';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 import ExpandedTrips from './ExpandedTrips';
 import ExpandedEvents from './ExpandedEvents';

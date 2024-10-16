@@ -6,6 +6,8 @@ import { SiteFooter } from '../site/SiteFooter';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 import ExpandedTrips from './renderExpandedTrips';
 import ExpandedEvents from './renderExpandedEvents';
+import ExpandedMemberships from './renderExpandedMemberships';
+import ExpandedExec from './renderExpandedExec';
 
 interface SiteProps {
   siteConfig: SiteConfig;
@@ -14,7 +16,8 @@ interface SiteProps {
 const expandedPageMap: { [key: string]: React.ComponentType<any> } = {
   ExpandedTrips,
   ExpandedEvents,
-
+  ExpandedMemberships,
+  ExpandedExec,
 };
 
 const componentMap: { [key: string]: React.ComponentType<any> } = {
@@ -53,12 +56,19 @@ const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
           }
           return (
             <div key={index} className="w-full">
-              <Component {...item.props} colors={colors} fonts={fonts} />
+              <Component 
+                {...item.props} 
+                colors={colors} 
+                fonts={fonts}
+                setShowExpandedPage={setShowExpandedPage}
+              />
             </div>
           );
         })
       )}
-      <SiteFooter />
+      <div className='w-full mt-5'>
+        <SiteFooter />
+      </div>
     </div>
   );
 };

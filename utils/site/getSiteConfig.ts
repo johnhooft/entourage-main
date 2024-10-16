@@ -1,5 +1,5 @@
-import { SiteConfig, HeroSectionProps, MovingCardsProps, InfoScrollProps, InfoBlock } from '../types/layoutTypes';
-import { ExpandedEventProps, ExpandedMembershipProps, ExpandedTripProps, ExpandedPagesProps } from '../types/layoutTypes';
+import { SiteConfig, HeroSectionProps, MovingCardsProps, InfoScrollProps, InfoBlock, ExecBlock } from '../types/layoutTypes';
+import { ExpandedEventProps, ExpandedMembershipProps, ExpandedExecProps, ExpandedTripProps, ExpandedPagesProps } from '../types/layoutTypes';
 
 interface ClubData {
     clubName: string;
@@ -69,12 +69,12 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                 props: {
                     title: "Executive Team",
                     execBlock: [
-                        { image: "none", name: "First Last", role: "Role"},
-                        { image: "none", name: "First Last", role: "Role"},
-                        { image: "none", name: "First Last", role: "Role"},
-                        { image: "none", name: "First Last", role: "Role"},
+                        { image: "none", name: "First Last", role: "Role", instaURL: "https://www.instagram.com/entourage.ai/", bio: "Add a quick bio here!"},
+                        { image: "none", name: "First Last", role: "Role", instaURL: "https://www.instagram.com/entourage.ai/", bio: "Add a quick bio here!"},
+                        { image: "none", name: "First Last", role: "Role", instaURL: "https://www.instagram.com/entourage.ai/", bio: "Add a quick bio here!"},
+                        { image: "none", name: "First Last", role: "Role", instaURL: "https://www.instagram.com/entourage.ai/", bio: "Add a quick bio here!"},
                     ]
-                }
+                } as ExpandedExecProps
             },
             {
                 component: "ExpandedMemberships",
