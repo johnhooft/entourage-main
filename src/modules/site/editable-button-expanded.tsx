@@ -22,6 +22,11 @@ export const ScrollButtonExpanded: React.FC<EditableScrollButtonExpandedProps> =
         onExpand(page)
     }
     
+    const buttonStyle = {
+        ...style,
+        borderColor: style.color || 'inherit'
+    };
+
     return (
         <Dialog open={isEditing} onOpenChange={setIsEditing}>
         <DialogTrigger asChild>
@@ -30,7 +35,7 @@ export const ScrollButtonExpanded: React.FC<EditableScrollButtonExpandedProps> =
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             >
-                <button onClick={onClick} className='border-[1px] p-2 rounded-[15px]' style={style}>
+                <button onClick={onClick} className='border p-2 rounded-[15px]' style={buttonStyle}>
                     {text}
                 </button>
             {isHovered && (

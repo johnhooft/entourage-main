@@ -22,6 +22,11 @@ export const ScrollButtonLink: React.FC<EditableScrollButtonLinkProps> = ({ init
         window.open(url, '_blank', 'noopener,noreferrer');
     }
     
+    const buttonStyle = {
+        ...style,
+        borderColor: style?.color || 'inherit'
+    };
+
     return (
         <Dialog open={isEditing} onOpenChange={setIsEditing}>
         <DialogTrigger asChild>
@@ -30,7 +35,7 @@ export const ScrollButtonLink: React.FC<EditableScrollButtonLinkProps> = ({ init
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             >
-                <button onClick={handleClick} className='border-[1px] p-2 rounded-[15px]' style={style}>
+                <button onClick={handleClick} className='border p-2 rounded-[15px]' style={buttonStyle}>
                     {text}
                 </button>
             {isHovered && (

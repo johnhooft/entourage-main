@@ -108,44 +108,79 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     onConfigChange(newConfig)
   }
 
-  const lightBlueWhiteColors: Colors = {
-    primary: 'hsla(210, 100%, 50%, 1)',
-    accent: 'hsla(195, 100%, 50%, 1)',
-    background: 'hsla(206, 14%, 21%, 1)',
-    text: 'hsla(210, 36%, 96%, 1)',
+  const urbanchicColors: Colors = {
+    primary: 'hsla(240, 30%, 25%, 1)',    // Deep Indigo
+    accent: 'hsla(233, 25%, 60%, 1)',     // Soft Periwinkle
+    background: 'hsla(0, 0%, 98%, 1)',    // Slightly Off-White
+    text: 'hsla(240, 20%, 30%, 1)',       // Dark Blue-Gray
   }
 
-  const pastelGreenColors: Colors = {
-    primary: 'hsla(158, 55%, 78%, 1)',
-    accent: 'hsla(83, 55%, 84%, 1)',
-    background: 'hsla(90, 40%, 95%, 1)',
-    text: 'hsla(0, 0%, 20%, 1)',
+  const pastels: Colors = {
+    primary: 'hsla(350, 80%, 85%, 1)',    // Soft Pink
+    accent: 'hsla(180, 40%, 80%, 1)',     // Light Mint
+    background: 'hsla(45, 60%, 97%, 1)',  // Warm Cream
+    text: 'hsla(330, 25%, 35%, 1)',       // Muted Plum
   }
 
-  const entourageColors: Colors = {
-    primary: 'hsla(208, 73%, 81%, 1)',
-    accent: 'hsla(17, 100%, 55%, 1)',
-    background: 'hsla(0, 0%, 13%, 1)',
-    text: 'hsla(0, 11%, 96%, 1)',
+  const vintageCharm: Colors = {
+    primary: 'hsla(24, 35%, 53%, 1)',     // Muted Terracotta
+    accent: 'hsla(43, 60%, 66%, 1)',      // Warm Golden Yellow
+    background: 'hsla(33, 30%, 96%, 1)',  // Soft Cream
+    text: 'hsla(355, 30%, 25%, 1)',       // Deep Burgundy
   }
 
-  const slateBlueLilac: Colors = {
-    primary: 'hsla(231, 44%, 56%, 1)',
-    accent: 'hsla(262, 47%, 63%, 1)',
-    background: 'hsla(200, 12%, 95%, 1)',
-    text: 'hsla(0, 0%, 26%, 1)',
+  const oceanBreeze: Colors = { 
+    primary: 'hsla(200, 60%, 40%, 1)',    // Deep Ocean Blue
+    accent: 'hsla(170, 45%, 60%, 1)',     // Sea Foam Green
+    background: 'hsla(195, 40%, 97%, 1)', // Very Pale Sky Blue
+    text: 'hsla(210, 55%, 20%, 1)',       // Navy
   }
 
-  const blackGreen: Colors = {
-    primary: 'hsla(124, 48%, 49%, 1)',
-    accent: 'hsla(124, 100%, 50%, 1)',
-    background: 'hsla(0, 0%, 0%, 1)',
-    text: 'hsla(0, 0%, 95%, 1)',
+  const mintForest: Colors = {
+    primary: 'hsla(160, 45%, 30%, 1)',    // Forest Green
+    accent: 'hsla(140, 35%, 70%, 1)',     // Soft Mint
+    background: 'hsla(120, 20%, 97%, 1)', // Very Pale Sage
+    text: 'hsla(180, 45%, 15%, 1)',       // Deep Teal
+  }
+
+  const midnightGlow: Colors = {
+    primary: 'hsla(240, 45%, 20%, 1)',    // Deep Midnight Blue
+    accent: 'hsla(280, 50%, 50%, 1)',     // Muted Purple
+    background: 'hsla(220, 35%, 15%, 1)', // Very Dark Navy
+    text: 'hsla(0, 0%, 90%, 1)',          // Light Gray
+  }
+
+  const darkForest: Colors = {
+    primary: 'hsla(150, 45%, 20%, 1)',    // Deep Forest Green
+    accent: 'hsla(80, 50%, 45%, 1)',      // Muted Lime Green
+    background: 'hsla(120, 25%, 15%, 1)', // Very Dark Green
+    text: 'hsla(60, 25%, 92%, 1)',        // Light Khaki
+  }
+
+  const volcanicNight: Colors = {
+    primary: 'hsla(0, 55%, 30%, 1)',      // Deep Red
+    accent: 'hsla(30, 90%, 50%, 1)',      // Muted Orange
+    background: 'hsla(0, 0%, 15%, 1)',    // Very Dark Gray
+    text: 'hsla(0, 0%, 95%, 1)',          // Off-White
+  }
+
+  const sunsetSerenade: Colors = {
+    primary: 'hsla(25, 75%, 55%, 1)',     // Warm Orange
+    accent: 'hsla(330, 50%, 65%, 1)',     // Soft Pink
+    background: 'hsla(45, 70%, 97%, 1)',  // Pale Yellow
+    text: 'hsla(350, 45%, 30%, 1)',       // Deep Rose
+  }
+
+  const arcticFrost: Colors = {
+    primary: 'hsla(200, 55%, 50%, 1)',    // Ice Blue
+    accent: 'hsla(170, 45%, 70%, 1)',     // Pale Turquoise
+    background: 'hsla(210, 40%, 98%, 1)', // Almost White with a Blue Tint
+    text: 'hsla(220, 65%, 20%, 1)',       // Deep Blue
   }
 
   const renderColorBlocks = (colors: Colors) => {
     return Object.entries(colors).map(([key, value]) => (
-      <div key={key} className="w-14 h-6" style={{ backgroundColor: value }}></div>
+      <div key={key} className="w-10 h-10 rounded-full" style={{ backgroundColor: value }} title={key}></div>
     ))
   }
 
@@ -256,15 +291,15 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
 
   const renderColorPickers = () => {
     return Object.entries(userColors).map(([key, value]) => (
-      <div key={key} className="flex flex-col items-center">
+      <div key={key} className="flex items-center justify-between">
+        <span className="text-sm text-black capitalize">{key}</span>
         <button
-          className="w-14 h-6 mb-2 border border-gray-300"
+          className="w-8 h-8 rounded-full border border-gray-300"
           style={{ backgroundColor: value }}
           onClick={() => handleColorButtonClick(key as keyof Colors)}
         ></button>
-        <span className="text-sm text-black">{key}</span>
         {activeColorPicker === key && isColorPickerOpen && (
-          <div ref={colorRef} className="absolute bottom-20 z-10">
+          <div ref={colorRef} className="absolute right-full mr-2 bottom-16 z-10">
             <HexColorPicker color={value} onChange={handleColorChange} />
           </div>
         )}
@@ -356,49 +391,36 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
       {/* Main content */}
       <div className="pt-16 pb-16">{children}</div>
 
-      {/* Bottom popup for color selection */}
+      {/* Right-side column for color selection */}
       {isColorPopupOpen && (
-        <div className="fixed bottom-0 left-0 right-0 bg-entourage-white py-4 px-1 z-50 text-foreground">
-          <div className="flex flex-row w-full px-5 items-center">
-            <Button className='mr-4 bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={() => setIsColorPopupOpen(false)}>Close</Button>
-            <div
-              className="flex flex-row pr-4 cursor-pointer"
-              onClick={() => handleCustomColorSetClick(userColors)}
-            >
-              <div className="flex flex-row gap-2 items-center pr-4">
-                {renderColorPickers()}
+        <div className="fixed top-0 right-0 bottom-0 w-64 bg-gray-100 shadow-lg z-50 flex flex-col">
+          <div className="p-4 border-b border-gray-300">
+            <h2 className="text-xl font-bold text-black">Color Selection</h2>
+          </div>
+          
+          <div className="flex-grow overflow-y-auto p-4">
+            {/* Predefined palettes */}
+            {[urbanchicColors, pastels, vintageCharm, oceanBreeze, mintForest, midnightGlow, darkForest, volcanicNight, sunsetSerenade, arcticFrost].map((palette, index) => (
+              <div key={index} className="mb-6 cursor-pointer" onClick={() => handleColorSetClick(palette)}>
+                <div className="flex space-x-2 p-2 bg-white rounded-md shadow-sm">
+                  {renderColorBlocks(palette)}
+                </div>
               </div>
+            ))}
+          </div>
+          
+          {/* Custom color picker */}
+          <div className="p-4 border-t border-gray-300">
+            <h3 className="text-lg font-semibold text-black mb-2">Custom</h3>
+            <div className="flex flex-col space-y-2">
+              {renderColorPickers()}
             </div>
-            <div
-              className="flex flex-row pr-4 cursor-pointer"
-              onClick={() => handleColorSetClick(lightBlueWhiteColors)}
-            >
-              {renderColorBlocks(lightBlueWhiteColors)}
-            </div>
-            <div
-              className="flex flex-row pr-4 cursor-pointer"
-              onClick={() => handleColorSetClick(pastelGreenColors)}
-            >
-              {renderColorBlocks(pastelGreenColors)}
-            </div>
-            <div
-              className="flex flex-row pr-4 cursor-pointer"
-              onClick={() => handleColorSetClick(entourageColors)}
-            >
-              {renderColorBlocks(entourageColors)}
-            </div>
-            <div
-              className="flex flex-row pr-4 cursor-pointer"
-              onClick={() => handleColorSetClick(slateBlueLilac)}
-            >
-              {renderColorBlocks(slateBlueLilac)}
-            </div>
-            {/* <div
-              className="flex flex-row pr-4 cursor-pointer"
-              onClick={() => handleColorSetClick(blackGreen)}
-            >
-              {renderColorBlocks(blackGreen)}
-            </div> */}
+          </div>
+          
+          <div className="p-4 border-t border-gray-300">
+            <Button className='w-full bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={() => setIsColorPopupOpen(false)}>
+              Close
+            </Button>
           </div>
         </div>
       )}

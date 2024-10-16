@@ -12,8 +12,13 @@ export const ScrollButtonExpanded: React.FC<ScrollButtonExpandedProps> = ({ text
     onExpand(page);
   };
 
+  const buttonStyle = {
+    ...style,
+    borderColor: style.color || 'inherit'
+  };
+
   return (
-    <button onClick={onClick} className='border-[1px] p-2 rounded-[15px]' style={style}>
+    <button onClick={onClick} className='border p-2 rounded-[15px]' style={buttonStyle}>
       {text}
     </button>
   );

@@ -53,14 +53,16 @@ export default function LandingPage() {
                     <div className="scale-95 flex flex-grow flex-col max-w-[70rem] max-h-fit md:flex-row items-center justify-between gap-10 md:gap-8">
                         <div className="flex flex-col max-w-[30rem] items-center md:items-start space-y-4 gap-5 md:space-y-6">
                             <p className="text-4xl md:text-5xl font-semibold text-center md:text-left">
-                                <span className="text-entourage-black dark:text-entourage-blue">Build a </span>
+                                <span className="text-entourage-black dark:text-entourage-blue">Welcome to the entourage </span>
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-entourage-black to-entourage-orange dark:bg-gradient-to-r dark:from-entourage-blue dark:to-entourage-orange">
-                                    club website
+                                    beta
                                 </span>
-                                <span className="text-entourage-black dark:text-entourage-blue"> in seconds</span>
+                                <span className="text-entourage-black dark:text-entourage-blue"> ! </span>
                             </p>
                             <p className="text-md md:text-lg text-center md:text-left dark:text-entourage-orange">
-                                Let our AI put all of your information in one place, get in touch with the right brands, and unlock time for what you&apos;re best at. Running your club.
+                                Here you can generate your club a website by answering a couple of prompts, customize it, and go live on your own subdomain. Completely free.
+                                <br /><br />
+                                Hit the launch button below to get started.
                             </p>
                             <div>
                                 <Link href={'/questionnaire'}>

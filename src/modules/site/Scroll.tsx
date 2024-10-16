@@ -48,6 +48,9 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig, setExpan
       backgroundColor: reduceOpacity(colors.background, 1), // Full opacity background color
       borderColor: colors.accent, // Accent color for the border
     },
+    innerContainer: {
+      backgroundColor: reduceOpacity(colors.accent, 0.8), // Slightly transparent accent color
+    },
     text: {
       color: colors.text, // Primary text color
     },
@@ -91,8 +94,8 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig, setExpan
         animate={controls}
         className={`w-full max-w-6xl h-[80vh] rounded-3xl border-4 relative p-4 md:p-16 ${isScrollable ? 'overflow-y-auto' : 'overflow-y-hidden'}`}
         style={{
-          borderColor: styles.container.borderColor, // Border color
-          //boxShadow: styles.shadow.boxShadow, // Dynamic shadow
+          borderColor: styles.container.borderColor,
+          backgroundColor: styles.innerContainer.backgroundColor, // Apply the new background color
         }}
       >
         {blockArr.map((block, index) => (

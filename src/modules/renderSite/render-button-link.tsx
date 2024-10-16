@@ -11,8 +11,13 @@ export const ScrollButtonLink: React.FC<ScrollButtonExpandedProps> = ({ text, ur
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 
+  const buttonStyle = {
+    ...style,
+    borderColor: style?.color || 'inherit'
+  };
+
   return (
-    <button onClick={handleClick} className='border-[1px] p-2 rounded-[15px]' style={style}>
+    <button onClick={handleClick} className='border p-2 rounded-[15px]' style={buttonStyle}>
       {text}
     </button>
   );
