@@ -30,7 +30,8 @@ const EditableImage: React.FC<EditableImageProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [noSrc, setNoSrc] = useState(src == "none");
+  const [noSrc, setNoSrc] = useState(src === "none");
+  const [imageSrc, setImageSrc] = useState(src);
 
   const deleteOldImage = useCallback(async (oldImageUrl: string) => {
     if (oldImageUrl.includes('supabase.co') && !oldImageUrl.includes('placeholder-logo.png')) {
@@ -62,50 +63,54 @@ const EditableImage: React.FC<EditableImageProps> = ({
     try {
       const fileExt = file.name.split('.').pop();
       const fileName = `${uuidv4()}.${fileExt}`;
-      const filePath = `images/${fileName}`;
+      const filePath = `temp/${fileName}`; // Changed to use 'temp' folder
+      const { data, error } = await supabase.storage
+        .from('images') // Changed to use 'images' bucket
+        .upload(filePath, file, {
+          contentType: file.type,
+        });
 
-      const { error: uploadError } = await supabase.storage
-        .from('images')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: publicUrlData } = supabase.storage
-        .from('images')
-        .getPublicUrl(filePath);
-
-      if (publicUrlData) {
-        // Delete old image before updating to the new one
-        await deleteOldImage(src);
-        onImageUpdate(publicUrlData.publicUrl);
-      } else {
-        throw new Error('Failed to get public URL');
+      if (error) {
+        console.error('Error uploading image:', error);
+        return;
       }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('images') // Changed to use 'images' bucket
+        .getPublicUrl(filePath); // Changed to use the full filePath
+
+      setImageSrc(publicUrl);
+      onImageUpdate(publicUrl);
+      setNoSrc(false);
+
+      await deleteOldImage(src);
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error('Error processing image:', error);
     } finally {
       setIsLoading(false);
     }
-  }, [src, onImageUpdate, deleteOldImage]);
+  }, [onImageUpdate, deleteOldImage, src]);
 
   return (
     <div
       className="relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{ width: `${width}px`, height: `${height}px` }}
     >
       {!noSrc ? (
         <Image
-          src={src}
+          src={imageSrc}
           alt={alt}
           width={width}
           height={height}
           className={`${className} transition-opacity duration-300 ${isHovered ? 'opacity-50' : 'opacity-100'}`}
+          style={{ objectFit: 'cover', width: '100%', height: '100%' }}
         />
       ) : (
-        <div className={`bg-gray-200 flex items-center justify-center ${className}`} style={{ width, height }}>
+        <div className={`bg-gray-200 flex items-center justify-center ${className}`} style={{ width: '100%', height: '100%' }}>
           <Image
-            src="./image-plus.svg"
+            src="/image-plus.svg"
             alt="Add image"
             width={width / 2}
             height={height / 2}
@@ -130,10 +135,13 @@ const EditableImage: React.FC<EditableImageProps> = ({
       />
 
       {isHovered && !isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
           <label htmlFor={id} className="cursor-pointer bg-white text-black px-4 py-2 rounded-md shadow-md hover:bg-gray-200 transition-colors duration-300">
-            Change Image
+            Edit Image
           </label>
+          <span className="text-xs mt-1 text-white bg-black bg-opacity-50 px-2 py-1 rounded">
+            For best results, use {width}x{height} px
+          </span>
         </div>
       )}
     </div>
