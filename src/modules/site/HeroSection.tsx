@@ -25,9 +25,10 @@ interface HeroProps {
   logo: string;
   siteSections: string[];
   updateConfig: (newProps: any) => void;
+  setExpandedPage: (page: string) => void;
 }
 
-const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, logo, siteSections, updateConfig }) => {
+const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, logo, siteSections, updateConfig, setExpandedPage }) => {
   const titleFont = fontMap[fonts.title as FontName];
   const textFont = fontMap[fonts.text as FontName]
   const [isHovered, setIsHovered] = useState(false);
@@ -83,7 +84,11 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
         <div className="flex flex-row justify-between relative w-[95%] top-20 left-8 md:left-10 text-white z-40">
           <ClubLogo src={logo} alt="club logo" width={60} height={60} className="logo" id="logoimage" onImageUpdate={handleLogoChange} />
           <div className="w-fit z-50">
-            <FullscreenExpandableMenu colors={colors} siteSections={siteSections}/>
+            <FullscreenExpandableMenu 
+              colors={colors} 
+              siteSections={siteSections}
+              setExpandedPage={setExpandedPage}
+            />
           </div>
         </div>
       )}

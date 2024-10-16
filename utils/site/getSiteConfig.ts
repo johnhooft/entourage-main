@@ -98,7 +98,7 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                     image: genContent.clubImages.message[0].largeImageURL,
                     buttonText: "Join the Club",
                     buttonLink: "#",
-                    siteSections:  Object.keys(genContent.clubCopy),
+                    siteSections:  ["Memberships", "Events", "Trips", "Executive Team"]
                 } as HeroSectionProps
             },
             {
