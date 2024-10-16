@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import Image from 'next/image';
@@ -60,8 +60,9 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
             color: colors.text,
         },
         button: {
-            backgroundColor: colors.accent
-        }
+            borderColor: colors.accent,
+            color: colors.text,
+        },
     };
 
     const handleEventClick = (event: EventBlockItem) => {
@@ -119,13 +120,24 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
         });
     };
 
-    const onReturn = () => {
+    const onBack = () => {
         setShowExpandedPage("");
     };
 
+    useEffect(() => {
+        // Reset scroll position to top when component mounts
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
-        <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
-            <Button className='absolute z-10 top-2 left:0 md:top-8 md:left-4 rounded-[15px] text-black hover:scale-105 transition-all mx-4' style={styles.button} onClick={onReturn}>← Back</Button>
+        <div className={`w-screen h-fit mx-auto p-8 ${textFont.className}`} style={styles.container}>
+            <Button 
+                className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
+                style={styles.button} 
+                onClick={onBack}
+            >
+                ← Back
+            </Button>
             <div className={`text-4xl font-bold text-center mb-14 mt-4 md:mt-0 ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
