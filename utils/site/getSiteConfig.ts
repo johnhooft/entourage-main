@@ -34,10 +34,10 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
 
         //Global Site Styles
         colors: {
-            primary: 'hsla(208, 73%, 81%, 1)',
-            accent: 'hsla(17, 100%, 55%, 1)',
-            background: 'hsla(0, 0%, 13%, 1)',
-            text: 'hsla(0, 11%, 96%, 1)',
+            primary: 'hsla(210, 10%, 25%, 1)',   // Very Dark Gray with a hint of blue
+            accent: 'hsla(210, 15%, 60%, 1)',    // Medium Gray with a touch of blue
+            background: 'hsla(0, 0%, 98%, 1)',   // Off-White
+            text: 'hsla(210, 10%, 20%, 1)',      // Almost Black with a subtle blue undertone
         },
 
         expandedPages: [
