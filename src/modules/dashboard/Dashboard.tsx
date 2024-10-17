@@ -34,7 +34,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (!loading && !user) {
-          router.push('/login');
+          router.push('/signin');
         }
         else if (user) { 
             console.log("get site config at ID: ", user.id)

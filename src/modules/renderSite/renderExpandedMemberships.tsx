@@ -66,7 +66,7 @@ export default function ExpandedMemberships({
             >
                 ← Back
             </Button>
-            <div className={`text-4xl font-bold text-center mb-6 mt-4 md:mt-2 ${titleFont.className}`} style={styles.title}>
+            <div className={`text-4xl font-bold text-center mb-6 mt-4 md:mt-2 whitespace-pre-wrap ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
             
@@ -80,7 +80,7 @@ export default function ExpandedMemberships({
                         className="rounded-lg shadow-md object-cover w-full h-full"
                     />
                 </div>
-                <div className={`w-full md:w-1/2 ${textFont.className}`}>
+                <div className={`w-full md:w-1/2 whitespace-pre-wrap ${textFont.className}`}>
                     {text}
                 </div>
             </div>

@@ -36,7 +36,7 @@ export function ThreeDLandingVisual() {
             </div>
           </div>
           <div className='flex justify-center' style={{ transform: "translateZ(75px)" }}>
-            <Link href={'/login'} className="scale-[75%] group px-6 py-3 border-2 border-entourage-black rounded-full bg-transparent text-entourage-black hover:scale-[85%] transition-all duration-200 flex items-center space-x-2">
+            <Link href={'/signup'} className="scale-[75%] group px-6 py-3 border-2 border-entourage-black rounded-full bg-transparent text-entourage-black hover:scale-[85%] transition-all duration-200 flex items-center space-x-2">
               <span>Join Now</span>
               <ArrowRight size={16} className='text-entourage-black' />
             </Link>

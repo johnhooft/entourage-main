@@ -1,7 +1,6 @@
 'use client'
 //Login
-import Login from '../../modules/Login';
-import SignIn from '@/modules/SignIn';
+import SignUp from '@/modules/Signup';
 import { Logo } from '../../modules/corp/Logo'
 import { Footer } from '../../modules/corp/Footer'
 import { BetaFooter } from '@/modules/corp/BetaFooter';
@@ -24,9 +23,9 @@ export default function Home() {
                 </div>
                 <div className='w-full flex justify-center items-center'>
                     <div className='pt-5 md:pt-0'>
-                        <SignIn 
-                            onSuccessfulSignIn={() => {router.push('./dashboard')}}
-                            redirect='dashboard'
+                        <SignUp 
+                            onSuccessfulSignup={() => {router.push('./')}}
+                            redirect='/'
                         />
                     </div>
                 </div>

@@ -8,7 +8,7 @@ export function BetaNav() {
     return (
         <div className="flex flex-row w-full justify-between">
             {!user && (
-                <Link href="/login" className="px-6 py-3 border-2 border-entourage-black dark:border-entourage-blue rounded-full bg-transparent text-entourage-orange hover:scale-105 hover:z-10 transition-transform duration-200">
+                <Link href="/signin" className="px-6 py-3 border-2 border-entourage-black dark:border-entourage-blue rounded-full bg-transparent text-entourage-orange hover:scale-105 hover:z-10 transition-transform duration-200">
                     <span>Sign In</span>
                 </Link>
             )}
