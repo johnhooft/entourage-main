@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function BetaFooter() {
   return (
@@ -6,9 +7,9 @@ export function BetaFooter() {
       <div className="mx-6">
         <div className="flex flex-row justify-between items-center text-lg">
             <Link href="https://www.instagram.com/entourage.ai/">
-              <img src="./instagram.svg" alt="insta" height={20} width={20}/>
+              <Image src="/instagram.svg" alt="Instagram" height={20} width={20} />
             </Link>
-            <Link href="/" className="hover:text-orange-500 transition-colors text-center md:text-left">
+            <Link href="/contact" className="hover:text-orange-500 transition-colors text-center md:text-left">
               Contact
             </Link>
         </div>
