@@ -126,6 +126,7 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
 
         footer: {
             links: {
+                email: "none",
                 instagram: "none",
                 facebook: "none",
             }
