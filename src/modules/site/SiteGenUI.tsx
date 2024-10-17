@@ -179,6 +179,34 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     text: 'hsla(220, 65%, 20%, 1)',       // Deep Blue
   }
 
+  const moonlitDesert: Colors = {
+    primary: 'hsla(45, 40%, 45%, 1)',     // Muted Sand
+    accent: 'hsla(15, 50%, 45%, 1)',      // Subdued Terracotta
+    background: 'hsla(240, 20%, 15%, 1)', // Deep Night Blue
+    text: 'hsla(40, 20%, 80%, 1)',        // Soft Sand
+  }
+
+  const emeraldNight: Colors = {
+    primary: 'hsla(140, 30%, 35%, 1)',    // Deep Forest Green
+    accent: 'hsla(160, 40%, 55%, 1)',     // Muted Teal
+    background: 'hsla(180, 25%, 12%, 1)', // Dark Teal
+    text: 'hsla(150, 30%, 75%, 1)',       // Pale Sage
+  }
+
+  const cosmicPurple: Colors = {
+    primary: 'hsla(280, 40%, 45%, 1)',    // Muted Purple
+    accent: 'hsla(320, 50%, 55%, 1)',     // Soft Magenta
+    background: 'hsla(260, 35%, 10%, 1)', // Deep Space Purple
+    text: 'hsla(270, 20%, 85%, 1)',       // Light Lavender
+  }
+
+  const charcoalAutumn: Colors = {
+    primary: 'hsla(20, 45%, 40%, 1)',     // Muted Rust
+    accent: 'hsla(45, 50%, 50%, 1)',      // Subdued Gold
+    background: 'hsla(0, 0%, 11%, 1)',    // Charcoal Black
+    text: 'hsla(30, 15%, 85%, 1)',        // Warm Off-White
+  }
+  
   const renderColorBlocks = (colors: Colors) => {
     return Object.entries(colors).map(([key, value]) => (
       <div key={key} className="w-10 h-10 rounded-full" style={{ backgroundColor: value }} title={key}></div>
@@ -401,7 +429,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
           
           <div className="flex-grow overflow-y-auto p-4">
             {/* Predefined palettes */}
-            {[urbanchicColors, pastels, vintageCharm, oceanBreeze, mintForest, midnightGlow, darkForest, volcanicNight, sunsetSerenade, arcticFrost].map((palette, index) => (
+            {[urbanchicColors, pastels, vintageCharm, oceanBreeze, mintForest, midnightGlow, darkForest, volcanicNight, sunsetSerenade, arcticFrost, moonlitDesert, emeraldNight, cosmicPurple, charcoalAutumn].map((palette, index) => (
               <div key={index} className="mb-6 cursor-pointer" onClick={() => handleColorSetClick(palette)}>
                 <div className="flex space-x-2 p-2 bg-white rounded-md shadow-sm">
                   {renderColorBlocks(palette)}
