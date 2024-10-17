@@ -15,14 +15,15 @@ interface StyleChangerProps {
   onConfigChange: (newConfig: SiteConfig) => void
 }
 
-const FontPreview: React.FC<{ fontName: FontName; onClick: () => void }> = ({ fontName, onClick }) => {
+const FontPreview: React.FC<{ fontName: FontName; onClick: () => void; isSelected: boolean }> = ({ fontName, onClick, isSelected }) => {
   const font = fontMap[fontName]
   return (
     <div 
-      className={`${font.className} cursor-pointer p-2 hover:bg-gray-100 rounded`}
+      className={`${font.className} cursor-pointer p-2 hover:bg-gray-200 rounded text-center ${isSelected ? 'bg-entourage-blue text-white' : 'bg-white text-black'}`}
       onClick={onClick}
     >
-      <h3 className="text-lg font-2xl text-black">Aa</h3>
+      <h3 className="text-lg font-bold">Aa</h3>
+      <p className="text-xs">{fontName}</p>
     </div>
   )
 }
@@ -425,34 +426,53 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
         </div>
       )}
 
-      {/* Bottom popup for font selection */}
+      {/* Right-side column for font selection */}
       {isFontPopupOpen && (
-        <div className="fixed bottom-0 left-0 right-0 bg-entourage-white p-4 z-50 text-foreground">
-          <h2 className="text-lg font-bold mb-4">Font Selection</h2>
-          <div className="flex space-x-4 mb-4">
-            <Button
-              onClick={() => setActiveFontTab('title')}
-              className={`${activeFontTab === 'title' ? 'bg-entourage-blue text-black hover:bg-entourage-blue' : 'bg-white text-black hover:bg-entourage-blue/45'}`}
-            >
-              Title Font
-            </Button>
-            <Button
-              onClick={() => setActiveFontTab('text')}
-              className={`${activeFontTab === 'text' ? 'bg-entourage-blue text-black hover:bg-entourage-blue' : 'bg-white text-black hover:bg-entourage-blue/45'}`}
-            >
-              Text Font
+        <div className="fixed top-0 right-0 bottom-0 w-64 bg-gray-100 shadow-lg z-50 flex flex-col">
+          <div className="p-4 border-b border-gray-300">
+            <h2 className="text-xl font-bold text-black">Font Selection</h2>
+          </div>
+          
+          <div className="flex-grow overflow-y-auto p-4">
+            <div className="mb-6">
+              <div className="flex flex-col items-center mb-4">
+                <div className="flex items-center justify-center w-full mb-2">
+                  <span className={`text-sm font-medium mr-2 ${activeFontTab === 'title' ? 'text-entourage-blue' : 'text-black'}`}>Title</span>
+                  <div 
+                    className="w-12 h-6 bg-gray-200 rounded-full p-1 cursor-pointer"
+                    onClick={() => setActiveFontTab(activeFontTab === 'title' ? 'text' : 'title')}
+                  >
+                    <div
+                      className={`bg-entourage-blue w-4 h-4 rounded-full shadow-md transform transition-transform duration-300 ease-in-out ${
+                        activeFontTab === 'text' ? 'translate-x-6' : ''
+                      }`}
+                    ></div>
+                  </div>
+                  <span className={`text-sm font-medium ml-2 ${activeFontTab === 'text' ? 'text-entourage-blue' : 'text-black'}`}>Text</span>
+                </div>
+                <p className="text-xs text-black">
+                  Editing <span className="font-semibold text-entourage-blue">{activeFontTab === 'title' ? 'Title' : 'Text'}</span> Font
+                </p>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 gap-4">
+              {Object.keys(fontMap).map((fontName) => (
+                <FontPreview 
+                  key={fontName} 
+                  fontName={fontName as FontName} 
+                  onClick={() => handleFontChange(fontName as FontName)}
+                  isSelected={(activeFontTab === 'title' ? selectedTitleFont : selectedTextFont) === fontName}
+                />
+              ))}
+            </div>
+          </div>
+          
+          <div className="p-4 border-t border-gray-300">
+            <Button className='w-full bg-entourage-blue text-white hover:bg-entourage-blue hover:scale-105 transition-all' onClick={() => setIsFontPopupOpen(false)}>
+              Close
             </Button>
           </div>
-          <div className="flex flex-row flex-grow gap-4">
-            {Object.keys(fontMap).map((fontName) => (
-              <FontPreview 
-                key={fontName} 
-                fontName={fontName as FontName} 
-                onClick={() => handleFontChange(fontName as FontName)} 
-              />
-            ))}
-          </div>
-          <Button onClick={() => setIsFontPopupOpen(false)} className="mt-4 bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all">Close</Button>
         </div>
       )}
     </div>
