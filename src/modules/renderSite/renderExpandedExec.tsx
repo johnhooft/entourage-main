@@ -88,7 +88,7 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, setShowE
                     </div>
                     <div className='flex w-full justify-center'>
                         <Link href={exec.instaURL}>
-                            <img src="./instagram.svg" alt="insta" height={20} width={20}/>
+                            <Image src="/instagram.svg" alt="Instagram" width={20} height={20} />
                         </Link>
                     </div>
                 </div>
@@ -97,7 +97,7 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, setShowE
     );
 
     return (
-        <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
+        <div className={`w-screen h-fit mx-auto p-8 ${textFont.className}`} style={styles.container}>
             <Button 
                 className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
                 style={styles.button} 

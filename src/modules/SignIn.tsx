@@ -83,7 +83,7 @@ const SignIn: React.FC<{ onSuccessfulSignIn: () => void; redirect: string; }> = 
                 <div className='flex w-full justify-center pt-4'>  
                     <button onClick={onGoogleSignIn} className='w-5/6 border-[1px] rounded-[20px] border-entourage-orange'>
                         <p className='text-white text-sm py-2'>
-                            Sign up with Google
+                            Sign in with Google
                         </p>
                     </button>
                 </div>
