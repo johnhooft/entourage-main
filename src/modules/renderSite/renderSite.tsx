@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { default as HeroSection } from './renderHeroSection';
 import { default as MovingCards } from './renderMovingCards';
 import { default as Scroll } from './renderScroll';
-import { SiteFooter } from '../site/SiteFooter';
+import SiteFooter from './renderSiteFooter';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 import ExpandedTrips from './renderExpandedTrips';
 import ExpandedEvents from './renderExpandedEvents';
@@ -55,7 +55,7 @@ const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
             return null;
           }
           return (
-            <div key={index} className="w-full">
+            <div key={index} className="w-full overflow-hidden">
               <Component 
                 {...item.props} 
                 colors={colors} 
@@ -67,7 +67,7 @@ const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
         })
       )}
       <div className='w-full mt-5'>
-        <SiteFooter />
+        <SiteFooter links={siteConfig.footer.links}/>
       </div>
     </div>
   );

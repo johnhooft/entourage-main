@@ -33,6 +33,10 @@ const EditableImage: React.FC<EditableImageProps> = ({
   const [noSrc, setNoSrc] = useState(src === "none");
   const [imageSrc, setImageSrc] = useState(src);
 
+  function gcd(a: number, b: number): number {
+    return b === 0 ? a : gcd(b, a % b);
+  }
+
   const deleteOldImage = useCallback(async (oldImageUrl: string) => {
     if (oldImageUrl.includes('supabase.co') && !oldImageUrl.includes('placeholder-logo.png')) {
       // Extract the file path from the Supabase URL
@@ -140,7 +144,7 @@ const EditableImage: React.FC<EditableImageProps> = ({
             Edit Image
           </label>
           <span className="text-xs mt-1 text-white bg-black bg-opacity-50 px-2 py-1 rounded">
-            For best results, use {width}x{height} px
+            For best results, use {width / gcd(width, height)}:{height / gcd(width, height)} aspect ratio
           </span>
         </div>
       )}

@@ -36,18 +36,18 @@ const MovingCards: React.FC<MovingCardsProps> = ({ aboutText, imageArr, colors, 
 
     return (
         <div
-            className="h-fit md:h-[22rem] rounded-sm flex flex-col antialiased items-center justify-center relative overflow-hidden"
+            className="h-fit min-h-[22rem] rounded-sm flex flex-col antialiased items-center justify-center relative overflow-hidden"
             style={styles.container}
         >
-            <div className="flex flex-grow flex-col justify-evenly items-center">
+            <div className="flex flex-grow flex-col justify-evenly items-center w-full">
                 <div
-                    className={`flex w-screen px-6 py-3 md:px-12 lg:px-28 ${textFont.className} justify-center`}
+                    className={`flex w-full px-6 py-3 md:px-12 lg:px-28 ${textFont.className} justify-center whitespace-pre-wrap`}
                     style={styles.text}
                 >
                     {aboutText}
                 </div>
                 <div 
-                    className="flex w-screen justify-center relative transition-all duration-200"
+                    className="flex w-full justify-center relative transition-all duration-200"
                 >
                     <InfiniteMovingCards
                         items={images}

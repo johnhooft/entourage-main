@@ -24,6 +24,7 @@ export interface SiteConfig {
     colors: Colors;
     layout: LayoutComponent[];
     expandedPages: ExpandedPageComponent[];
+    footer: FooterComponent;
 }
 // ----- ----- ----- //
 
@@ -47,6 +48,16 @@ export interface Colors {
 
 
 // ----- Site Components ----- //
+
+export interface FooterComponent {
+    links: FooterComponentProps;
+}
+
+export interface FooterComponentProps {
+    email?: string;
+    instagram: string;
+    facebook: string;
+}
 
 export interface LayoutComponent {
     component: string;

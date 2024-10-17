@@ -122,7 +122,14 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                     ] as InfoBlock[],
                 } as InfoScrollProps
             }
-        ]
+        ],
+
+        footer: {
+            links: {
+                instagram: "none",
+                facebook: "none",
+            }
+        },
     };
 
     return siteConfig;
