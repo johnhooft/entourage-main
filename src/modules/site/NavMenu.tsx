@@ -29,7 +29,7 @@ export default function FullscreenExpandableMenu({ colors, siteSections, setExpa
   const styles = {
     toggleButton: {
       color: colors.primary,
-      backgroundColor: isHovered ? reduceOpacity(colors.accent, 0.1) : 'transparent',
+      backgroundColor: colors.background,
       transition: 'all 0.3s ease',
       border: isFocused ? `2px solid ${reduceOpacity(colors.accent, 0.5)}` : '2px solid transparent',
       outline: 'none', // Remove default focus outline
@@ -80,8 +80,6 @@ export default function FullscreenExpandableMenu({ colors, siteSections, setExpa
         className="p-2 rounded-md z-50 relative"
         aria-label="Toggle menu"
         style={styles.toggleButton}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       >

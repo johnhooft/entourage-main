@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const modifiedSystemContent = `${system_content}
 
-  In this case, the club is called ${club_name} and they are described as: ${club_vibe}`;
+  In this case, the club is called: ${club_name}, and is described as: ${club_vibe}`;
   
   //console.log(modifiedSystemContent);
   //console.log(user_prompt);
