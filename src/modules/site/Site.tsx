@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import HeroSection from './HeroSection';
 import MovingCards from './MovingCards';
 import Scroll from './Scroll';
-import { SiteFooter } from './SiteFooter';
+import SiteFooter from './SiteFooter';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 import ExpandedTrips from './ExpandedTrips';
 import ExpandedEvents from './ExpandedEvents';
@@ -55,6 +55,19 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
   
   console.log(siteConfig)
  
+  const updateFooterLinks = (newLinks: any) => {
+    setConfig(prevConfig => ({
+      ...prevConfig,
+      footer: {
+        ...prevConfig.footer,
+        links: {
+          ...prevConfig.footer.links,
+          ...newLinks
+        }
+      }
+    }));
+  };
+
   return (
     <div className={`flex flex-col flex-grow items-center ${showExpandedPage ? 'overflow-hidden' : ''}`}>
       {showExpandedPage && expandedPageMap[showExpandedPage] ? (
@@ -91,7 +104,10 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
           );
         })
       )}
-      <SiteFooter />
+      <SiteFooter 
+        links={config.footer.links} 
+        updateConfig={updateFooterLinks}
+      />
     </div>
   );
 };

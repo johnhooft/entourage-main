@@ -89,7 +89,7 @@ export default function ScrollRender({ blockArr, colors, fonts, setShowExpandedP
                   >
                     {block.title}
                   </h2>
-                  <p className={`text-sm md:text-base ${textFont.className}`} style={styles.text}> {/* Text color */}
+                  <p className={`text-sm md:text-base whitespace-pre-wrap ${textFont.className}`} style={styles.text}> {/* Text color */}
                     {block.text}
                   </p>
                 </div>

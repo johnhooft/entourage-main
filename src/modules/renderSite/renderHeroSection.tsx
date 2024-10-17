@@ -18,9 +18,10 @@ interface HeroProps {
   buttonLink: string;
   logo: string;
   siteSections: string[];
+  setShowExpandedPage: (page: string) => void;
 }
 
-const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, logo, siteSections }) => {
+const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonText, buttonLink, logo, siteSections, setShowExpandedPage }) => {
   const titleFont = fontMap[fonts.title as FontName];
   const textFont = fontMap[fonts.text as FontName];
   const [ifLogo, setIfLogo] = useState(true);
@@ -58,7 +59,11 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
             height={60}
           />
           <div className="w-fit z-50">
-            <FullscreenExpandableMenu colors={colors} siteSections={siteSections}/>
+            <FullscreenExpandableMenu 
+              colors={colors} 
+              siteSections={siteSections}
+              setExpandedPage={setShowExpandedPage}
+            />
           </div>
         </div>
       )}

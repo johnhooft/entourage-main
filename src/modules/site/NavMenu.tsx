@@ -6,9 +6,17 @@ import { reduceOpacity } from '../../../utils/site/reduceOpacity';
 interface FullscreenExpandableMenuProps {
   colors: Colors
   siteSections: string[];
+  setExpandedPage: (page: string) => void;
 }
 
-export default function FullscreenExpandableMenu({ colors, siteSections }: FullscreenExpandableMenuProps) {
+const navMap = {
+  "Memberships": "ExpandedMemberships",
+  "Events": "ExpandedEvents",
+  "Trips": "ExpandedTrips",
+  "Executive Team": "ExpandedExec",
+};
+
+export default function FullscreenExpandableMenu({ colors, siteSections, setExpandedPage }: FullscreenExpandableMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
@@ -98,7 +106,11 @@ export default function FullscreenExpandableMenu({ colors, siteSections }: Fulls
                 <a
                   href="#"
                   className="text-3xl font-bold focus:outline-none transition-colors duration-200"
-                  onClick={toggleMenu}
+                  onClick={() => {
+                    toggleMenu();
+                    // Use navMap to set the expanded page
+                    setExpandedPage(navMap[item as keyof typeof navMap] || item);
+                  }}
                   style={styles.menuItem}
                   onMouseEnter={(e) => {e.currentTarget.style.color = styles.menuItemHover.color;}}
                   onMouseLeave={(e) => {e.currentTarget.style.color = styles.menuItem.color;}}

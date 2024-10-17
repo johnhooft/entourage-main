@@ -48,12 +48,12 @@ const MovingCards: React.FC<MovingCardsProps> = ({ aboutText, imageArr, colors, 
 
     return (
         <div
-            className="h-fit md:h-[22rem] rounded-sm flex flex-col antialiased items-center justify-center relative overflow-hidden"
+            className="h-fit min-h-[22rem] rounded-sm flex flex-col antialiased items-center justify-center relative overflow-hidden"
             style={styles.container}
         >
-            <div className="flex flex-grow flex-col justify-evenly items-center">
+            <div className="flex flex-grow flex-col justify-evenly items-center w-full">
                 <div
-                    className={`flex w-screen px-6 py-3 md:px-12 lg:px-28 ${textFont.className} justify-center`}
+                    className={`flex w-full px-6 py-3 md:px-12 lg:px-28 ${textFont.className} justify-center`}
                     style={styles.text}
                 >
                     <EditableText text={aboutText} onTextChange={(newText) => updateConfig({ aboutText: newText })} />
@@ -80,7 +80,7 @@ const MovingCards: React.FC<MovingCardsProps> = ({ aboutText, imageArr, colors, 
             </div>
             
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="w-11/12 max-w-[70vw] h-[85vh] max-h-[85vh] overflow-y-auto">
+                <DialogContent className="w-11/12 max-w-[80vw] h-[85vh] max-h-[85vh] overflow-y-auto bg-white text-black">
                     <DialogHeader>
                         <DialogTitle className="text-2xl mb-2">Edit Images</DialogTitle>
                     </DialogHeader>
