@@ -7,21 +7,25 @@ export async function POST(request: NextRequest) {
         const supabase = createClient()
         const { userID }: {userID: string;} = await request.json()
 
-        // Check if a row with the same clubName already exists
+        // Fetch both site_config and club_name
         const { data: clubSite, error: clubSiteError } = await supabase
             .from('site_configs')
-            .select('site_config')
+            .select('site_config, club_name')
             .eq('user_id', userID)
             .single()
 
         if (clubSiteError && clubSiteError.code !== 'PGRST116') {
-            // An error occurred during the clubName check
+            // An error occurred during the query
             return NextResponse.json({ error: clubSiteError.message }, { status: 500 });
         }
 
         if (clubSite) {
-            // A config with this clubName already exists
-            return NextResponse.json({ message: 'Site config found', clubSite }, { status: 200 });
+            // Site config found, return both site_config and club_name
+            return NextResponse.json({ 
+                message: 'Site config found', 
+                siteConfig: clubSite.site_config,
+                clubName: clubSite.club_name 
+            }, { status: 200 });
         }
 
         return NextResponse.json({ message: 'Site config not found' }, { status: 200 });

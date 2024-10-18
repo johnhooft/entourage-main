@@ -5,10 +5,21 @@ import { useAuth } from '@/app/authState';
 import RenderSite from '../renderSite/renderSite';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import { IconLogout, IconEdit, IconTrash, IconDashboard } from "@tabler/icons-react";
+import { IconLogout, IconEdit, IconTrash, IconDashboard, IconLink, IconExternalLink } from "@tabler/icons-react";
 import Link from 'next/link';
 import { Logo } from '../corp/Logo';
 import { cn } from "@/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const Dashboard = () => {
     const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
@@ -16,6 +27,13 @@ const Dashboard = () => {
     const { user, loading, logout } = useAuth();
     const [open, setOpen] = useState(false);  // Change this line
     const [animatedText, setAnimatedText] = useState('');
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+    const [isSubdomainDialogOpen, setIsSubdomainDialogOpen] = useState(false);
+    const [subDomain, setSubDomain] = useState("")
+    const [newSubdomain, setNewSubdomain] = useState("");
+    const [subdomainError, setSubdomainError] = useState("");
+
+    document.documentElement.classList.add('dark');
 
     const fetchSiteConfig = async (userID: string) => {
         const response = await fetch('/api/siteConfig/fetch/byid', {
@@ -27,10 +45,11 @@ const Dashboard = () => {
         });
         
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
 
         if (data.message === "Site config found") { 
-            setSiteConfig(data.clubSite.site_config)
+            setSiteConfig(data.siteConfig)
+            setSubDomain(data.clubName)
         }
     }
 
@@ -45,7 +64,7 @@ const Dashboard = () => {
           router.push('/signin');
         }
         else if (user) { 
-            console.log("get site config at ID: ", user.id)
+            //console.log("get site config at ID: ", user.id)
             fetchSiteConfig(user.id)
         }
     }, [user, loading, router]);
@@ -54,31 +73,95 @@ const Dashboard = () => {
         logout()
     }
 
-    const onEditSite = () => {
+    const onCreateOrEditSite = () => {
         if (siteConfig) {
             sessionStorage.setItem('siteConfig', JSON.stringify(siteConfig));
             router.push('/buildsite');
         } else {
-            console.error('No site configuration available to edit');
+            router.push('/questionnaire');
         }
     }
 
+    const onDeleteSite = async () => {
+        if (user) {
+            try {
+                const response = await fetch('/api/siteConfig/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userID: user.id }),
+                });
+                
+                const data = await response.json();
+                
+                if (data.message === "Site config deleted successfully") {
+                    setSiteConfig(null);
+                    // Optionally, show a success message to the user
+                } else {
+                    console.error('Failed to delete site config');
+                    // Optionally, show an error message to the user
+                }
+            } catch (error) {
+                console.error('Error deleting site config:', error);
+                // Optionally, show an error message to the user
+            }
+        }
+    };
+
+    const handleSubdomainUpdate = async () => {
+        if (user && siteConfig) {
+            try {
+                const response = await fetch('/api/siteConfig/updateSubdomain', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userID: user.id, newSubdomain }),
+                });
+                
+                const data = await response.json();
+            } catch (error) {
+                console.error('Error updating subdomain:', error);
+                setSubdomainError("An unexpected error occurred");
+            }
+            setSubDomain(newSubdomain)
+        }
+    };
+
+    const onViewSite = () => {
+        if (siteConfig && subDomain) {
+            router.push(`/${subDomain}`);
+        } else {
+            // Optionally, show a message that the site is not available
+            console.log("Site is not available");
+        }
+    };
+
     const links = [
-        // {
-        //     label: "Dashboard",
-        //     href: "#",
-        //     icon: <IconDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
-        // },
         {
-            label: "Edit Site",
+            label: siteConfig ? "Edit Site" : "Create Site",
             href: "#",
             icon: <IconEdit className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
-            onClick: onEditSite,
+            onClick: onCreateOrEditSite,
+        },
+        {
+            label: "View Site",
+            href: "#",
+            icon: <IconExternalLink className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+            onClick: onViewSite,
+        },
+        {
+            label: "Update Subdomain",
+            href: "#",
+            icon: <IconLink className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+            onClick: () => setIsSubdomainDialogOpen(true),
         },
         {
             label: "Delete Site",
             href: "#",
             icon: <IconTrash className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+            onClick: () => setIsDeleteDialogOpen(true),
         },
         {
             label: "Sign Out",
@@ -93,17 +176,31 @@ const Dashboard = () => {
             const text = 'entourage';
             let index = 0;
             const intervalId = setInterval(() => {
-                setAnimatedText((prev) => prev + text[index]);
-                index++;
-                if (index === text.length) {
-                    clearInterval(intervalId);
-                }
-            }, 100); // Adjust timing as needed
-            return () => clearInterval(intervalId);
+                setAnimatedText((prev) => {
+                    if (index >= text.length) {
+                        clearInterval(intervalId);
+                        return prev;
+                    }
+                    const newText = prev + text[index];
+                    index++;
+                    return newText;
+                });
+            }, 100);
+
+            return () => {
+                clearInterval(intervalId);
+            };
         } else {
             setAnimatedText('');
         }
     }, [open]);
+
+    // Add this effect to log the final result
+    useEffect(() => {
+        if (animatedText === 'entourage') {
+            console.log('Final animated text:', animatedText);
+        }
+    }, [animatedText]);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -146,6 +243,55 @@ const Dashboard = () => {
                             <RenderSite siteConfig={siteConfig} />
                         </div>
                     )}
+                    <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                        <AlertDialogContent className='bg-white text-black'>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Are you sure you want to delete your site?</AlertDialogTitle>
+                                <AlertDialogDescription className='text-black/70'>
+                                    This action cannot be undone. This will permanently delete your site configuration.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <div className='flex w-full justify-between'>
+                                    <AlertDialogCancel className='bg-transparent border-[1px] rounded-[15px] hover:bg-black/30 hover:text-black'>Cancel</AlertDialogCancel>
+                                    <AlertDialogAction onClick={onDeleteSite} className='bg-transparent border-[1px] rounded-[15px] hover:bg-red-500/70 hover:text-black'>Delete</AlertDialogAction>
+                                </div>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                    <AlertDialog open={isSubdomainDialogOpen} onOpenChange={setIsSubdomainDialogOpen}>
+                        <AlertDialogContent className='bg-entourage-black text-white'>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Update Your Subdomain</AlertDialogTitle>
+                                <AlertDialogDescription className='text-white/70'>
+                                    Enter your new subdomain below. This will update your site&apos;s URL.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <div className='flex flex-col space-y-4'>
+                                <div className='flex flex-grow border-[1px] rounded-[15px] border-entourage-orange p-2'>
+                                    <span className='text-entourage-blue text-xl'>entourage-ai.com/</span>
+                                    <input 
+                                        type='text' 
+                                        value={newSubdomain} 
+                                        onChange={(e) => setNewSubdomain(e.target.value)} 
+                                        className='text-white text-xl bg-transparent border-none focus:outline-none focus:border-b focus:border-entourage-blue'
+                                        placeholder='your-new-subdomain'
+                                    />
+                                </div>
+                                {subdomainError && (
+                                    <div className='text-sm text-red-500 font-bold'>
+                                        {subdomainError}
+                                    </div>
+                                )}
+                            </div>
+                            <AlertDialogFooter>
+                                <div className='flex w-full justify-between'>
+                                    <AlertDialogCancel className='bg-transparent border-[1px] rounded-[15px] border-white hover:bg-white/30 hover:text-white'>Cancel</AlertDialogCancel>
+                                    <AlertDialogAction onClick={handleSubdomainUpdate} className='bg-transparent border-[1px] rounded-[15px] text-white border-white hover:bg-entourage-blue/70 hover:text-white'>Update</AlertDialogAction>
+                                </div>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
                 </div>
             </div>
         </div>
