@@ -146,7 +146,7 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
                     onTextChange={(newText) => updateConfig({ title: newText })}
                 />
             </div>
-            <div className='px-10 md:px-20 md:ml-0 lg:ml-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+            <div className='px-10 md:px-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {execBlock.map((exec, index) => (
                     <div key={index} className="relative">
                         <div 
