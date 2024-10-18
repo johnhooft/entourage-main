@@ -12,6 +12,7 @@ import { HexColorPicker } from "react-colorful";
 interface StyleChangerProps {
   children: React.ReactNode
   initialConfig: SiteConfig
+  fromDashboard?: boolean
   onConfigChange: (newConfig: SiteConfig) => void
 }
 
@@ -28,7 +29,7 @@ const FontPreview: React.FC<{ fontName: FontName; onClick: () => void; isSelecte
   )
 }
 
-export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialConfig, onConfigChange }) => {
+export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialConfig, onConfigChange, fromDashboard }) => {
   const router = useRouter();
 
   const [userColors, setUserColors] = useState<Colors>({
@@ -261,7 +262,11 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   }
 
   const onLaunchPopup = () => {
-    setIsLaunchPopupOpen(true)
+    if (fromDashboard) {
+      onUpdate();
+    } else {
+      setIsLaunchPopupOpen(true);
+    }
   }
 
   const onDashboard = () => {
@@ -348,6 +353,40 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     ));
   };
 
+  const onUpdate = async() => {
+    // Transfer images and update URLs
+    const response = await fetch('/api/siteConfig/transferImages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ siteConfig: initialConfig }),
+    });
+    const { updatedConfig } = await response.json();
+
+    console.log(updatedConfig)
+
+    // Call the update API route
+    const updateResponse = await fetch('/api/siteConfig/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ clubName: subDomain, siteConfig: updatedConfig }),
+    });
+
+    const updateData = await updateResponse.json();
+    console.log(updateData.message);
+
+    if (updateData.message !== "Site config updated successfully!") {
+      setLaunchError(updateData.message)
+    } else {
+      setLaunchError("")
+      setIsLaunched(true)
+      setIsLaunchPopupOpen(false)
+    }
+  };
+
   return (
     <div className="relative min-h-screen min-w-screen">
       {isLaunched && (
@@ -423,8 +462,8 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
             <Image src="./screen-share.svg" alt="preview" width={20} height={20} className='ml-2'/>
           </Button>
           <Button className='rounded-[15px] bg-entourage-blue text-black hover:bg-entourage-blue hover:scale-105 transition-all' onClick={onLaunchPopup}>
-            Launch
-            <Image src="./rocket.svg" alt="preview" width={20} height={20} className='ml-2'/>
+            {fromDashboard ? 'Save Changes' : 'Launch'}
+            <Image src={fromDashboard ? "./save.svg" : "./rocket.svg"} alt={fromDashboard ? "save" : "launch"} width={20} height={20} className='ml-2'/>
           </Button>
         </div>
       </div>

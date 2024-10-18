@@ -79,7 +79,7 @@ const Dashboard = () => {
     const onCreateOrEditSite = () => {
         if (siteConfig) {
             sessionStorage.setItem('siteConfig', JSON.stringify(siteConfig));
-            router.push('/buildsite');
+            router.push('/buildsite?from=dashboard');
         } else {
             router.push('/questionnaire');
         }

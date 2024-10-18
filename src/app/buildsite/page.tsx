@@ -1,12 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Site from '../../modules/site/Site';
 import { StyleChanger } from '@/modules/site/SiteGenUI';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 
 export default function BuildSite() {
   const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
+  const searchParams = useSearchParams();
+  const fromDashboard = searchParams!.get('from') === 'dashboard';
 
   useEffect(() => {
     // Retrieve the config from sessionStorage
@@ -27,7 +30,7 @@ export default function BuildSite() {
 
   return (
     <div className="flex flex-col">
-      <StyleChanger initialConfig={siteConfig} onConfigChange={setSiteConfig}>
+      <StyleChanger initialConfig={siteConfig} onConfigChange={setSiteConfig} fromDashboard={fromDashboard}>
         <Site siteConfig={siteConfig} />
       </StyleChanger>
     </div>
