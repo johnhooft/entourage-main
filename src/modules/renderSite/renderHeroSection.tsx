@@ -50,7 +50,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
   return (
     <div className="w-full -mt-16">
       {ifLogo && (
-        <div className="flex flex-row justify-between relative w-[95%] top-28 left-8 md:top-28 md:left-10 text-white z-50">
+        <div className="flex flex-row justify-between relative w-[85%] md:w-[95%] top-28 left-8 md:top-28 md:left-10 text-white z-50">
           <Image
             priority
             src={logo}

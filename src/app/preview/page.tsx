@@ -27,7 +27,7 @@ export default function BuildSite() {
 
     return (
         <div className="">
-            <div className='fixed z-50 flex w-full justify-center mt-2'>
+            <div className='fixed z-30 flex w-full justify-center mt-2'>
                 <PreviewUI />
             </div>
             <RenderSite siteConfig={siteConfig} />

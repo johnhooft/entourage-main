@@ -39,7 +39,7 @@ const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
   return (
     <div className="flex flex-col flex-grow items-center">
       {showExpandedPage && expandedPageMap[showExpandedPage] ? (
-        <div className="w-screen h-screen">
+        <div className="w-screen flex flex-col flex-grow">
           {React.createElement(expandedPageMap[showExpandedPage], {
             ...siteConfig.expandedPages.find(page => page.component === showExpandedPage)?.props,
             colors,

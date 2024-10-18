@@ -58,9 +58,9 @@ export default function ExpandedMemberships({
     }, []);
 
     return (
-        <div className={`min-h-screen flex flex-col items-center p-8 relative ${textFont.className}`} style={styles.container}>
+        <div className={`w-full min-h-full max-h-fit flex flex-col items-center p-8 relative ${textFont.className}`} style={styles.container}>
             <Button 
-                className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
+                className='z-40 absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
                 style={styles.button} 
                 onClick={onBack}
             >
@@ -72,13 +72,14 @@ export default function ExpandedMemberships({
             
             <div className="flex flex-col md:flex-row w-full max-w-6xl mb-12">
                 <div className="w-full md:w-1/2 mb-8 md:mb-0 md:mr-8">
-                    <Image
-                        src={image}
-                        alt="Membership Image"
-                        width={600}
-                        height={400}
-                        className="rounded-lg shadow-md object-cover w-full h-full"
-                    />
+                    <div className=" w-[325px] h-[200px] md:w-[600px] md:h-[400px] relative">
+                        <Image
+                            src={image}
+                            alt="Membership Image"
+                            fill
+                            className="rounded-lg shadow-md object-cover"
+                        />
+                    </div>
                 </div>
                 <div className={`w-full md:w-1/2 whitespace-pre-wrap ${textFont.className}`}>
                     {text}
