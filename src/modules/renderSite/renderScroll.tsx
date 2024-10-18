@@ -94,13 +94,14 @@ export default function ScrollRender({ blockArr, colors, fonts, setShowExpandedP
                   </p>
                 </div>
                 <div className="w-full md:w-1/2 flex justify-center">
-                  <Image
-                    src={block.image}
-                    width={400}
-                    height={400}
-                    alt={`Image for ${block.title}`}
-                    className="rounded-lg shadow-md max-h-[400px] object-cover"
-                  />
+                  <div className="w-[400px] h-[400px] relative">
+                    <Image
+                      src={block.image}
+                      alt={`Image for ${block.title}`}
+                      fill
+                      className="rounded-lg shadow-md object-cover"
+                    />
+                  </div>
                 </div>
               </div>
               <div className='flex gap-2'>
