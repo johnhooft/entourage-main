@@ -88,9 +88,12 @@ const SignUp: React.FC<{ onSuccessfulSignup: () => void; redirect: string; }> = 
                         onClick={onGoogleSignup}
                         className='w-5/6 border-[1px] rounded-[20px] border-entourage-orange'
                     >
-                        <p className='text-white text-sm py-2'>
-                            Sign up with Google
-                        </p>
+                        <div className='flex justify-center'>
+                            <Image src="./google.svg" alt="preview" width={20} height={20} className='relative right-14'/>
+                            <p className='text-white text-sm py-2'>
+                                Sign up with Google
+                            </p>
+                        </div>
                     </button>
                 </div>
                 <div className='flex w-full justify-center items-center pt-4'>
