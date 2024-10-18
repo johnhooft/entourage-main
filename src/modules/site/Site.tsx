@@ -39,7 +39,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
 
   const updateConfig = (index: number, newProps: any, fromExpandedPage: boolean) => {
 
-    console.log(newProps, index);
+    //console.log(newProps, index);
 
     if (fromExpandedPage) {
       const updatedExpandedPages = [...config.expandedPages];
@@ -53,7 +53,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
     }
   };
   
-  console.log(siteConfig)
+  //console.log(siteConfig)
  
   const updateFooterLinks = (newLinks: any) => {
     setConfig(prevConfig => ({

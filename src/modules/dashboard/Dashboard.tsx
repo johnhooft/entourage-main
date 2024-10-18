@@ -33,7 +33,10 @@ const Dashboard = () => {
     const [newSubdomain, setNewSubdomain] = useState("");
     const [subdomainError, setSubdomainError] = useState("");
 
-    document.documentElement.classList.add('dark');
+    useEffect(() => {
+        // This will only run on the client side
+        document.documentElement.classList.add('dark');
+    }, []);
 
     const fetchSiteConfig = async (userID: string) => {
         const response = await fetch('/api/siteConfig/fetch/byid', {
@@ -95,7 +98,7 @@ const Dashboard = () => {
                 
                 const data = await response.json();
                 
-                if (data.message === "Site config deleted successfully") {
+                if (data.message === "Site config and associated images deleted successfully") {
                     setSiteConfig(null);
                     // Optionally, show a success message to the user
                 } else {

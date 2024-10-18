@@ -1,6 +1,6 @@
 'use client'
 //Dashboard
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AuthProvider } from '@/app/authState';
 import Dashboard from '@/modules/dashboard/Dashboard';
 

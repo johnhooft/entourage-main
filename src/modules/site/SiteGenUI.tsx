@@ -214,6 +214,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   }
 
   const saveConfig = async (clubName: string, config: SiteConfig) => {
+    console.log(config)
     const response = await fetch('/api/siteConfig/save', {
       method: 'POST',
       headers: {
@@ -242,10 +243,21 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   }
 
   const onLaunch = async() => {
-    //sessionStorage.clear();
-    //sessionStorage.setItem('siteConfig', JSON.stringify(initialConfig));
-    console.log(initialConfig.userID, subDomain, initialConfig)
-    await saveConfig(subDomain, initialConfig)
+    //console.log(initialConfig.userID, subDomain, initialConfig)
+  
+    // Transfer images and update URLs
+    const response = await fetch('/api/siteConfig/transferImages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ siteConfig: initialConfig }),
+    });
+    const { updatedConfig } = await response.json();
+
+    console.log(updatedConfig)
+
+    await saveConfig(subDomain, updatedConfig)
   }
 
   const onLaunchPopup = () => {
