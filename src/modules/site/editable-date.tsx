@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -52,7 +51,6 @@ const EditableDate: React.FC<EditableDateProps> = ({ value, onChange }) => {
                 onClick={handleButtonClick}
                 className="editable-date__button flex flex-row p-2 border border-transparent hover:border-gray-300 rounded-[20px] transition-all duration-200"
             >
-                <Image src="./calendar.svg" alt="preview" width={20} height={20} className='mr-2'/>
                 <span className="editable-date__display">{formatDate(dateValue)}</span>
             </button>
             {isOpen && (

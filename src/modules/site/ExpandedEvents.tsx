@@ -141,8 +141,8 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
                     onTextChange={(newText) => updateConfig({ title: newText })}
                 />
             </div>
-            <div className='px-10 md:px-20 md:ml-0 lg:ml-20'>
-                <div className="flex flex-col gap-10 w-full md:w-5/12 h-full">
+            <div className='px-4 md:px-8 lg:px-12 flex flex-row'>
+                <div className="flex flex-col gap-10 w-full md:w-1/2 lg:w-6/12 h-full mt-8">
                     {eventBlock.map((event, index) => (
                         <div key={index} className="relative">
                             <div 
@@ -201,7 +201,7 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
                                     />
                                 </div>
                                 <button
-                                    className="absolute hover:scale-105 transition-all top-24 -right-8 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center"
+                                    className="z-10 absolute hover:scale-105 transition-all top-24 -right-8 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center"
                                     onClick={() => removeEvent(index)}
                                 >
                                     <span className="text-black font-bold">-</span>
@@ -218,9 +218,14 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
                         </button>
                     </div>
                 </div>
-                <div className='hidden md:flex flex-col w-5/12 h-full justify-center fixed top-10 right-0 p-4' style={{...styles.eventDetails, maxHeight: '100vh', overflowY: 'auto'}}>
-                    {selectedEvent ? renderSelectedEventDetails(selectedEvent, selectedEventIndex!, updateEventBlock) : (
-                        <p>Select an event to view details</p>
+                {/* Update the details pop-up container */}
+                <div className='hidden md:flex flex-col w-1/2 lg:w-6/12 h-full justify-center items-center fixed top-0 bottom-0 right-0 p-4 pl-8 overflow-y-auto pt-20'>
+                    {selectedEvent ? (
+                        renderSelectedEventDetails(selectedEvent, selectedEventIndex!, updateEventBlock)
+                    ) : (
+                        <div className="rounded-lg p-6 border" style={styles.eventBlock}>
+                            <p style={styles.eventDetails}>Select an event to view details</p>
+                        </div>
                     )}
                 </div>
             </div>
@@ -229,58 +234,54 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
 
     function renderSelectedEventDetails(event: EventBlockItem, index: number, updateEventBlock: (index: number, updatedFields: Partial<EventBlockItem>) => void) {
         return (
-            <>
-                <h2 className={`px-2 text-2xl font-semibold mb-4 ${titleFont.className}`} style={styles.eventTitle}>
+            <div className="rounded-lg p-6 border" style={{...styles.eventBlock, maxWidth: '400px', width: '100%'}}>
+                <h2 className={`text-2xl font-semibold mb-4 ${titleFont.className}`} style={styles.eventTitle}>
                     {event.eventTitle}
                 </h2>
-                <div
-                    className="flex flex-row p-2"
-                >
-                    <Image src="./calendar.svg" alt="preview" width={20} height={20} className='mr-2'/>
-                    <span className="editable-date__display">{formatDate(event.eventDate)}</span>
-                </div>
-                <div className='flex flex-row'>
-                    <Image src="./clock.svg" alt="preview" width={20} height={20} className='ml-2'/>
-                    <EditableText
-                        text={event.eventTime.start}
-                        onTextChange={(newText) => updateEventBlock(index, { eventTime: { ...event.eventTime, start: newText } })}
-                    />
-                    {event.eventTime.end && (
-                        <div className='flex flex-row'>
-                            <p className='relative top-2'>
-                                - 
-                            </p>
-                            <EditableText
-                                text={event.eventTime.end}
-                                onTextChange={(newText) => updateEventBlock(index, { eventTime: { ...event.eventTime, end: newText } })}
-                            />
-                        </div>
-                    )}
-                </div>
-                <div className='flex flex-row'>
-                    <Image src="./map-pin.svg" alt="preview" width={20} height={20} className='ml-2'/>
-                    <EditableText
-                        text={event.eventLocation}
-                        onTextChange={(newText) => updateEventBlock(index, { eventLocation: newText })}
-                    />
-                </div>
-                <div className='flex flex-row'>
-                    <Image src="./dollar-sign.svg" alt="preview" width={20} height={20} className='ml-2'/>
-                    <EditableText
-                        text={event.eventCost}
-                        onTextChange={(newText) => updateEventBlock(index, { eventCost: newText })}
-                    />
-                </div>
-                <div className='flex flex-col mt-4'>
-                    <div className='flex items-center mx-2'>
-                        Details: 
+                <div className="space-y-3">
+                    <div className="flex items-center">
+                        <Image src="./calendar.svg" alt="calendar" width={20} height={20} className='mr-2'/>
+                        <span className="editable-date__display">{formatDate(event.eventDate)}</span>
                     </div>
-                    <EditableText
-                        text={event.eventDescription}
-                        onTextChange={(newText) => updateEventBlock(index, { eventDescription: newText })}
-                    />
+                    <div className='flex items-center'>
+                        <Image src="./clock.svg" alt="clock" width={20} height={20} className='mr-2'/>
+                        <EditableText
+                            text={event.eventTime.start}
+                            onTextChange={(newText) => updateEventBlock(index, { eventTime: { ...event.eventTime, start: newText } })}
+                        />
+                        {event.eventTime.end && (
+                            <>
+                                <span className="mx-1">-</span>
+                                <EditableText
+                                    text={event.eventTime.end}
+                                    onTextChange={(newText) => updateEventBlock(index, { eventTime: { ...event.eventTime, end: newText } })}
+                                />
+                            </>
+                        )}
+                    </div>
+                    <div className='flex items-center'>
+                        <Image src="./map-pin.svg" alt="location" width={20} height={20} className='mr-2'/>
+                        <EditableText
+                            text={event.eventLocation}
+                            onTextChange={(newText) => updateEventBlock(index, { eventLocation: newText })}
+                        />
+                    </div>
+                    <div className='flex items-center'>
+                        <Image src="./dollar-sign.svg" alt="cost" width={20} height={20} className='mr-2'/>
+                        <EditableText
+                            text={event.eventCost}
+                            onTextChange={(newText) => updateEventBlock(index, { eventCost: newText })}
+                        />
+                    </div>
+                    <div className='mt-4'>
+                        <div className='font-semibold mb-2'>Details:</div>
+                        <EditableText
+                            text={event.eventDescription}
+                            onTextChange={(newText) => updateEventBlock(index, { eventDescription: newText })}
+                        />
+                    </div>
                 </div>
-            </>
+            </div>
         );
     }
 }
