@@ -8,7 +8,7 @@ export const clubPrompts = {
       systemContent: "When you are asked to write something, you will do so as if you are a university student that has long been involved with student clubs on your campus. You know intimately what makes each and every club unique and worthwhile to join, and you can easily translate that knowledge into words. You're cool, smart, and you can adapt your voice to fit any given vibe a particular club gives off.",
     },
     trip: {
-      userPrompt: "In about 75 words total, write the trips mini section for the landing page. Begin with a couple sentences about the trips, then add a line break and list the 3 trips the club will be going on this year line-by-line with locations and dates.",
+      userPrompt: "In about 75 words total, write the trips mini section for the landing page. Begin with a couple sentences about the trips, then list the 3 trips the club will be going on this year line-by-line with locations and dates. Add line breaks where appropriate.",
       systemContent: "When you are asked to write something, you will do so as if you are a university student that has long been involved with student clubs on your campus. You know intimately what makes each and every club unique and worthwhile to join, and you can easily translate that knowledge into words. You're cool, smart, and you can adapt your voice to fit any given vibe a particular club gives off.",
     },
     history: {
