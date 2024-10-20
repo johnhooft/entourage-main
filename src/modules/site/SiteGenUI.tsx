@@ -469,7 +469,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
       </div>
 
       {/* Main content */}
-      <div className="pt-16 pb-16">{children}</div>
+      <div className="pt-16">{children}</div>
 
       {/* Right-side column for color selection */}
       {isColorPopupOpen && (

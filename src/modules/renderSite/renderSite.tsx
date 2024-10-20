@@ -66,7 +66,7 @@ const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
           );
         })
       )}
-      <div className='w-full mt-5'>
+      <div className='w-full'>
         <SiteFooter links={siteConfig.footer.links}/>
       </div>
     </div>

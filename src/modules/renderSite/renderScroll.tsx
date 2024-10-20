@@ -20,7 +20,7 @@ interface InfoScrollProps {
 export default function ScrollRender({ blockArr, colors, fonts, setShowExpandedPage }: InfoScrollProps) {
   const controls = useAnimation()
   const [scrollRef, inView] = useInView({
-    threshold: .99, // Trigger when 90% of the component is visible
+    threshold: .95, // Trigger when 90% of the component is visible
   });
   const [isScrollable, setIsScrollable] = useState(false);
 
