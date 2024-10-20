@@ -98,7 +98,12 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                     image: genContent.clubImages.message[0].largeImageURL,
                     buttonText: "Join the Club",
                     buttonLink: "#",
-                    siteSections:  ["Memberships", "Events", "Trips", "Executive Team"]
+                    siteSections: [
+                        "Memberships",
+                        "Events",
+                        "Trips",
+                        "Executive Team"
+                    ].filter(section => genContent.clubCopy[section] !== undefined && genContent.clubCopy[section] !== null)
                 } as HeroSectionProps
             },
             {
