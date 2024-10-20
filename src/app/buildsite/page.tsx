@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Site from '../../modules/site/Site';
 import { StyleChanger } from '@/modules/site/SiteGenUI';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 
-export default function BuildSite() {
+function BuildSiteContent() {
   const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
   const searchParams = useSearchParams();
   const fromDashboard = searchParams!.get('from') === 'dashboard';
@@ -34,5 +34,13 @@ export default function BuildSite() {
         <Site siteConfig={siteConfig} />
       </StyleChanger>
     </div>
+  );
+}
+
+export default function BuildSite() {
+  return (
+    <Suspense fallback={<div className='text-white'>Loading...</div>}>
+      <BuildSiteContent />
+    </Suspense>
   );
 }
