@@ -5,13 +5,13 @@ import { createClient } from '@/../utils/supabase/server'
 export async function POST(request: NextRequest) {
     try {
         const supabase = createClient()
-        const { clubName }: {clubName: string;} = await request.json()
+        const { subdomain }: {subdomain: string;} = await request.json()
 
         // Check if a row with the same clubName already exists
         const { data: clubSite, error: clubSiteError } = await supabase
             .from('site_configs')
             .select('site_config')
-            .eq('club_name', clubName)
+            .eq('subdomain', subdomain)
             .single()
 
         if (clubSiteError && clubSiteError.code !== 'PGRST116') {

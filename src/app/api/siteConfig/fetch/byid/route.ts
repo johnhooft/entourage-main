@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
         // Fetch both site_config and club_name
         const { data: clubSite, error: clubSiteError } = await supabase
             .from('site_configs')
-            .select('site_config, club_name')
+            .select('site_config, subdomain')
             .eq('user_id', userID)
             .single()
 
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ 
                 message: 'Site config found', 
                 siteConfig: clubSite.site_config,
-                clubName: clubSite.club_name 
+                subdomain: clubSite.subdomain 
             }, { status: 200 });
         }
 

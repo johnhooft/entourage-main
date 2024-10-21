@@ -52,13 +52,14 @@ const Dashboard = () => {
 
         if (data.message === "Site config found") { 
             setSiteConfig(data.siteConfig)
-            setSubDomain(data.clubName)
+            setSubDomain(data.subDomain)
         }
     }
 
     useEffect(() => {
         if (siteConfig) {
-            console.log("Updated siteConfig:", siteConfig);
+            setSubDomain(siteConfig.subdomain)
+            console.log("SiteConfig:", siteConfig);
         }
     }, [siteConfig]);
 
@@ -115,12 +116,13 @@ const Dashboard = () => {
     const handleSubdomainUpdate = async () => {
         if (user && siteConfig) {
             try {
+                const lowercaseSubdomain = Array.isArray(newSubdomain) ? newSubdomain[0].toLowerCase() : newSubdomain.toLowerCase();
                 const response = await fetch('/api/siteConfig/updateSubdomain', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ userID: user.id, newSubdomain }),
+                    body: JSON.stringify({ userID: user.id, newSubdomain: lowercaseSubdomain }),
                 });
                 
                 const data = await response.json();
@@ -133,6 +135,7 @@ const Dashboard = () => {
     };
 
     const onViewSite = () => {
+        console.log(siteConfig, subDomain)
         if (siteConfig && subDomain) {
             router.push(`/${subDomain}`);
         } else {

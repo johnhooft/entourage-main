@@ -5,13 +5,13 @@ import { createClient } from '@/../utils/supabase/server'
 export async function POST(request: NextRequest) {
     try {
         const supabase = createClient()
-        const { clubName, siteConfig }: {clubName: string; siteConfig: SiteConfig;} = await request.json()
-
+        const { subdomain, siteConfig }: {subdomain: string; siteConfig: SiteConfig;} = await request.json()
+        console.log(subdomain, siteConfig)
         // Update the existing record
         const { data, error } = await supabase
             .from('site_configs')
             .update({ site_config: siteConfig })
-            .eq('club_name', clubName);
+            .eq('subdomain', subdomain);
 
         if (error) {
             return NextResponse.json({ error: error.message }, { status: 500 });

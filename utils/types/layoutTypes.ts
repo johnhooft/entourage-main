@@ -2,6 +2,7 @@
 import { FontName } from "../site/fontMap";
 /*
 SiteConfig
+|   Subdomain
 |   Fonts
 |   Colors
 |   Expanded
@@ -19,6 +20,7 @@ SiteConfig
 // ----- High Level Struct ----- //
 
 export interface SiteConfig {
+    subdomain: string;
     userID: string;
     fonts: Fonts;
     colors: Colors;

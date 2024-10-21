@@ -11,13 +11,15 @@ export default function Page({ params }: { params: { slug: string } }) {
     const [siteConfig, setSiteConfig] = useState<any | null>(null);
     const [siteConfigFound, setSiteConfigFound] = useState(false);
 
-    const fetchSiteConfig = async (clubName: string) => {
+    const fetchSiteConfig = async (subdomain: string) => {
+        const lowercaseClubName = Array.isArray(subdomain) ? subdomain[0].toLowerCase() : subdomain.toLowerCase();
+        console.log(lowercaseClubName);
         const response = await fetch('/api/siteConfig/fetch/byname', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ clubName }),
+            body: JSON.stringify({ subdomain: lowercaseClubName }),
         });
         
         const data = await response.json();

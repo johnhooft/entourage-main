@@ -24,6 +24,8 @@ interface GenerateContent {
 export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateContent): SiteConfig {
     console.log(genContent)
     const siteConfig: SiteConfig = {
+
+        subdomain: clubData.clubName.toLowerCase().replace(/\s+/g, ''),
         
         userID: clubData.userID,
 

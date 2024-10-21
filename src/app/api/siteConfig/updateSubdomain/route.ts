@@ -13,8 +13,8 @@ export async function POST(request: NextRequest) {
     // Check if the new subdomain is already taken
     const { data: existingSubdomain, error: checkError } = await supabase
       .from('site_configs')
-      .select('club_name')
-      .eq('club_name', newSubdomain)
+      .select('subdomain')
+      .eq('subdomain', newSubdomain)
       .single();
 
     if (checkError && checkError.code !== 'PGRST116') {
@@ -25,10 +25,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Subdomain already taken' }, { status: 409 });
     }
 
-    // Update the club_name
+    // Fetch the current site_config
+    const { data: currentConfig, error: fetchError } = await supabase
+      .from('site_configs')
+      .select('site_config')
+      .eq('user_id', userID)
+      .single();
+
+    if (fetchError) throw fetchError;
+
+    // Update the subdomain in the site_config
+    const updatedConfig = { ...currentConfig.site_config, subdomain: newSubdomain };
+
+    // Update both the subdomain column and the site_config
     const { error: updateError } = await supabase
       .from('site_configs')
-      .update({ club_name: newSubdomain })
+      .update({ 
+        subdomain: newSubdomain,
+        site_config: updatedConfig
+      })
       .eq('user_id', userID);
 
     if (updateError) throw updateError;

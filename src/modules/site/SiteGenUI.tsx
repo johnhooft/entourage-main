@@ -49,7 +49,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   const popupRef = useRef(null);
   const colorRef = useRef(null);
 
-  const [subDomain, setSubDomain] = useState<string>(initialConfig.layout[0].props.text);
+  const [subDomain, setSubDomain] = useState<string>(initialConfig.subdomain);
   const [selectedTheme, setSelectedTheme] = useState(initialConfig.colors)
   const [selectedTitleFont, setSelectedTitleFont] = useState<FontName>(initialConfig.fonts.title)
   const [selectedTextFont, setSelectedTextFont] = useState<FontName>(initialConfig.fonts.text)
@@ -216,13 +216,30 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
 
   const saveConfig = async (clubName: string, config: SiteConfig) => {
     console.log(config)
-    const response = await fetch('/api/siteConfig/save', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ clubName, siteConfig: config }),
-    });
+    // Strip whitespace and convert to lowercase
+    const sanitizedClubName = clubName.replace(/\s+/g, '').toLowerCase();
+    console.log(sanitizedClubName)
+    let response;
+    try {
+      response = await fetch('/api/siteConfig/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ subdomain: sanitizedClubName, siteConfig: config }),
+      });
+    } catch (error) {
+      console.error('Error saving site config:', error);
+      setLaunchError('An error occurred while saving the site configuration.');
+      return;
+    }
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Server error:', errorData);
+      setLaunchError(`Error: ${errorData.error || 'An unexpected error occurred'}`);
+      return;
+    }
   
     const data = await response.json();
     console.log(data.message);
@@ -372,7 +389,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ clubName: subDomain, siteConfig: updatedConfig }),
+      body: JSON.stringify({ subdomain: subDomain, siteConfig: updatedConfig }),
     });
 
     const updateData = await updateResponse.json();
