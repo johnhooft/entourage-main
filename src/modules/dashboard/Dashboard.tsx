@@ -201,13 +201,6 @@ const Dashboard = () => {
         }
     }, [open]);
 
-    // Add this effect to log the final result
-    useEffect(() => {
-        if (animatedText === 'entourage') {
-            console.log('Final animated text:', animatedText);
-        }
-    }, [animatedText]);
-
     if (loading) {
         return <div>Loading...</div>;
     }

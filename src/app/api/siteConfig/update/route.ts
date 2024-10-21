@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
     try {
         const supabase = createClient()
         const { subdomain, siteConfig }: {subdomain: string; siteConfig: SiteConfig;} = await request.json()
-        console.log(subdomain, siteConfig)
+        //console.log(subdomain, siteConfig)
         // Update the existing record
         const { data, error } = await supabase
             .from('site_configs')

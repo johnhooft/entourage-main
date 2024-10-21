@@ -6,14 +6,14 @@ import { SiteConfig } from '../../../utils/types/layoutTypes';
  
 export default function Page({ params }: { params: { slug: string } }) {
 
-    console.log(params.slug)
+    //console.log(params.slug)
 
     const [siteConfig, setSiteConfig] = useState<any | null>(null);
     const [siteConfigFound, setSiteConfigFound] = useState(false);
 
     const fetchSiteConfig = async (subdomain: string) => {
         const lowercaseClubName = Array.isArray(subdomain) ? subdomain[0].toLowerCase() : subdomain.toLowerCase();
-        console.log(lowercaseClubName);
+        // console.log(lowercaseClubName);
         const response = await fetch('/api/siteConfig/fetch/byname', {
             method: 'POST',
             headers: {
@@ -23,7 +23,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         });
         
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
 
         if (data.message === "Site config found") { 
             setSiteConfig(data.clubSite.site_config)
@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
     useEffect(() => {
         if (siteConfig) {
-            console.log("Updated siteConfig:", siteConfig);
+            console.log("SiteConfig:", siteConfig);
             setSiteConfigFound(true)
         }
     }, [siteConfig]);
