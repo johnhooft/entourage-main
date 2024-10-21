@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
-import Image from 'next/image';
 import ExpandableButton from '../site/ExpandableButton';
 import { Button } from '@/components/ui/button';
+import { Calendar, Clock, MapPin, DollarSign } from 'lucide-react';
 
 interface EventTime {
     start: string;
@@ -76,36 +76,39 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
     };
 
     const renderEventDetails = (event: EventBlockItem) => (
-        <>
-            <h2 className={`px-2 text-2xl font-semibold mb-4 ${titleFont.className}`} style={styles.eventTitle}>
+        <div className="rounded-lg p-6 border" style={{...styles.eventBlock, maxWidth: '400px', width: '100%'}}>
+            <h2 className={`w-full flex justify-center text-2xl font-semibold mb-8 ${titleFont.className}`} style={styles.eventTitle}>
                 {event.eventTitle}
             </h2>
-            <div
-                className="flex flex-row p-2"
-            >
-                <Image src="./calendar.svg" alt="preview" width={20} height={20} className='mr-2'/>
-                <span className="editable-date__display">{formatDate(event.eventDate)}</span>
+            <div className="space-y-3" style={styles.eventDetails}>
+                <div className="flex items-center">
+                    <Calendar size={20} className="mr-4" color={colors.text} />
+                    <span>{formatDate(event.eventDate)}</span>
+                </div>
+                <div className="flex items-center pt-4">
+                    <Clock size={20} className="mr-4" color={colors.text} />
+                    <span>{event.eventTime.start}</span>
+                    {event.eventTime.end && (
+                        <>
+                            <span className="mx-1">-</span>
+                            <span>{event.eventTime.end}</span>
+                        </>
+                    )}
+                </div>
+                <div className="flex items-center pt-6">
+                    <MapPin size={20} className="mr-4" color={colors.text} />
+                    <span>{event.eventLocation}</span>
+                </div>
+                <div className="flex items-center pt-6">
+                    <DollarSign size={20} className="mr-4" color={colors.text} />
+                    <span>{event.eventCost}</span>
+                </div>
+                <div className='pt-8 pb-2'>
+                    <div className='font-semibold mb-4'>Details:</div>
+                    <p>{event.eventDescription}</p>
+                </div>
             </div>
-            <div className='flex flex-row py-2'>
-                <Image src="./clock.svg" alt="clock" width={20} height={20} className='mx-2'/>
-                <span>{event.eventTime.start}</span>
-                {event.eventTime.end && (
-                    <span> - {event.eventTime.end}</span>
-                )}
-            </div>
-            <div className='flex flex-row py-2'>
-                <Image src="./map-pin.svg" alt="location" width={20} height={20} className='mx-2'/>
-                <span>{event.eventLocation}</span>
-            </div>
-            <div className='flex flex-row py-2'>
-                <Image src="./dollar-sign.svg" alt="cost" width={20} height={20} className='mx-2'/>
-                <span>{event.eventCost}</span>
-            </div>
-            <div className='flex flex-col mt-4 px-2'>
-                <div className='font-semibold'>Details:</div>
-                <p>{event.eventDescription}</p>
-            </div>
-        </>
+        </div>
     );
 
     const formatDate = (date: Date | string): string => {
@@ -141,34 +144,32 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
             <div className={`text-4xl font-bold text-center mb-14 mt-10 md:mt-0 ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
-            <div className='px-0 md:px-20 md:ml-0 lg:ml-20'>
-                <div className="flex flex-col gap-10 w-full md:w-5/12 h-full">
+            <div className='px-4 md:px-8 lg:px-12 flex flex-row'>
+                <div className="flex flex-col gap-10 w-full md:w-1/2 lg:w-6/12 h-full mt-8">
                     {eventBlock.map((event, index) => (
                         <div key={index} className="relative">
                             <div 
-                                className="rounded-lg p-4 border flex flex-row justify-between" 
+                                className="rounded-lg p-4 border flex flex-col-reverse md:flex-row justify-between" 
                                 style={styles.eventBlock}
                             >
                                 <div className={`flex flex-col ${(selectedEvent && selectedEventIndex == index) && 'md:flex hidden'}`}>
-                                    <h2 className={`px-2 text-xl font-semibold mb-2 ${titleFont.className}`} style={styles.eventTitle}>
+                                    <h2 className={`px-2 text-xl font-semibold mb-6 ${titleFont.className}`} style={styles.eventTitle}>
                                         {event.eventTitle}
                                     </h2>
-                                    <div style={styles.eventDetails} className='flex flex-col gap-2'>
-                                        <div
-                                            className="flex flex-row p-2"
-                                        >
-                                            <Image src="./calendar.svg" alt="preview" width={20} height={20} className='mr-2'/>
-                                            <span className="editable-date__display">{formatDate(event.eventDate)}</span>
+                                    <div style={styles.eventDetails} className='flex flex-col'>
+                                        <div className="flex items-center mb-4">
+                                            <Calendar size={20} className="mr-2" color={colors.text} />
+                                            <span>{formatDate(event.eventDate)}</span>
                                         </div>
-                                        <div className='flex py-2 flex-row'>
-                                            <Image src="./clock.svg" alt="clock" width={20} height={20} className='mx-2'/>
+                                        <div className="flex items-center mb-4">
+                                            <Clock size={20} className="mr-2" color={colors.text} />
                                             <span>{event.eventTime.start}</span>
                                             {event.eventTime.end && (
                                                 <span> - {event.eventTime.end}</span>
                                             )}
                                         </div>
-                                        <div className='py-2 flex flex-row'>
-                                            <Image src="./map-pin.svg" alt="location" width={20} height={20} className='mx-2'/>
+                                        <div className="flex items-center mb-4">
+                                            <MapPin size={20} className="mr-2" color={colors.text} />
                                             <span>{event.eventLocation}</span>
                                         </div>
                                     </div>
@@ -179,7 +180,7 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
                                         {renderEventDetails(event)}
                                     </div>
                                 )}
-                                <div className='flex justify-center items-center'>
+                                <div className='flex justify-center items-center md:mt-0 mt-2'>
                                     <ExpandableButton
                                         isExpanded={selectedEvent === event}
                                         onClick={() => handleEventClick(event)}
@@ -189,9 +190,14 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
                         </div>
                     ))}
                 </div>
-                <div className='hidden md:flex flex-col w-5/12 h-full justify-center fixed top-0 right-0 p-4' style={{...styles.eventDetails, maxHeight: '100vh', overflowY: 'auto'}}>
-                    {selectedEvent ? renderEventDetails(selectedEvent) : (
-                        <p>Select an event to view details</p>
+                {/* Update the details pop-up container */}
+                <div className='hidden md:flex flex-col w-1/2 lg:w-6/12 h-full justify-center items-center fixed top-0 bottom-0 right-0 p-4 pl-8 overflow-y-auto pt-20'>
+                    {selectedEvent ? (
+                        renderEventDetails(selectedEvent)
+                    ) : (
+                        <div className="" style={styles.eventBlock}>
+                            <p style={styles.eventDetails}>Select an event to view details</p>
+                        </div>
                     )}
                 </div>
             </div>
