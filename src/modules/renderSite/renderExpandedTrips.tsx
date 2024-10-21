@@ -85,7 +85,7 @@ export default function ExpandedTrips({ title, description, tripBlock, colors, f
             >
                 ← Back
             </Button>
-            <div className={`text-4xl font-bold text-center mb-8 mt-4 md:mt-0 ${titleFont.className}`} style={styles.title}>
+            <div className={`text-4xl font-bold text-center mb-8 mt-10 md:mt-0 ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
             <div className='flex w-full justify-center px-10 md:px-40'>

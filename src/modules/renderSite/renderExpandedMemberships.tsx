@@ -66,7 +66,7 @@ export default function ExpandedMemberships({
             >
                 ← Back
             </Button>
-            <div className={`text-4xl font-bold text-center mb-6 mt-4 md:mt-2 whitespace-pre-wrap ${titleFont.className}`} style={styles.title}>
+            <div className={`text-4xl font-bold text-center mb-6 mt-10 md:mt-2 whitespace-pre-wrap ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
             

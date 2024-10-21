@@ -105,7 +105,7 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, setShowE
             >
                 ← Back
             </Button>
-            <div className={`text-4xl font-bold text-center mb-6 mt-4 md:mt-0 ${titleFont.className}`} style={styles.title}>
+            <div className={`text-4xl font-bold text-center mb-6 mt-10 md:mt-0 ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
             <div className='px-10 md:px-20 md:ml-0 lg:ml-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>

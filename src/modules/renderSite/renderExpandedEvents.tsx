@@ -138,10 +138,10 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
             >
                 ← Back
             </Button>
-            <div className={`text-4xl font-bold text-center mb-14 mt-4 md:mt-0 ${titleFont.className}`} style={styles.title}>
+            <div className={`text-4xl font-bold text-center mb-14 mt-10 md:mt-0 ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
-            <div className='px-10 md:px-20 md:ml-0 lg:ml-20'>
+            <div className='px-0 md:px-20 md:ml-0 lg:ml-20'>
                 <div className="flex flex-col gap-10 w-full md:w-5/12 h-full">
                     {eventBlock.map((event, index) => (
                         <div key={index} className="relative">
