@@ -58,21 +58,21 @@ export default function ExpandedMemberships({
     }, []);
 
     return (
-        <div className={`w-full min-h-full max-h-fit flex flex-col items-center p-8 relative ${textFont.className}`} style={styles.container}>
+        <div className={`w-full min-h-full max-h-fit flex flex-col items-center p-4 sm:p-8 relative ${textFont.className}`} style={styles.container}>
             <Button 
-                className='z-40 absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
+                className='z-40 absolute top-2 left-2 sm:top-4 sm:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-2 sm:mx-4' 
                 style={styles.button} 
                 onClick={onBack}
             >
                 ← Back
             </Button>
-            <div className={`text-4xl font-bold text-center mb-6 mt-10 md:mt-2 whitespace-pre-wrap ${titleFont.className}`} style={styles.title}>
+            <div className={`text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 mt-12 sm:mt-10 md:mt-2 whitespace-pre-wrap ${titleFont.className}`} style={styles.title}>
                 {title}
             </div>
             
-            <div className="flex flex-col md:flex-row w-full max-w-6xl mb-12">
-                <div className="w-full md:w-1/2 mb-8 md:mb-0 md:mr-8">
-                    <div className=" w-[325px] h-[200px] md:w-[600px] md:h-[400px] relative">
+            <div className="flex flex-col lg:flex-row justify-center w-full max-w-6xl mb-8 sm:mb-12">
+                <div className="w-full flex justify-center lg:w-1/2 mb-4 sm:mb-8 lg:mb-0 lg:mr-8">
+                    <div className="w-[325px] h-[200px] md:w-[500px] md:h-[400px] lg:w-[600px] lg:h-[400px] relative">
                         <Image
                             src={image}
                             alt="Membership Image"
@@ -81,7 +81,7 @@ export default function ExpandedMemberships({
                         />
                     </div>
                 </div>
-                <div className={`w-full md:w-1/2 whitespace-pre-wrap ${textFont.className}`}>
+                <div className={`w-full lg:w-1/2 whitespace-pre-wrap mt-4 lg:mt-0 ${textFont.className}`}>
                     {text}
                 </div>
             </div>

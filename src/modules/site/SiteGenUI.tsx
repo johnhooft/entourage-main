@@ -261,8 +261,6 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   }
 
   const onLaunch = async() => {
-    //console.log(initialConfig.userID, subDomain, initialConfig)
-  
     // Transfer images and update URLs
     const response = await fetch('/api/siteConfig/transferImages', {
       method: 'POST',
@@ -273,9 +271,12 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     });
     const { updatedConfig } = await response.json();
 
-    console.log(updatedConfig)
+    // Update the subdomain in the config
+    updatedConfig.subdomain = subDomain.toLowerCase();
 
-    await saveConfig(subDomain, updatedConfig)
+    console.log(updatedConfig);
+
+    await saveConfig(subDomain, updatedConfig);
   }
 
   const onLaunchPopup = () => {
