@@ -92,7 +92,7 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig, setExpan
       <motion.div
         ref={scrollRef}
         animate={controls}
-        className={`w-full max-w-7.2xl h-[85vh] rounded-3xl border-4 relative p-4 md:p-16 ${isScrollable ? 'overflow-y-auto' : 'overflow-y-hidden'}`}
+        className={`w-full max-w-[80rem] h-[85vh] rounded-3xl border-4 relative p-4 md:p-16 ${isScrollable ? 'overflow-y-auto' : 'overflow-y-hidden'}`}
         style={{
           borderColor: styles.container.borderColor,
           backgroundColor: styles.innerContainer.backgroundColor, // Apply the new background color

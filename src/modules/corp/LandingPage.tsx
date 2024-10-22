@@ -70,7 +70,7 @@ export default function LandingPage() {
                                         borderRadius="1.5rem"
                                         className="bg-entourage-orange text-entourage-black font-extrabold"
                                     >
-                                        Lets Launch
+                                        Let&apos;s Launch
                                     </Button>
                                 </Link>
                             </div>
