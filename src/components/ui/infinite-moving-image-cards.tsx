@@ -101,7 +101,7 @@ export const InfiniteMovingCards: React.FC<InfiniteMovingCardsProps> = ({
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20 w-screen overflow-hidden",
+        "scroller relative z-20 max-w-[80rem] min-w-full overflow-hidden",
         className
       )}
     >
