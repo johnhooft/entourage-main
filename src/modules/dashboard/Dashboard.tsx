@@ -151,24 +151,29 @@ const Dashboard = () => {
             icon: <IconEdit className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
             onClick: onCreateOrEditSite,
         },
-        {
-            label: "View Site",
-            href: "#",
-            icon: <IconExternalLink className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
-            onClick: onViewSite,
-        },
-        {
-            label: "Update Subdomain",
-            href: "#",
-            icon: <IconLink className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
-            onClick: () => setIsSubdomainDialogOpen(true),
-        },
-        {
-            label: "Delete Site",
-            href: "#",
-            icon: <IconTrash className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
-            onClick: () => setIsDeleteDialogOpen(true),
-        },
+        ...(siteConfig
+            ? [
+                {
+                    label: "View Site",
+                    href: "#",
+                    icon: <IconExternalLink className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+                    onClick: onViewSite,
+                },
+                {
+                    label: "Update Subdomain",
+                    href: "#",
+                    icon: <IconLink className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+                    onClick: () => setIsSubdomainDialogOpen(true),
+                },
+                {
+                    label: "Delete Site",
+                    href: "#",
+                    icon: <IconTrash className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+                    onClick: () => setIsDeleteDialogOpen(true),
+                },
+            ]
+            : []
+        ),
         {
             label: "Sign Out",
             href: "#",

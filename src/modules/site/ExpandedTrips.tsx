@@ -2,15 +2,14 @@
 
 import EditableText from './editable-text'
 import EditableImage from './editable-image'
+import EditableTripInfo from './editable-trip-info';
+import { TripBlock } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import { Button } from '@/components/ui/button';
-
-interface TripBlock {
-  tripTitle: string;
-  tripDescription: string;
-  tripLocation: string;
-}
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { Calendar, Clock, MapPin, DollarSign } from 'lucide-react';
 
 interface ExpandedTripProps {
   title: string;
@@ -31,6 +30,10 @@ interface ExpandedTripProps {
 }
 
 export default function ExpandedTrips({ title, description, tripBlock, updateConfig, colors, fonts, setShowExpandedPage }: ExpandedTripProps) {
+
+  const [selectedTrip, setSelectedTrip] = useState<TripBlock | null>(null);
+  const [selectedTripIndex, setSelectedTripIndex] = useState<number | null>(null);
+  const [showTripCard, setShowTripCard] = useState(false);
 
   const updateTripBlock = (index: number, newProps: Partial<TripBlock>) => {
     const updatedTripBlock = [...tripBlock]
@@ -71,14 +74,24 @@ export default function ExpandedTrips({ title, description, tripBlock, updateCon
     button: {
       borderColor: colors.accent,
       color: colors.text,
-    }
+    },
+    card: {
+      backgroundColor: colors.background,
+      color: colors.text,
+    },
+    svg: {
+      color: colors.text,
+    },
   };
 
   const addTrip = () => {
     const newTrip: TripBlock = {
       tripTitle: "New Trip",
       tripDescription: "Description of the new trip",
-      tripLocation: "Location of the new trip"
+      tripLocation: "Location of the new trip",
+      tripDates: "Start - End",
+      tripImage: "none",
+      tripCost: "Free",
     };
     const updatedTripBlock = [...tripBlock, newTrip];
     updateConfig({ tripBlock: updatedTripBlock });
@@ -93,59 +106,97 @@ export default function ExpandedTrips({ title, description, tripBlock, updateCon
     setShowExpandedPage("");
   }
 
+  const handleTripClick = (trip: TripBlock, index: number) => {
+    setSelectedTrip(trip);
+    setSelectedTripIndex(index);
+    setShowTripCard(true);
+  };
+
+  const TripCard = ({ trip, onClose }: { trip: TripBlock, onClose: () => void }) => (
+    <div 
+      className="fixed inset-0 w-screen h-screen z-50 bg-black/50"
+      onClick={onClose}
+    >
+      <div className='w-full h-full flex justify-center items-center'>
+        <div 
+          className="p-6 rounded-[15px] w-[300px] flex flex-col border-[1px]"
+          style={styles.card}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <h2 className={`flex w-full justify-center text-xl font-semibold mb-6 ${titleFont.className}`}>
+            {trip.tripTitle}
+          </h2>
+          <div className="flex items-center mb-4">
+            <Calendar size={20} color={colors.accent} className='mr-2' />
+            {trip.tripDates}
+          </div>
+          <div className="flex items-center mb-4">
+            <DollarSign size={20} color={colors.accent} className='mr-2' />
+            {trip.tripCost}
+          </div>
+          <div className='flex items-center'>
+            <MapPin size={20} color={colors.accent} className='mr-2' />
+            {trip.tripLocation}
+          </div>
+          <div className='mt-8'>
+            {trip.tripDescription}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
+    <div className={`min-h-screen flex flex-col items-center p-8 relative ${textFont.className}`} style={styles.container}>
+      {showTripCard && (
+        <div className='absolute top-0'>
+          <TripCard trip={selectedTrip!} onClose={ () => {setShowTripCard(false)} } />
+        </div>
+      )}
       <Button 
-        className='absolute top-10 left-4 mx-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px]' 
+        className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
         style={styles.button} 
         onClick={onReturn}
       >
           ← Back
       </Button>
-      <div className={`text-4xl font-bold text-center mb-8 ${titleFont.className}`} style={styles.title}>
+      <div className={`text-4xl font-bold text-center mb-6 mt-4 md:mt-2 ${titleFont.className}`} style={styles.title}>
         <EditableText
           text={title}
           onTextChange={(newText) => updateConfig({ title: newText })}
         />
       </div>
-      <div className='flex w-full justify-center px-10 md:px-40'>
-        <div className="rounded-lg p-6 mb-8" style={styles.description}>
+      <div className='flex w-full justify-center px-0 md:px-40'>
+        <div className="rounded-lg p-2 md:p-6 mb-8" style={styles.description}>
           <EditableText
             text={description}
             onTextChange={(newText) => updateConfig({ description: newText })}
           />
         </div>
       </div>
-      <div className='w-full flex justify-center px-10 md:px-40'>
+      <div className='w-full flex justify-center px-0 md:px-40'>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {tripBlock.map((block, index) => (
             <div key={index} className="rounded-lg shadow-md overflow-hidden border relative" style={styles.tripBlock}>
+              <div className="md:p-4 p-3 cursor-pointer">
+                <EditableTripInfo
+                  tripTitle={block.tripTitle}
+                  tripDescription={block.tripDescription}
+                  tripLocation={block.tripLocation}
+                  tripDates={block.tripDates}
+                  tripImage={block.tripImage}
+                  tripCost={block.tripCost}
+                  titleFont={titleFont.className}
+                  onInfoChange={(updates) => updateTripBlock(index, updates)}
+                  onTripClick={() => handleTripClick(block, index)}
+                />
+              </div>
               <button
                 onClick={() => removeTrip(index)}
                 className="absolute top-2 right-2 px-2 rounded-full text-white bg-gray-500 z-10"
               >
                 x
               </button>
-              <div className="p-4">
-                <h2 className={`text-xl font-semibold mb-2 ${titleFont.className}`} style={styles.tripTitle}>
-                  <EditableText
-                    text={block.tripTitle}
-                    onTextChange={(newText) => updateTripBlock(index, { tripTitle: newText })}
-                  />
-                </h2>
-                <div className="mb-2" style={styles.tripDescription}>
-                  <EditableText
-                    text={block.tripDescription}
-                    onTextChange={(newText) => updateTripBlock(index, { tripDescription: newText })}
-                  />
-                </div>
-                <div className="text-sm" style={styles.tripLocation}>
-                  <EditableText
-                    text={block.tripLocation}
-                    onTextChange={(newText) => updateTripBlock(index, { tripLocation: newText })}
-                  />
-                </div>
-              </div>
             </div>
           ))}
         </div>
