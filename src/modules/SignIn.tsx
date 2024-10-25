@@ -85,7 +85,7 @@ const SignIn: React.FC<{ onSuccessfulSignIn: () => void; redirect: string; }> = 
                         <div className='flex justify-center'>
                             <Image src="./google.svg" alt="preview" width={20} height={20} className='relative right-14'/>
                             <p className='text-white text-sm py-2'>
-                                Sign up with Google
+                                Sign In with Google
                             </p>
                         </div>
                     </button>

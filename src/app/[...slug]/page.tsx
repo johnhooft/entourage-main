@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import RenderSite from '../../modules/renderSite/renderSite';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
+import Spinner from '../../modules/LoadingPulsate';
  
 export default function Page({ params }: { params: { slug: string } }) {
 
@@ -10,6 +11,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
     const [siteConfig, setSiteConfig] = useState<any | null>(null);
     const [siteConfigFound, setSiteConfigFound] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const fetchSiteConfig = async (subdomain: string) => {
         const lowercaseClubName = Array.isArray(subdomain) ? subdomain[0].toLowerCase() : subdomain.toLowerCase();
@@ -41,6 +43,14 @@ export default function Page({ params }: { params: { slug: string } }) {
         fetchSiteConfig(params.slug);
     }, [params.slug]);
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false); // Stop loading after 10 seconds
+        }, 10000);
+
+        return () => clearTimeout(timer); // Cleanup timer on unmount
+    }, []);
+
     return (
         <div>
             {(siteConfigFound && siteConfig) && (
@@ -48,8 +58,13 @@ export default function Page({ params }: { params: { slug: string } }) {
                     <RenderSite siteConfig={siteConfig} />
                 </div>
             )}
-            {!siteConfigFound && (
-                <div className="text-white">
+            {!siteConfigFound && loading && ( // Check for loading state
+                <div className="w-screen h-screen flex justify-center items-center">
+                    <Spinner />
+                </div>
+            )}
+            {!siteConfigFound && !loading && ( // Render message after loading
+                <div className="w-screen h-screen flex justify-center items-center">
                     Could Not Load: {params.slug}
                 </div>
             )}
