@@ -9,10 +9,11 @@ interface EditableScrollButtonLinkProps {
   initialText: string;
   initialUrl: string;
   style?: React.CSSProperties;
+  textStyle?: React.CSSProperties;
   onUpdate: (newText: string, newUrl: string) => void;
 }
 
-export const ScrollButtonLink: React.FC<EditableScrollButtonLinkProps> = ({ initialText, initialUrl, style, onUpdate }) => {
+export const ScrollButtonLink: React.FC<EditableScrollButtonLinkProps> = ({ initialText, initialUrl, style, textStyle, onUpdate }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const [text, setText] = useState(initialText);
@@ -36,7 +37,7 @@ export const ScrollButtonLink: React.FC<EditableScrollButtonLinkProps> = ({ init
             onMouseLeave={() => setIsHovered(false)}
             >
                 <button onClick={handleClick} className='border p-2 rounded-[15px]' style={buttonStyle}>
-                    {text}
+                    <span style={textStyle}>{text}</span>
                 </button>
             {isHovered && (
                 <div className='text-gray-500 bg-white rounded-full absolute -top-3 -right-3 '>
