@@ -6,7 +6,7 @@ import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import ExpandableButton from './ExpandableButton';
 import { Button } from '@/components/ui/button';
 // Import Lucide React icons
-import { Calendar, Clock, MapPin, DollarSign } from 'lucide-react';
+import { Calendar, Clock, MapPin, DollarSign, ChevronUp, ChevronDown } from 'lucide-react';
 
 interface EventTime {
     start: string;
@@ -147,11 +147,11 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
                     {eventBlock.map((event, index) => (
                         <div key={index} className="relative">
                             <div 
-                                className="rounded-lg p-4 border flex flex-col-reverse md:flex-row justify-between" 
+                                className="rounded-lg p-4 border flex flex-col md:flex-row justify-between" 
                                 style={styles.eventBlock}
                             >
                                 <div className={`flex flex-col ${(selectedEvent && selectedEventIndex == index) && 'md:flex hidden'}`}>
-                                    <h2 className={`text-xl font-semibold mb-2 ${titleFont.className}`} style={styles.eventTitle}>
+                                    <h2 className={`text-xl font-semibold mb-2 text-center md:text-left ${titleFont.className}`} style={styles.eventTitle}>
                                     <EditableText
                                         text={event.eventTitle}
                                         onTextChange={(newText) => updateEventBlock(index, { eventTitle: newText })}
@@ -198,11 +198,27 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
                                         {renderSelectedEventDetails(event, index, updateEventBlock)}
                                     </div>
                                 )}
-                                <div className='flex justify-center items-center md:mt-0 mt-2'>
-                                    <ExpandableButton
-                                        isExpanded={selectedEvent === event}
+                                <div className='flex justify-center items-center mt-4 md:mt-0'>
+                                    <button
+                                        className="md:hidden px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
+                                        style={{
+                                            backgroundColor: colors.primary,
+                                            color: colors.background,
+                                        }}
                                         onClick={() => handleEventClick(event)}
-                                    />
+                                    >
+                                        {selectedEvent === event ? (
+                                            <ChevronUp className="w-4 h-4" />
+                                        ) : (
+                                            'Details'
+                                        )}
+                                    </button>
+                                    <div className="hidden md:block">
+                                        <ExpandableButton
+                                            isExpanded={selectedEvent === event}
+                                            onClick={() => handleEventClick(event)}
+                                        />
+                                    </div>
                                 </div>
                                 <button
                                     className="z-10 absolute hover:scale-105 transition-all top-24 -right-8 mr-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center"

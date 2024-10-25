@@ -3,7 +3,7 @@ import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import ExpandableButton from '../site/ExpandableButton';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, MapPin, DollarSign } from 'lucide-react';
+import { Calendar, Clock, MapPin, DollarSign, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface EventTime {
     start: string;
@@ -149,11 +149,11 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
                     {eventBlock.map((event, index) => (
                         <div key={index} className="relative">
                             <div 
-                                className="rounded-lg p-4 border flex flex-col-reverse md:flex-row justify-between" 
+                                className="rounded-lg p-4 border flex flex-col md:flex-row justify-between" 
                                 style={styles.eventBlock}
                             >
                                 <div className={`flex flex-col ${(selectedEvent && selectedEventIndex == index) && 'md:flex hidden'}`}>
-                                    <h2 className={`px-2 text-xl font-semibold mb-6 ${titleFont.className}`} style={styles.eventTitle}>
+                                    <h2 className={`px-2 text-xl font-semibold mb-6 text-center md:text-left ${titleFont.className}`} style={styles.eventTitle}>
                                         {event.eventTitle}
                                     </h2>
                                     <div style={styles.eventDetails} className='flex flex-col'>
@@ -180,11 +180,27 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
                                         {renderEventDetails(event)}
                                     </div>
                                 )}
-                                <div className='flex justify-center items-center md:mt-0 mt-2'>
-                                    <ExpandableButton
-                                        isExpanded={selectedEvent === event}
+                                <div className='flex justify-center items-center mt-4 md:mt-0'>
+                                    <button
+                                        className="md:hidden px-4 py-2 rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
+                                        style={{
+                                            backgroundColor: colors.primary,
+                                            color: colors.background,
+                                        }}
                                         onClick={() => handleEventClick(event)}
-                                    />
+                                    >
+                                        {selectedEvent === event ? (
+                                            <ChevronUp className="w-4 h-4" />
+                                        ) : (
+                                            'Details'
+                                        )}
+                                    </button>
+                                    <div className="hidden md:block">
+                                        <ExpandableButton
+                                            isExpanded={selectedEvent === event}
+                                            onClick={() => handleEventClick(event)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +211,7 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
                     {selectedEvent ? (
                         renderEventDetails(selectedEvent)
                     ) : (
-                        <div className="" style={styles.eventBlock}>
+                        <div className="rounded-lg p-6 border" style={styles.eventBlock}>
                             <p style={styles.eventDetails}>Select an event to view details</p>
                         </div>
                     )}
