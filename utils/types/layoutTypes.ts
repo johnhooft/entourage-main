@@ -147,6 +147,9 @@ export interface TripBlock {
     tripTitle: string;
     tripDescription: string;
     tripLocation: string;
+    tripDates: string;
+    tripImage: string;
+    tripCost: string;
 }
 
 export interface ExpandedExecProps extends ExpandedPagesProps {

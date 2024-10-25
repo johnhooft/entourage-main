@@ -59,10 +59,10 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                     title: "Your Trips Here",
                     description: genContent.clubCopy.Trips,
                     tripBlock: [
-                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location" },
-                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location" },
-                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location" },
-                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location" },
+                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location", tripDates: "Start - End", tripImage: "none", tripCost: "free" },
+                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location", tripDates: "Start - End", tripImage: "none", tripCost: "free" },
+                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location", tripDates: "Start - End", tripImage: "none", tripCost: "free" },
+                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location", tripDates: "Start - End", tripImage: "none", tripCost: "free" },
                     ],
                 } as ExpandedTripProps
             },
