@@ -182,17 +182,23 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
                                 style={styles.eventBlock}
                             >
                                 <div className={`flex flex-col ${(selectedEvent && selectedEventIndex == index) && 'md:flex hidden'}`}>
-                                    <h2 className={`text-xl font-semibold mb-2 text-center md:text-left ${titleFont.className}`} style={styles.eventTitle}>
+                                    <h2 className={`text-xl font-semibold mb-4 md:mb-2 text-center md:text-left ${titleFont.className}`} style={styles.eventTitle}>
                                         {event.eventTitle}
                                     </h2>
                                     <div style={styles.eventDetails} className='flex flex-col text-sm'>
-                                        <div className='ml-2 flex justify-center items-center flex-wrap'>
-                                            <Calendar size={16} className='mr-2' color={colors.text} />
-                                            <span>{formatDate(event.eventDate)}</span>
-                                            <Clock size={16} className='ml-4 mr-2' color={colors.text} />
-                                            <span>{event.eventTime.start}</span>
-                                            <MapPin size={16} className='ml-4 mr-2' color={colors.text} />
-                                            <span>{event.eventLocation}</span>
+                                        <div className='flex flex-col md:flex-row md:flex-wrap items-center justify-center md:justify-start'>
+                                            <div className='flex items-center mb-2 md:mb-0 md:mr-4'>
+                                                <Calendar size={16} className='mr-2' color={colors.text} />
+                                                <span>{formatDate(event.eventDate)}</span>
+                                            </div>
+                                            <div className='flex items-center mb-2 md:mb-0 md:mr-4'>
+                                                <Clock size={16} className='mr-2' color={colors.text} />
+                                                <span>{event.eventTime.start}</span>
+                                            </div>
+                                            <div className='flex items-center'>
+                                                <MapPin size={16} className='mr-2' color={colors.text} />
+                                                <span>{event.eventLocation}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -201,7 +207,7 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
                                         {renderEventDetails(event)}
                                     </div>
                                 )}
-                                <div className='flex justify-center items-center mt-4 md:mt-0'>
+                                <div className='flex justify-center items-center mt-6 md:mt-0'>
                                     <button
                                         className="w-8 h-8 rounded-full flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
                                         style={{
