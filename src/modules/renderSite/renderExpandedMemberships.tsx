@@ -58,7 +58,7 @@ export default function ExpandedMemberships({
     }, []);
 
     return (
-        <div className={`w-full min-h-full max-h-fit flex flex-col items-center p-4 sm:p-8 relative ${textFont.className}`} style={styles.container}>
+        <div className={`w-full min-h-[93vh] max-h-fit flex flex-col items-center p-4 sm:p-8 relative ${textFont.className}`} style={styles.container}>
             <Button 
                 className='z-40 absolute top-2 left-2 sm:top-4 sm:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-2 sm:mx-4' 
                 style={styles.button} 

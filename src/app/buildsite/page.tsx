@@ -31,7 +31,7 @@ function BuildSiteContent() {
   return (
     <div className="flex flex-col">
       <StyleChanger initialConfig={siteConfig} onConfigChange={setSiteConfig} fromDashboard={fromDashboard}>
-        <Site siteConfig={siteConfig} />
+        <Site siteConfig={siteConfig} onConfigChange={setSiteConfig} />
       </StyleChanger>
     </div>
   );

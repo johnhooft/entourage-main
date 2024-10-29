@@ -57,6 +57,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
             alt="logo"
             width={60}
             height={60}
+            className="rounded-[15px]"
           />
           <div className="w-fit z-50">
             <FullscreenExpandableMenu 
@@ -83,6 +84,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
 
           <a
             href={buttonLink}
+            target="_blank" rel="noopener noreferrer"
             className={`px-4 py-2 backdrop-blur-sm border text-white ${textFont.className} mx-auto text-center rounded-full relative mt-4`}
             style={styles.button}
             onMouseEnter={(e) => {

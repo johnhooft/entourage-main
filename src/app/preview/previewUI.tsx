@@ -4,12 +4,17 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button"
 
-export const PreviewUI = () => {
+export const PreviewUI = ({ fromDashboard }: { fromDashboard: boolean }) => {
 
     const router = useRouter();
 
     const onReturn = () => {
-        router.push('/buildsite');
+        if (fromDashboard) {
+            router.push('/buildsite?from=dashboard');
+        }
+        else {
+            router.push('/buildsite');
+        }
       }
     
     return (

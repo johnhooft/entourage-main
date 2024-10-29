@@ -12,7 +12,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Club } from "lucide-react";
 import FullscreenExpandableMenu from "./NavMenu";
 
 interface HeroProps {
@@ -110,6 +109,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
 
           <a
             href={buttonLink}
+            target="_blank" rel="noopener noreferrer"
             className={`px-4 py-2 backdrop-blur-sm border text-white ${textFont.className} mx-auto text-center rounded-full relative mt-4`}
             style={styles.button}
             onMouseEnter={(e) => {

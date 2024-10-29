@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HeroSection from './HeroSection';
 import MovingCards from './MovingCards';
 import Scroll from './Scroll';
@@ -11,6 +11,7 @@ import ExpandedMemberships from './ExpandedMemberships'
 
 interface SiteProps {
   siteConfig: SiteConfig;
+  onConfigChange: (newConfig: SiteConfig) => void
 }
 
 const expandedPageMap: { [key: string]: React.ComponentType<any> } = {
@@ -26,8 +27,7 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
   Scroll,
 };
 
-const Site: React.FC<SiteProps> = ({ siteConfig }) => {
-  const [config, setConfig] = useState<SiteConfig>(siteConfig);
+const Site: React.FC<SiteProps> = ({ siteConfig, onConfigChange }) => {
   const [showExpandedPage, setShowExpandedPage] = useState<keyof typeof expandedPageMap | "">("");
 
   if (!siteConfig) {
@@ -38,34 +38,25 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
   const fonts = siteConfig.fonts
 
   const updateConfig = (index: number, newProps: any, fromExpandedPage: boolean) => {
-
-    //console.log(newProps, index);
-
     if (fromExpandedPage) {
-      const updatedExpandedPages = [...config.expandedPages];
+      const updatedExpandedPages = [...siteConfig.expandedPages];
       updatedExpandedPages[index].props = { ...updatedExpandedPages[index].props, ...newProps };
-      setConfig({ ...config, expandedPages: updatedExpandedPages });
+      onConfigChange({ ...siteConfig, expandedPages: updatedExpandedPages });
     } else {
-      const updatedLayout = [...config.layout];
+      const updatedLayout = [...siteConfig.layout];
       updatedLayout[index].props = { ...updatedLayout[index].props, ...newProps };
-      console.log(updatedLayout);
-      setConfig({ ...config, layout: updatedLayout });
+      onConfigChange({ ...siteConfig, layout: updatedLayout });
     }
   };
   
-  //console.log(siteConfig)
- 
-  const updateFooterLinks = (newLinks: any) => {
-    setConfig(prevConfig => ({
-      ...prevConfig,
+  const updateFooterLinks = (newLinks: { email: string; instagram: string; facebook: string }) => {
+    onConfigChange({
+      ...siteConfig,
       footer: {
-        ...prevConfig.footer,
-        links: {
-          ...prevConfig.footer.links,
-          ...newLinks
-        }
+        ...siteConfig.footer,
+        ...newLinks,
       }
-    }));
+    });
   };
 
   return (
@@ -105,7 +96,7 @@ const Site: React.FC<SiteProps> = ({ siteConfig }) => {
         })
       )}
       <SiteFooter 
-        links={config.footer.links} 
+        links={siteConfig.footer.links} 
         updateConfig={updateFooterLinks}
       />
     </div>

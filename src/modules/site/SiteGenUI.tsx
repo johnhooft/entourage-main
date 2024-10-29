@@ -257,7 +257,12 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   const onPreview = () => {
     sessionStorage.clear();
     sessionStorage.setItem('siteConfig', JSON.stringify(initialConfig));
-    router.push('/preview');
+    if (fromDashboard) {
+      router.push('/preview?from=dashboard');
+    } 
+    else {
+      router.push('/preview');
+    }
   }
 
   const onLaunch = async() => {

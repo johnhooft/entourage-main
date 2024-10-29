@@ -4,10 +4,13 @@ import React, { useEffect, useState } from 'react';
 import RenderSite from '../../modules/renderSite/renderSite';
 import { SiteConfig } from '../../../utils/types/layoutTypes';
 import { PreviewUI } from './previewUI';
+import { useSearchParams } from 'next/navigation';
 
 export default function BuildSite() {
     const [siteConfig, setSiteConfig] = useState<SiteConfig | null>(null);
     const [isMobilePreview, setIsMobilePreview] = useState(false);
+    const searchParams = useSearchParams();
+    const fromDashboard = searchParams!.get('from') === 'dashboard';
 
     useEffect(() => {
         const storedConfig = sessionStorage.getItem('siteConfig');
@@ -28,7 +31,7 @@ export default function BuildSite() {
     return (
         <div className="">
             <div className='fixed z-30 flex w-full justify-center mt-2'>
-                <PreviewUI />
+                <PreviewUI fromDashboard={fromDashboard}/>
             </div>
             <RenderSite siteConfig={siteConfig} />
         </div>

@@ -13,23 +13,23 @@ export default function SiteFooter({links}: RenderSiteFooterProps) {
         <div className="flex flex-row justify-between items-center text-sm">
           <div className="flex items-center flex-row space-x-4 md:space-x-12">
             {links.email !== "none" && (
-              <Link href={`mailto:${links.email}`} className="transition-colors">
+              <Link href={`mailto:${links.email}`} className="transition-colors" target="_blank" rel="noopener noreferrer">
                 <Image src="mail-plus.svg" alt="Email" width={20} height={20} />
               </Link>
             )}
             {links.instagram !== "none" && (
-              <Link href={links.instagram} className="transition-colors">
+              <Link href={links.instagram} className="transition-colors" target="_blank" rel="noopener noreferrer">
                 <Image src="instagram.svg" alt="Instagram" width={20} height={20} />
               </Link>
             )}
             {links.facebook !== "none" && (
-              <Link href={links.facebook} className="transition-colors">
+              <Link href={links.facebook} className="transition-colors" target="_blank" rel="noopener noreferrer">
                 <Image src="fb.svg" alt="Facebook" width={20} height={20} />
               </Link>
             )}
           </div>
           <div className=''>
-            <Link href="/" className="hover:text-orange-500 transition-colors text-center md:text-left flex flex-row space-x-1">
+            <Link href="/" className="hover:text-orange-500 transition-colors text-center md:text-left flex flex-row space-x-1" target="_blank" rel="noopener noreferrer">
               <div>
                 Made with
               </div>

@@ -132,7 +132,7 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
     );
 
     return (
-        <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
+        <div className={`w-screen min-h-[93vh] mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
             <Button 
                 className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
                 style={styles.button} 
@@ -160,7 +160,7 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
                             >
                                 {hoveredIndex === index && (
                                     <div 
-                                        className='absolute top-2 right-12 hover:scale-105 flex justify-center items-center font-mono font-bold text-black w-5 h-5 rounded-full bg-red-600'
+                                        className='absolute top-2 right-16 hover:scale-105 flex justify-center items-center font-mono font-bold text-black w-5 h-5 rounded-full bg-red-600'
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             removeExec(index);
