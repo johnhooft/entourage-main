@@ -39,12 +39,16 @@ const Site: React.FC<SiteProps> = ({ siteConfig, onConfigChange }) => {
 
   const updateConfig = (index: number, newProps: any, fromExpandedPage: boolean) => {
     if (fromExpandedPage) {
+      console.log(newProps)
       const updatedExpandedPages = [...siteConfig.expandedPages];
       updatedExpandedPages[index].props = { ...updatedExpandedPages[index].props, ...newProps };
+      console.log(updatedExpandedPages)
       onConfigChange({ ...siteConfig, expandedPages: updatedExpandedPages });
     } else {
+      //console.log(index, newProps)
       const updatedLayout = [...siteConfig.layout];
       updatedLayout[index].props = { ...updatedLayout[index].props, ...newProps };
+      //console.log(updatedLayout)
       onConfigChange({ ...siteConfig, layout: updatedLayout });
     }
   };

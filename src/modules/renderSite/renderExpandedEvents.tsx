@@ -4,7 +4,7 @@ import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import ExpandableButton from '../site/ExpandableButton';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, MapPin, DollarSign, ChevronDown, ChevronUp, AlignLeft, ChevronRight, ChevronLeft } from 'lucide-react';
-import { ScrollButtonLink } from '../site/editable-button-link';
+import { ScrollButtonLink } from './render-button-link';
 
 interface EventTime {
     start: string;
@@ -123,20 +123,21 @@ export default function RenderExpandedEvents({ title, eventBlock, colors, fonts,
                 </div>
             </div>
             <div className="flex justify-center mt-8">
-                <ScrollButtonLink
-                    initialText={event.buttonText || "Learn More"}
-                    initialUrl={event.buttonUrl || "#"}
-                    style={{
-                        color: colors.text,
-                        backgroundColor: colors.accent,
-                        padding: '0.5rem 1rem',
-                    }}
-                    textStyle={{
-                        fontSize: '0.875rem',
-                        lineHeight: '1.25rem',
-                    }}
-                    onUpdate={() => {}} // This is a read-only version, so we don't need to update
-                />
+                {(event.buttonUrl !== "none") && (
+                    <ScrollButtonLink
+                        text={event.buttonText!}
+                        url={event.buttonUrl!}
+                        style={{
+                            color: colors.text,
+                            backgroundColor: colors.accent,
+                            padding: '0.5rem 1rem',
+                        }}
+                        textStyle={{
+                            fontSize: '0.875rem',
+                            lineHeight: '1.25rem',
+                        }}
+                    />
+                )}
             </div>
         </div>
     );

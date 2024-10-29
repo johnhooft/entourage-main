@@ -294,8 +294,8 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
                 {/* Add the editable button link */}
                 <div className="flex justify-center mt-6">
                     <ScrollButtonLink
-                        initialText="Learn More"
-                        initialUrl="#"
+                        initialText={event.buttonText!}
+                        initialUrl={event.buttonUrl!}
                         style={{
                             color: colors.text,
                             backgroundColor: colors.accent,
@@ -305,10 +305,10 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
                             fontSize: '0.875rem',  // This matches the text-sm class
                             lineHeight: '1.25rem',
                         }}
-                        onUpdate={(newText, newUrl) => {
+                        onUpdate={(newProps) => {
                             updateEventBlock(index, { 
-                                buttonText: newText, 
-                                buttonUrl: newUrl 
+                                buttonText: newProps.buttonLinkText, 
+                                buttonUrl: newProps.buttonLinkURL 
                             });
                         }}
                     />

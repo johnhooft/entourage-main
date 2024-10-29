@@ -53,7 +53,7 @@ export default function ExpandedMemberships({ title, image, text, buttonLink, bu
     };
 
     const updateButton = (newText: string, newLink: string) => {
-        updateConfig({ joinButtonText: newText, joinButtonLink: newLink });
+        updateConfig({ buttonText: newText, buttonLink: newLink });
     };
 
     const onBack = () => {
@@ -96,7 +96,9 @@ export default function ExpandedMemberships({ title, image, text, buttonLink, bu
                 initialText={buttonText}
                 initialUrl={buttonLink}
                 style={buttonStyle}
-                onUpdate={updateButton}
+                onUpdate={(newProps) => {
+                    updateButton(newProps.buttonLinkText, newProps.buttonLinkURL)
+                }}
             />
         </div>
     );

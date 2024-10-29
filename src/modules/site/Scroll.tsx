@@ -8,7 +8,6 @@ import { color, motion, useAnimation } from 'framer-motion'
 import { Colors, Fonts, InfoBlock } from '../../../utils/types/layoutTypes';
 import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from '../../../utils/site/reduceOpacity';
-import { v4 as uuidv4 } from 'uuid';
 import { useInView } from 'react-intersection-observer';
 import { ScrollButtonExpanded } from './editable-button-expanded';
 import { ScrollButtonLink } from './editable-button-link';
@@ -87,6 +86,14 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig, setExpan
     updateConfig({ blockArr: updatedBlocks });
   };
 
+  const updateBlockButtonLink = (blockId: string, newProps: {buttonLinkText: string, buttonLinkURL: string}) => {
+    const updateBlocks = blockArr.map((block) =>
+      block.id === blockId ? { ...block, ...newProps } : block
+    );
+    console.log(updateBlocks)
+    updateConfig({ blockArr: updateBlocks})
+  }
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-8" style={{ backgroundColor: styles.container.backgroundColor }}>
       <motion.div
@@ -139,7 +146,7 @@ export default function Scroll({ blockArr, colors, fonts, updateConfig, setExpan
                       initialText={block.buttonlinkText}
                       initialUrl={block.buttonLinkURL}
                       style={styles.button}
-                      onUpdate={updateConfig}
+                      onUpdate={(newProps: {buttonLinkText: string, buttonLinkURL: string}) => updateBlockButtonLink(block.id, newProps)}
                     />
                   </div>
                 ) : null}

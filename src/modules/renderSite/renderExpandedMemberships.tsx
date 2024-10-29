@@ -85,11 +85,13 @@ export default function ExpandedMemberships({
                     {text}
                 </div>
             </div>
-            <ScrollButtonLink 
-                text={buttonText}
-                url={buttonLink}
-                style={buttonStyle}
-            />
+            {(buttonLink !== "none") && (
+                <ScrollButtonLink 
+                    text={buttonText}
+                    url={buttonLink}
+                    style={buttonStyle}
+                />
+            )}
         </div>
     );
 };

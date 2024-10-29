@@ -122,8 +122,8 @@ export default function ExpandedExec({ title, execBlock, fonts, colors, updateCo
                         {exec.bio}
                     </div>
                     <div className='flex w-full justify-center'>
-                        <Link href={exec.instaURL}>
-                            <img src="./instagram.svg" alt="insta" height={20} width={20}/>
+                        <Link href={exec.instaURL} target="_blank" rel="noopener noreferrer">
+                            <Image src="/instagram.svg" alt="insta" width={20} height={20} layout="fixed" />
                         </Link>
                     </div>
                 </div>

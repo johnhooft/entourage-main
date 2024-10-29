@@ -105,11 +105,11 @@ export default function ScrollRender({ blockArr, colors, fonts, setShowExpandedP
                 </div>
               </div>
               <div className='flex gap-2'>
-                {block.buttonlinkText && block.buttonLinkURL ? (
+                {block.buttonlinkText && (block.buttonLinkURL !== "none") ? (
                   <div className='mt-4 px-2'>
                     <ScrollButtonLink 
                       text={block.buttonlinkText}
-                      url={block.buttonLinkURL}
+                      url={block.buttonLinkURL!}
                       style={styles.button}
                     />
                   </div>

@@ -82,23 +82,25 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
             <div className="-mb-2">{text}</div>
           </motion.div>
 
-          <a
-            href={buttonLink}
-            target="_blank" rel="noopener noreferrer"
-            className={`px-4 py-2 backdrop-blur-sm border text-white ${textFont.className} mx-auto text-center rounded-full relative mt-4`}
-            style={styles.button}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor;
-              e.currentTarget.style.borderColor = styles.buttonHover.borderColor;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = styles.button.backgroundColor;
-              e.currentTarget.style.borderColor = styles.button.borderColor;
-            }}
-          >
-            <span>{buttonText} →</span>
-            <div className="absolute inset-x-0 h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-white to-transparent" />
-          </a>
+          {buttonLink !== "none" && (
+            <a
+              href={buttonLink}
+              target="_blank" rel="noopener noreferrer"
+              className={`px-4 py-2 backdrop-blur-sm border text-white ${textFont.className} mx-auto text-center rounded-full relative mt-4`}
+              style={styles.button}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor;
+                e.currentTarget.style.borderColor = styles.buttonHover.borderColor;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = styles.button.backgroundColor;
+                e.currentTarget.style.borderColor = styles.button.borderColor;
+              }}
+            >
+              <span>{buttonText} →</span>
+              <div className="absolute inset-x-0 h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-white to-transparent" />
+            </a>
+          )}
         </motion.div>
       </ImagesSlider>
     </div>

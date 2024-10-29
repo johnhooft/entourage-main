@@ -28,6 +28,8 @@ function BuildSiteContent() {
     return <div className='text-white'>Site Config Missing!</div>;
   }
 
+  console.log("Site Config Changed:", siteConfig);
+
   return (
     <div className="flex flex-col">
       <StyleChanger initialConfig={siteConfig} onConfigChange={setSiteConfig} fromDashboard={fromDashboard}>
