@@ -21,10 +21,11 @@ export async function POST(request: NextRequest) {
           .move(oldPath, newPath)
 
         if (error) {
-          console.error('Error moving file:', error)
+          //console.error('Error moving file:', error)
         } else {
           obj[key] = `https://qrengcbkopwqcuirwapp.supabase.co/storage/v1/object/public/images/${newPath}`
         }
+        obj[key] = `https://qrengcbkopwqcuirwapp.supabase.co/storage/v1/object/public/images/${newPath}`
       } else if (typeof obj[key] === 'object' && obj[key] !== null) {
         await updateImageUrls(obj[key])
       }

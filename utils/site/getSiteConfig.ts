@@ -46,7 +46,7 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
             {
                 component: "ExpandedEvents",
                 props: {
-                    title: "Your Events Here",
+                    title: "Events",
                     eventBlock: [
                         { eventTitle: "Event Title", eventDate: new Date("2024-01-01"), eventTime: { start: "10:00pm", end: "" }, eventCost: "10$ for members, 25$ for non members", eventDescription: "Event Description", eventLocation: "Event Location" },
                         { eventTitle: "Event Title", eventDate: new Date("2024-02-15"), eventTime: { start: "9:00am", end: "2:00pm" }, eventCost: "10$", eventDescription: "Event Description", eventLocation: "Event Location" },
@@ -56,11 +56,9 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
             {
                 component: "ExpandedTrips",
                 props: {
-                    title: "Your Trips Here",
+                    title: "Trips",
                     description: genContent.clubCopy.Trips,
                     tripBlock: [
-                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location", tripDates: "Start - End", tripImage: "none", tripCost: "free" },
-                        { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location", tripDates: "Start - End", tripImage: "none", tripCost: "free" },
                         { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location", tripDates: "Start - End", tripImage: "none", tripCost: "free" },
                         { tripTitle: "Trip Title", tripDescription: "Trip Description", tripLocation: "Trip Location", tripDates: "Start - End", tripImage: "none", tripCost: "free" },
                     ],
