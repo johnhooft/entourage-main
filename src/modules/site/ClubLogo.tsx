@@ -93,7 +93,12 @@ const EditableImage: React.FC<EditableImageProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img src={src} alt="logo" width={width} height={height} className={`${className} transition-opacity duration-300 ${isHovered ? 'opacity-50' : 'opacity-100'}`}/>
+      <Image 
+        src={src} 
+        alt="logo" 
+        width={width} 
+        height={height} 
+        className={`${className} rounded-[15px] transition-opacity duration-300 ${isHovered ? 'opacity-50' : 'opacity-100'}`} />
 
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50">

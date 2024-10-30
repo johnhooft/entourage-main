@@ -78,10 +78,10 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  border: 0px solid #d1d5db;
-  -webkit-text-fill-color: white;
+  border: 1px solid #000000;
+  -webkit-text-fill-color: black;
   -webkit-box-shadow: 0 0 0px 1000px #212121 inset;
-  box-shadow: 0 0 0px 1000px #212121 inset;
+  box-shadow: 0 0 0px 1000px #ffffff inset;
   transition: background-color 5000s ease-in-out 0s;
   color: white;
 }

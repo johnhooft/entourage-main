@@ -132,7 +132,7 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
     };
 
     return (
-        <div className={`w-screen h-fit mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
+        <div className={`w-screen min-h-[93vh] mx-auto px-4 py-8 ${textFont.className}`} style={styles.container}>
             <Button 
                 className='absolute top-2 left-0 md:top-10 md:left-4 rounded-[15px] bg-transparent hover:bg-transparent hover:scale-105 transition-all border-[1px] mx-4' 
                 style={styles.button} 
@@ -294,8 +294,8 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
                 {/* Add the editable button link */}
                 <div className="flex justify-center mt-6">
                     <ScrollButtonLink
-                        initialText="Learn More"
-                        initialUrl="#"
+                        initialText={event.buttonText!}
+                        initialUrl={event.buttonUrl!}
                         style={{
                             color: colors.text,
                             backgroundColor: colors.accent,
@@ -305,10 +305,10 @@ export default function ExpandedEvents({ title, eventBlock, updateConfig, colors
                             fontSize: '0.875rem',  // This matches the text-sm class
                             lineHeight: '1.25rem',
                         }}
-                        onUpdate={(newText, newUrl) => {
+                        onUpdate={(newProps) => {
                             updateEventBlock(index, { 
-                                buttonText: newText, 
-                                buttonUrl: newUrl 
+                                buttonText: newProps.buttonLinkText, 
+                                buttonUrl: newProps.buttonLinkURL 
                             });
                         }}
                     />

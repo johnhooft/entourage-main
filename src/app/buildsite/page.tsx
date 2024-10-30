@@ -22,16 +22,33 @@ function BuildSiteContent() {
         console.error("Error parsing siteConfig:", error);
       }
     }
+
+    // Add event listener for beforeunload
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = ''; // This triggers the alert
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+
   }, []);
+
 
   if (!siteConfig) {
     return <div className='text-white'>Site Config Missing!</div>;
   }
 
+  console.log("Site Config Changed:", siteConfig);
+
   return (
     <div className="flex flex-col">
       <StyleChanger initialConfig={siteConfig} onConfigChange={setSiteConfig} fromDashboard={fromDashboard}>
-        <Site siteConfig={siteConfig} />
+        <Site siteConfig={siteConfig} onConfigChange={setSiteConfig} />
       </StyleChanger>
     </div>
   );

@@ -20,7 +20,7 @@ export default function SiteFooter({links, updateConfig}: SiteFooterProps) {
   const [facebookLink, setFacebookLink] = useState(links.facebook);
 
   const handleSaveLinks = () => {
-    updateConfig({ links: { ...links, instagram: instagramLink, facebook: facebookLink, email: email } });
+    updateConfig({ links: { email: email, facebook: facebookLink, instagram: instagramLink } });
     setIsDialogOpen(false);
   };
 
@@ -34,21 +34,21 @@ export default function SiteFooter({links, updateConfig}: SiteFooterProps) {
             onMouseLeave={() => setIsHovered(false)}
           >
             {email !== "none" ? (
-              <Link href={`mailto:${email}`} className="transition-colors">
+              <Link href={`mailto:${email}`} className="transition-colors" target="_blank" rel="noopener noreferrer">
                 <Image src="mail-plus.svg" alt="Email" width={20} height={20} />
               </Link>
             ) : (
               <Image src="mail-plus.svg" alt="Email" width={20} height={20} />
             )}
             {instagramLink !== "none" ? (
-              <Link href={instagramLink} className="transition-colors">
+              <Link href={instagramLink} className="transition-colors" target="_blank" rel="noopener noreferrer">
                 <Image src="instagram.svg" alt="Instagram" width={20} height={20} />
               </Link>
             ) : (
               <Image src="instagram.svg" alt="Instagram" width={20} height={20} />
             )}
             {facebookLink !== "none" ? (
-              <Link href={facebookLink} className="transition-colors">
+              <Link href={facebookLink} className="transition-colors" target="_blank" rel="noopener noreferrer">
                 <Image src="fb.svg" alt="Facebook" width={20} height={20} />
               </Link>
             ) : (
@@ -64,7 +64,7 @@ export default function SiteFooter({links, updateConfig}: SiteFooterProps) {
             )}
           </div>
           <div className=''>
-            <Link href="/" className="hover:text-orange-500 transition-colors text-center md:text-left flex flex-row space-x-1">
+            <Link href="/" className="hover:text-orange-500 transition-colors text-center md:text-left flex flex-row space-x-1" target="_blank" rel="noopener noreferrer">
               <div>
                 Made with
               </div>
@@ -90,7 +90,7 @@ export default function SiteFooter({links, updateConfig}: SiteFooterProps) {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="col-span-3"
+                className="col-span-3 bg-white text-black"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -101,7 +101,7 @@ export default function SiteFooter({links, updateConfig}: SiteFooterProps) {
                 id="instagram"
                 value={instagramLink}
                 onChange={(e) => setInstagramLink(e.target.value)}
-                className="col-span-3"
+                className="col-span-3 bg-white text-black"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -112,7 +112,7 @@ export default function SiteFooter({links, updateConfig}: SiteFooterProps) {
                 id="facebook"
                 value={facebookLink}
                 onChange={(e) => setFacebookLink(e.target.value)}
-                className="col-span-3"
+                className="col-span-3 bg-white text-black"
               />
             </div>
           </div>

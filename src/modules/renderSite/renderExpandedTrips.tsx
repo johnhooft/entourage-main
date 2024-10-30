@@ -126,7 +126,7 @@ export default function ExpandedTrips({ title, description, tripBlock, colors, f
     );
 
     return (
-        <div className={`min-h-screen flex flex-col items-center p-8 relative ${textFont.className}`} style={styles.container}>
+        <div className={`min-h-[93vh] flex flex-col items-center p-8 relative ${textFont.className}`} style={styles.container}>
             {showTripCard && (
                 <div className='absolute top-0'>
                     <TripCard trip={selectedTrip!} onClose={() => setShowTripCard(false)} />

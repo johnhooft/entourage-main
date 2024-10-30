@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { fontMap, FontName } from '@/../utils/site/fontMap'
 import { HexColorPicker } from "react-colorful";
+import { hslaToHex } from "@/../utils/site/colorConversions"
 
 interface StyleChangerProps {
   children: React.ReactNode
@@ -92,9 +93,18 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     setIsColorPopupOpen(false)
   }
 
+  const handleCustomColorUpdate = (colorSet: Colors) => {
+    const newColors: Colors = {} as Colors;
+    for (const [key, value] of Object.entries(colorSet)) {
+      newColors[key as keyof Colors] = hslaToHex(value);
+    }
+    setUserColors(newColors);
+  }
+
   const handleColorSetClick = (colorSet: Colors) => {
     const newConfig = { ...initialConfig, colors: colorSet }
     setSelectedTheme(colorSet)
+    handleCustomColorUpdate(colorSet)
     onConfigChange(newConfig)
   }
 
@@ -257,7 +267,12 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   const onPreview = () => {
     sessionStorage.clear();
     sessionStorage.setItem('siteConfig', JSON.stringify(initialConfig));
-    router.push('/preview');
+    if (fromDashboard) {
+      router.push('/preview?from=dashboard');
+    } 
+    else {
+      router.push('/preview');
+    }
   }
 
   const onLaunch = async() => {
@@ -309,12 +324,6 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
       onConfigChange(newConfig);
     }
   };
-
-  const handleCustomColorSetClick = (colorSet: Colors) => {
-    const newConfig = { ...initialConfig, colors: convertColorsToHSLA(colorSet) };
-      setSelectedTheme(newConfig.colors);
-      onConfigChange(newConfig);
-  }
 
   const convertColorsToHSLA = (colors: Colors): Colors => {
     const convertedColors: Colors = {} as Colors;

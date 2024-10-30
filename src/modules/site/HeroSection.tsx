@@ -12,7 +12,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Club } from "lucide-react";
 import FullscreenExpandableMenu from "./NavMenu";
 
 interface HeroProps {
@@ -51,13 +50,13 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
       color: colors.primary,
     },
     button: {
-      backgroundColor: reduceOpacity(colors.accent, 0.1),
-      borderColor: reduceOpacity(colors.accent, 0.2),
-      color: colors.accent,
+      backgroundColor: buttonLink === "none" ? reduceOpacity(colors.text, 0) : reduceOpacity(colors.accent, 0.1),
+      borderColor: buttonLink === "none" ? reduceOpacity(colors.text, 0) : reduceOpacity(colors.accent, 0.2),
+      color: buttonLink === "none" ? reduceOpacity(colors.text, 0) : colors.accent,
     },
     buttonHover: {
-      backgroundColor: reduceOpacity(colors.accent, 0.2),
-      borderColor: reduceOpacity(colors.accent, 0.4),
+      backgroundColor: buttonLink === "none" ? colors.text : reduceOpacity(colors.accent, 0.2),
+      borderColor: buttonLink === "none" ? colors.text : reduceOpacity(colors.accent, 0.4),
     },
   };
 
@@ -110,15 +109,20 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
 
           <a
             href={buttonLink}
+            target="_blank" rel="noopener noreferrer"
             className={`px-4 py-2 backdrop-blur-sm border text-white ${textFont.className} mx-auto text-center rounded-full relative mt-4`}
             style={styles.button}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor;
-              e.currentTarget.style.borderColor = styles.buttonHover.borderColor;
+              if (buttonLink !== "none") {
+                e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor;
+                e.currentTarget.style.borderColor = styles.buttonHover.borderColor;
+              }
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = styles.button.backgroundColor;
-              e.currentTarget.style.borderColor = styles.button.borderColor;
+              if (buttonLink !== "none") {
+                e.currentTarget.style.backgroundColor = styles.button.backgroundColor;
+                e.currentTarget.style.borderColor = styles.button.borderColor;
+              }
             }}
           >
             <span>{buttonText} →</span>
@@ -159,7 +163,7 @@ const HeroSection: React.FC<HeroProps> = ({ text, image, fonts, colors, buttonTe
               />
             </div>
             <div>
-              <Label htmlFor="button-link">Button Link</Label>
+              <Label htmlFor="button-link">Button Link (enter &quot;none&quot; to disable button)</Label>
               <Input
                 id="button-link"
                 value={localButtonLink}

@@ -120,11 +120,11 @@ export function getSiteConfigFromQuiz(clubData: ClubData, genContent: GenerateCo
                 props: {
                     numblocks: 6,
                     blockArr: [
-                        { id: "block-0", title: "Memberships", text: genContent.clubCopy.Memberships, image: genContent.clubImages.message[1].largeImageURL, buttonlink:"", buttonExpandedPage:"ExpandedMemberships", buttonlinkText:"Join the Club", buttonLinkURL:"#" },
-                        { id: "block-1", title: "Events", text: genContent.clubCopy.Events, image: genContent.clubImages.message[2].largeImageURL, buttonlink:"", buttonExpandedPage:"ExpandedEvents", buttonlinkText:"Get Tickets", buttonLinkURL:"#" },
-                        { id: "block-2", title: "Trips", text: genContent.clubCopy.Trips, image: genContent.clubImages.message[3].largeImageURL, buttonlink:"", buttonExpandedPage:"ExpandedTrips" },
+                        { id: "block-0", title: "Memberships", text: genContent.clubCopy.Memberships, image: genContent.clubImages.message[1].largeImageURL, buttonExpandedPage:"ExpandedMemberships", buttonlinkText:"Join the Club", buttonLinkURL:"#" },
+                        { id: "block-1", title: "Events", text: genContent.clubCopy.Events, image: genContent.clubImages.message[2].largeImageURL, buttonExpandedPage:"ExpandedEvents", buttonlinkText:"Get Tickets", buttonLinkURL:"#" },
+                        { id: "block-2", title: "Trips", text: genContent.clubCopy.Trips, image: genContent.clubImages.message[3].largeImageURL, buttonExpandedPage:"ExpandedTrips" },
                         { id: "block-3", title: "History", text: genContent.clubCopy.History, image: genContent.clubImages.message[4].largeImageURL },
-                        { id: "block-4", title: "Executive Team", text: genContent.clubCopy['Executive Team'], image: genContent.clubImages.message[5].largeImageURL, buttonlink:"", buttonExpandedPage:"ExpandedExec" },
+                        { id: "block-4", title: "Executive Team", text: genContent.clubCopy['Executive Team'], image: genContent.clubImages.message[5].largeImageURL, buttonExpandedPage:"ExpandedExec" },
                         { id: "block-5", title: "Something Else", text: genContent.clubCopy['Something Else'], image: genContent.clubImages.message[6].largeImageURL },
                     ] as InfoBlock[],
                 } as InfoScrollProps
