@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { Progress } from "@/components/ui/progress"
 import { useAuth } from '@/app/authState';
 import { redirect, useRouter } from 'next/navigation';
-import SignIn from '../SignIn';
+import SignUp from '../Signup';
 
 interface Props {
     onSubmit: (data: { clubName: string; clubPurpose: string; clubVibe: string; userID: string }) => void;
@@ -101,9 +101,9 @@ const Quiz: FC<Props> = ({ onSubmit }) => {
         <div className='w-screen h-screen flex flex-col'>
             {(signinPopup && !loading) && (
                 <div className='absolute w-full h-full flex justify-center items-center z-50 bg-black/40'>
-                    <SignIn 
+                    <SignUp 
                         redirect='questionnaire' 
-                        onSuccessfulSignIn = {() => {
+                        onSuccessfulSignup={() => {
                             setSigninPopup(false)
                             refreshUser()
                         }} 
