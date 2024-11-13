@@ -4,7 +4,7 @@ import { fontMap, FontName } from '../../../utils/site/fontMap';
 import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { Calendar, DollarSign, MapPin } from 'lucide-react';
+import { Calendar, DollarSign, MapPin, AlignLeft } from 'lucide-react';
 
 interface TripBlock {
   tripTitle: string;
@@ -98,28 +98,31 @@ export default function ExpandedTrips({ title, description, tripBlock, colors, f
         >
           <div className='w-full h-full flex justify-center items-center'>
             <div 
-              className="p-6 rounded-[15px] w-[300px] flex flex-col border-[1px]"
-              style={styles.card}
-              onClick={(e) => e.stopPropagation()}
+            className="p-6 rounded-[15px] w-[300px] min-h-[300px] max-h-[80vh] flex flex-col overflow-y-auto border-[1px]"
+            style={styles.card}
+            onClick={(e) => e.stopPropagation()}
             >
-              <h2 className={`flex w-full justify-center text-xl font-semibold mb-6 ${titleFont.className}`}>
-                {trip.tripTitle}
-              </h2>
-              <div className="flex items-center mb-4">
-                <Calendar size={20} color={colors.accent} className='mr-2' />
-                {trip.tripDates}
-              </div>
-              <div className="flex items-center mb-4">
-                <DollarSign size={20} color={colors.accent} className='mr-2' />
-                {trip.tripCost}
-              </div>
-              <div className='flex items-center'>
-                <MapPin size={20} color={colors.accent} className='mr-2' />
-                {trip.tripLocation}
-              </div>
-              <div className='mt-8'>
-                {trip.tripDescription}
-              </div>
+                <h2 className={`flex w-full justify-center text-xl font-semibold mb-6 ${titleFont.className}`}>
+                    {trip.tripTitle}
+                </h2>
+                <div className="flex items-center mb-4">
+                    <Calendar size={20} color={colors.accent} className='mr-2' />
+                    {trip.tripDates}
+                </div>
+                <div className="flex items-center mb-4">
+                    <DollarSign size={20} color={colors.accent} className='mr-2' />
+                    {trip.tripCost}
+                </div>
+                <div className='flex items-center mb-4'>
+                    <MapPin size={20} color={colors.accent} className='mr-2' />
+                    {trip.tripLocation}
+                </div>
+                <div className="flex items-start mt-4">
+                    <AlignLeft size={16} color={colors.accent} className="mr-2 min-w-[16px]" />
+                    <div className="whitespace-pre-wrap">
+                        {trip.tripDescription}
+                    </div>
+                </div>
             </div>
           </div>
         </div>

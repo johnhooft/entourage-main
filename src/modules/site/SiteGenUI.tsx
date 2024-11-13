@@ -8,14 +8,23 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { fontMap, FontName } from '@/../utils/site/fontMap'
 import { HexColorPicker } from "react-colorful";
-import { hslaToHex } from "@/../utils/site/colorConversions"
-
-interface StyleChangerProps {
-  children: React.ReactNode
-  initialConfig: SiteConfig
-  fromDashboard?: boolean
-  onConfigChange: (newConfig: SiteConfig) => void
-}
+import { hslaToHex, hexToHSLA } from "@/../utils/site/colorConversions"
+import { 
+  urbanchicColors, 
+  pastels, 
+  vintageCharm, 
+  oceanBreeze, 
+  mintForest, 
+  midnightGlow, 
+  darkForest, 
+  volcanicNight, 
+  sunsetSerenade, 
+  arcticFrost, 
+  moonlitDesert, 
+  emeraldNight, 
+  cosmicPurple, 
+  charcoalAutumn 
+} from '../../../utils/site/colorPallets';
 
 const FontPreview: React.FC<{ fontName: FontName; onClick: () => void; isSelected: boolean }> = ({ fontName, onClick, isSelected }) => {
   const font = fontMap[fontName]
@@ -30,8 +39,14 @@ const FontPreview: React.FC<{ fontName: FontName; onClick: () => void; isSelecte
   )
 }
 
+interface StyleChangerProps {
+  children: React.ReactNode
+  initialConfig: SiteConfig
+  fromDashboard?: boolean
+  onConfigChange: (newConfig: SiteConfig) => void
+}
+
 export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialConfig, onConfigChange, fromDashboard }) => {
-  const router = useRouter();
 
   const [userColors, setUserColors] = useState<Colors>({
     primary: '#000000',
@@ -39,6 +54,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     background: '#FFFFFF',
     text: '#000000',
   });
+
   const [activeColorPicker, setActiveColorPicker] = useState<keyof Colors | null>(null);
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   
@@ -55,6 +71,7 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
   const [selectedTitleFont, setSelectedTitleFont] = useState<FontName>(initialConfig.fonts.title)
   const [selectedTextFont, setSelectedTextFont] = useState<FontName>(initialConfig.fonts.text)
   const [activeFontTab, setActiveFontTab] = useState<'title' | 'text'>('title')
+  const router = useRouter();
 
   useEffect(() => {
     setSubDomain((subDomain) => subDomain.replace(/\s+/g, ''));
@@ -119,110 +136,46 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     }
     onConfigChange(newConfig)
   }
-
-  const urbanchicColors: Colors = {
-    primary: 'hsla(240, 30%, 25%, 1)',    // Deep Indigo
-    accent: 'hsla(233, 25%, 60%, 1)',     // Soft Periwinkle
-    background: 'hsla(0, 0%, 98%, 1)',    // Slightly Off-White
-    text: 'hsla(240, 20%, 30%, 1)',       // Dark Blue-Gray
-  }
-
-  const pastels: Colors = {
-    primary: 'hsla(350, 80%, 85%, 1)',    // Soft Pink
-    accent: 'hsla(180, 40%, 80%, 1)',     // Light Mint
-    background: 'hsla(45, 60%, 97%, 1)',  // Warm Cream
-    text: 'hsla(330, 25%, 35%, 1)',       // Muted Plum
-  }
-
-  const vintageCharm: Colors = {
-    primary: 'hsla(24, 35%, 53%, 1)',     // Muted Terracotta
-    accent: 'hsla(43, 60%, 66%, 1)',      // Warm Golden Yellow
-    background: 'hsla(33, 30%, 96%, 1)',  // Soft Cream
-    text: 'hsla(355, 30%, 25%, 1)',       // Deep Burgundy
-  }
-
-  const oceanBreeze: Colors = { 
-    primary: 'hsla(200, 60%, 40%, 1)',    // Deep Ocean Blue
-    accent: 'hsla(170, 45%, 60%, 1)',     // Sea Foam Green
-    background: 'hsla(195, 40%, 97%, 1)', // Very Pale Sky Blue
-    text: 'hsla(210, 55%, 20%, 1)',       // Navy
-  }
-
-  const mintForest: Colors = {
-    primary: 'hsla(160, 45%, 30%, 1)',    // Forest Green
-    accent: 'hsla(140, 35%, 70%, 1)',     // Soft Mint
-    background: 'hsla(120, 20%, 97%, 1)', // Very Pale Sage
-    text: 'hsla(180, 45%, 15%, 1)',       // Deep Teal
-  }
-
-  const midnightGlow: Colors = {
-    primary: 'hsla(240, 45%, 20%, 1)',    // Deep Midnight Blue
-    accent: 'hsla(280, 50%, 50%, 1)',     // Muted Purple
-    background: 'hsla(220, 35%, 15%, 1)', // Very Dark Navy
-    text: 'hsla(0, 0%, 90%, 1)',          // Light Gray
-  }
-
-  const darkForest: Colors = {
-    primary: 'hsla(150, 45%, 20%, 1)',    // Deep Forest Green
-    accent: 'hsla(80, 50%, 45%, 1)',      // Muted Lime Green
-    background: 'hsla(120, 25%, 15%, 1)', // Very Dark Green
-    text: 'hsla(60, 25%, 92%, 1)',        // Light Khaki
-  }
-
-  const volcanicNight: Colors = {
-    primary: 'hsla(0, 55%, 30%, 1)',      // Deep Red
-    accent: 'hsla(30, 90%, 50%, 1)',      // Muted Orange
-    background: 'hsla(0, 0%, 15%, 1)',    // Very Dark Gray
-    text: 'hsla(0, 0%, 95%, 1)',          // Off-White
-  }
-
-  const sunsetSerenade: Colors = {
-    primary: 'hsla(25, 75%, 55%, 1)',     // Warm Orange
-    accent: 'hsla(330, 50%, 65%, 1)',     // Soft Pink
-    background: 'hsla(45, 70%, 97%, 1)',  // Pale Yellow
-    text: 'hsla(350, 45%, 30%, 1)',       // Deep Rose
-  }
-
-  const arcticFrost: Colors = {
-    primary: 'hsla(200, 55%, 50%, 1)',    // Ice Blue
-    accent: 'hsla(170, 45%, 70%, 1)',     // Pale Turquoise
-    background: 'hsla(210, 40%, 98%, 1)', // Almost White with a Blue Tint
-    text: 'hsla(220, 65%, 20%, 1)',       // Deep Blue
-  }
-
-  const moonlitDesert: Colors = {
-    primary: 'hsla(45, 40%, 45%, 1)',     // Muted Sand
-    accent: 'hsla(15, 50%, 45%, 1)',      // Subdued Terracotta
-    background: 'hsla(240, 20%, 15%, 1)', // Deep Night Blue
-    text: 'hsla(40, 20%, 80%, 1)',        // Soft Sand
-  }
-
-  const emeraldNight: Colors = {
-    primary: 'hsla(140, 30%, 35%, 1)',    // Deep Forest Green
-    accent: 'hsla(160, 40%, 55%, 1)',     // Muted Teal
-    background: 'hsla(180, 25%, 12%, 1)', // Dark Teal
-    text: 'hsla(150, 30%, 75%, 1)',       // Pale Sage
-  }
-
-  const cosmicPurple: Colors = {
-    primary: 'hsla(280, 40%, 45%, 1)',    // Muted Purple
-    accent: 'hsla(320, 50%, 55%, 1)',     // Soft Magenta
-    background: 'hsla(260, 35%, 10%, 1)', // Deep Space Purple
-    text: 'hsla(270, 20%, 85%, 1)',       // Light Lavender
-  }
-
-  const charcoalAutumn: Colors = {
-    primary: 'hsla(20, 45%, 40%, 1)',     // Muted Rust
-    accent: 'hsla(45, 50%, 50%, 1)',      // Subdued Gold
-    background: 'hsla(0, 0%, 11%, 1)',    // Charcoal Black
-    text: 'hsla(30, 15%, 85%, 1)',        // Warm Off-White
-  }
   
   const renderColorBlocks = (colors: Colors) => {
     return Object.entries(colors).map(([key, value]) => (
       <div key={key} className="w-10 h-10 rounded-full" style={{ backgroundColor: value }} title={key}></div>
     ))
   }
+
+  const onUpdate = async() => {
+    // Transfer images and update URLs
+    const response = await fetch('/api/siteConfig/transferImages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ siteConfig: initialConfig }),
+    });
+    const { updatedConfig } = await response.json();
+
+    console.log(updatedConfig)
+
+    // Call the update API route
+    const updateResponse = await fetch('/api/siteConfig/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ subdomain: subDomain, siteConfig: updatedConfig }),
+    });
+
+    const updateData = await updateResponse.json();
+    console.log(updateData.message);
+
+    if (updateData.message !== "Site config updated successfully!") {
+      setLaunchError(updateData.message)
+    } else {
+      setLaunchError("")
+      setIsLaunched(true)
+      setIsLaunchPopupOpen(false)
+    }
+  };
 
   const saveConfig = async (clubName: string, config: SiteConfig) => {
     console.log(config)
@@ -333,30 +286,6 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
     return convertedColors;
   };
 
-  const hexToHSLA = (hex: string): string => {
-    let r = parseInt(hex.slice(1, 3), 16) / 255;
-    let g = parseInt(hex.slice(3, 5), 16) / 255;
-    let b = parseInt(hex.slice(5, 7), 16) / 255;
-
-    let max = Math.max(r, g, b), min = Math.min(r, g, b);
-    let h, s, l = (max + min) / 2;
-
-    if (max === min) {
-      h = s = 0;
-    } else {
-      let d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-      switch (max) {
-        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-        case g: h = (b - r) / d + 2; break;
-        case b: h = (r - g) / d + 4; break;
-      }
-      h! /= 6;
-    }
-
-    return `hsla(${Math.round(h! * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%, 1)`;
-  };
-
   const handleColorButtonClick = (key: keyof Colors) => {
     setActiveColorPicker(key);
     setIsColorPickerOpen(true);
@@ -378,40 +307,6 @@ export const StyleChanger: React.FC<StyleChangerProps> = ({ children, initialCon
         )}
       </div>
     ));
-  };
-
-  const onUpdate = async() => {
-    // Transfer images and update URLs
-    const response = await fetch('/api/siteConfig/transferImages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ siteConfig: initialConfig }),
-    });
-    const { updatedConfig } = await response.json();
-
-    console.log(updatedConfig)
-
-    // Call the update API route
-    const updateResponse = await fetch('/api/siteConfig/update', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ subdomain: subDomain, siteConfig: updatedConfig }),
-    });
-
-    const updateData = await updateResponse.json();
-    console.log(updateData.message);
-
-    if (updateData.message !== "Site config updated successfully!") {
-      setLaunchError(updateData.message)
-    } else {
-      setLaunchError("")
-      setIsLaunched(true)
-      setIsLaunchPopupOpen(false)
-    }
   };
 
   return (

@@ -8,6 +8,7 @@ import ExpandedTrips from './renderExpandedTrips';
 import ExpandedEvents from './renderExpandedEvents';
 import ExpandedMemberships from './renderExpandedMemberships';
 import ExpandedExec from './renderExpandedExec';
+import FullscreenExpandableMenu from '../site/NavMenu';
 
 interface SiteProps {
   siteConfig: SiteConfig;
@@ -41,7 +42,14 @@ const RenderSite: React.FC<SiteProps> = ({ siteConfig }) => {
   return (
     <div className="flex flex-col flex-grow items-center">
       {showExpandedPage && expandedPageMap[showExpandedPage] ? (
-        <div className="w-screen min-h-fit flex flex-col flex-grow">
+        <div className="w-screen min-h-fit flex flex-col flex-grow z-40">
+          <div className='fixed right-6 top-6 z-50'>
+            <FullscreenExpandableMenu 
+              colors={colors}
+              siteSections={siteConfig.layout[0].props.siteSections}
+              setExpandedPage={setShowExpandedPage}
+            />
+          </div>
           {React.createElement(expandedPageMap[showExpandedPage], {
             ...siteConfig.expandedPages.find(page => page.component === showExpandedPage)?.props,
             colors,

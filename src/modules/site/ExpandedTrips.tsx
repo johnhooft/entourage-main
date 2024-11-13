@@ -9,7 +9,7 @@ import { reduceOpacity } from "../../../utils/site/reduceOpacity";
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Calendar, Clock, MapPin, DollarSign } from 'lucide-react';
+import { Calendar, AlignLeft, MapPin, DollarSign } from 'lucide-react';
 
 interface ExpandedTripProps {
   title: string;
@@ -119,7 +119,7 @@ export default function ExpandedTrips({ title, description, tripBlock, updateCon
     >
       <div className='w-full h-full flex justify-center items-center'>
         <div 
-          className="p-6 rounded-[15px] w-[300px] flex flex-col border-[1px]"
+          className="p-6 rounded-[15px] max-w-[300px] min-h-[300px] max-h-[80vh] flex flex-col overflow-y-auto border-[1px]"
           style={styles.card}
           onClick={(e) => e.stopPropagation()}
         >
@@ -134,12 +134,15 @@ export default function ExpandedTrips({ title, description, tripBlock, updateCon
             <DollarSign size={20} color={colors.accent} className='mr-2' />
             {trip.tripCost}
           </div>
-          <div className='flex items-center'>
+          <div className='flex items-center mb-4'>
             <MapPin size={20} color={colors.accent} className='mr-2' />
             {trip.tripLocation}
           </div>
-          <div className='mt-8'>
-            {trip.tripDescription}
+          <div className="flex items-start mt-4">
+            <AlignLeft size={16} color={colors.accent} className="mr-2 min-w-[16px]" />
+            <div className="whitespace-pre-wrap">
+              {trip.tripDescription}
+            </div>
           </div>
         </div>
       </div>

@@ -262,7 +262,7 @@ const Dashboard = () => {
                         </>
                     )}
                     {(siteConfig) && (
-                        <div className='overflow-y-scroll overflow-x-hidden border-2 border-neutral-200 dark:border-neutral-700 rounded-[15px] h-full'>
+                        <div className='overflow-y-scroll overflow-x-clip border-2 border-neutral-200 dark:border-neutral-700 rounded-[15px] h-full'>
                             <RenderSite siteConfig={siteConfig} />
                         </div>
                     )}

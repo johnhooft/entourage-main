@@ -8,6 +8,7 @@ import ExpandedTrips from './ExpandedTrips';
 import ExpandedEvents from './ExpandedEvents';
 import ExpandedExec from './ExpandedExec';
 import ExpandedMemberships from './ExpandedMemberships'
+import FullscreenExpandableMenu from './NavMenu';
 
 interface SiteProps {
   siteConfig: SiteConfig;
@@ -66,18 +67,27 @@ const Site: React.FC<SiteProps> = ({ siteConfig, onConfigChange }) => {
   return (
     <div className={`flex flex-col flex-grow items-center ${showExpandedPage ? 'overflow-hidden' : ''}`}>
       {showExpandedPage && expandedPageMap[showExpandedPage] ? (
-        <div key={showExpandedPage} className="fixed inset-0 top-20 z-40 overflow-y-auto">
-          {React.createElement(expandedPageMap[showExpandedPage], {
-            ...siteConfig.expandedPages.find(page => page.component === showExpandedPage)?.props,
-            colors,
-            fonts,
-            updateConfig: (newProps: any) => updateConfig(
-              siteConfig.expandedPages.findIndex(page => page.component === showExpandedPage),
-              newProps,
-              true
-            ),
-            setShowExpandedPage,
-          })}
+        <div className="w-screen min-h-fit flex flex-col flex-grow z-40">
+           <div className='fixed right-[32px] top-[100px] z-50'>
+            <FullscreenExpandableMenu 
+              colors={colors}
+              siteSections={siteConfig.layout[0].props.siteSections}
+              setExpandedPage={setShowExpandedPage}
+            />
+          </div>
+          <div key={showExpandedPage} className="fixed inset-0 top-20 z-40 overflow-y-auto">
+            {React.createElement(expandedPageMap[showExpandedPage], {
+              ...siteConfig.expandedPages.find(page => page.component === showExpandedPage)?.props,
+              colors,
+              fonts,
+              updateConfig: (newProps: any) => updateConfig(
+                siteConfig.expandedPages.findIndex(page => page.component === showExpandedPage),
+                newProps,
+                true
+              ),
+              setShowExpandedPage,
+            })}
+          </div>
         </div>
       ) : (
         siteConfig.layout.map((item, index) => {
